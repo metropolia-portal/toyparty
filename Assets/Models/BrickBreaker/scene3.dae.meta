@@ -1,0 +1,692 @@
+fileFormatVersion: 2
+guid: 2c6859b5d73271846aa295b0368b8c14
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: A
+    100002: Box001_1
+    100004: Component_1
+    100006: Component_1 1
+    100008: Cylinder00_1
+    100010: group_0
+    100012: group_1
+    100014: group_10
+    100016: group_10 1
+    100018: group_11
+    100020: group_11 1
+    100022: Group_19
+    100024: Group_19 1
+    100026: group_2
+    100028: Group_20
+    100030: Group_20 1
+    100032: group_3
+    100034: Group_38
+    100036: Group_38 1
+    100038: Group_38 10
+    100040: Group_38 11
+    100042: Group_38 12
+    100044: Group_38 13
+    100046: Group_38 14
+    100048: Group_38 15
+    100050: Group_38 2
+    100052: Group_38 3
+    100054: Group_38 4
+    100056: Group_38 5
+    100058: Group_38 6
+    100060: Group_38 7
+    100062: Group_38 8
+    100064: Group_38 9
+    100066: group_4
+    100068: Group_40
+    100070: Group_40 1
+    100072: Group_40 2
+    100074: Group_40 3
+    100076: Group_40 4
+    100078: Group_40 5
+    100080: Group_40 6
+    100082: Group_40 7
+    100084: group_5
+    100086: group_6
+    100088: group_7
+    100090: group_8
+    100092: group_9
+    100094: ID103
+    100096: ID11
+    100098: ID125
+    100100: ID144
+    100102: ID152
+    100104: ID173
+    100106: ID197
+    100108: ID197 1
+    100110: ID205
+    100112: ID205 1
+    100114: ID255
+    100116: ID255 1
+    100118: ID261
+    100120: ID261 1
+    100122: ID267
+    100124: ID267 1
+    100126: ID273
+    100128: ID273 1
+    100130: ID320
+    100132: ID320 1
+    100134: ID326
+    100136: ID326 1
+    100138: ID383
+    100140: ID391
+    100142: ID397
+    100144: ID403
+    100146: ID409
+    100148: ID41
+    100150: ID427
+    100152: ID433
+    100154: ID439
+    100156: ID445
+    100158: ID459
+    100160: ID465
+    100162: ID471
+    100164: ID477
+    100166: ID483
+    100168: ID501
+    100170: ID501 1
+    100172: ID509
+    100174: ID509 1
+    100176: ID515
+    100178: ID515 1
+    100180: ID530
+    100182: image_0
+    100184: instance_0
+    100186: instance_1
+    100188: instance_10
+    100190: instance_10 1
+    100192: instance_11
+    100194: instance_11 1
+    100196: instance_12
+    100198: instance_13
+    100200: instance_14
+    100202: instance_14 1
+    100204: instance_15
+    100206: instance_15 1
+    100208: instance_16
+    100210: instance_16 1
+    100212: instance_17
+    100214: instance_17 1
+    100216: instance_18
+    100218: instance_19
+    100220: instance_2
+    100222: instance_2 1
+    100224: instance_20
+    100226: instance_21
+    100228: instance_22
+    100230: instance_23
+    100232: instance_24
+    100234: instance_25
+    100236: instance_26
+    100238: instance_27
+    100240: instance_28
+    100242: instance_29
+    100244: instance_29 1
+    100246: instance_3
+    100248: instance_3 1
+    100250: instance_30
+    100252: instance_4
+    100254: instance_4 1
+    100256: instance_5
+    100258: instance_5 1
+    100260: instance_6
+    100262: instance_7
+    100264: instance_8
+    100266: instance_8 1
+    100268: instance_9
+    100270: instance_9 1
+    100272: Object
+    100274: Plane002
+    100276: Plane002 1
+    100278: //RootNode
+    100280: skp89C1
+    100282: skp8A4F
+    100284: skpA31E
+    100286: skpA31E 1
+    100288: Sphere
+    100290: Sphere 1
+    100292: Sphere 10
+    100294: Sphere 11
+    100296: Sphere 12
+    100298: Sphere 13
+    100300: Sphere 14
+    100302: Sphere 15
+    100304: Sphere 16
+    100306: Sphere 17
+    100308: Sphere 18
+    100310: Sphere 19
+    100312: Sphere 2
+    100314: Sphere 20
+    100316: Sphere 21
+    100318: Sphere 22
+    100320: Sphere 23
+    100322: Sphere 3
+    100324: Sphere 4
+    100326: Sphere 5
+    100328: Sphere 6
+    100330: Sphere 7
+    100332: Sphere 8
+    100334: Sphere 9
+    100336: Sphere001_3
+    100338: Sphere001_3 1
+    100340: Sphere003_2
+    100342: Sphere003_2 1
+    400000: A
+    400002: Box001_1
+    400004: Component_1
+    400006: Component_1 1
+    400008: Cylinder00_1
+    400010: group_0
+    400012: group_1
+    400014: group_10
+    400016: group_10 1
+    400018: group_11
+    400020: group_11 1
+    400022: Group_19
+    400024: Group_19 1
+    400026: group_2
+    400028: Group_20
+    400030: Group_20 1
+    400032: group_3
+    400034: Group_38
+    400036: Group_38 1
+    400038: Group_38 10
+    400040: Group_38 11
+    400042: Group_38 12
+    400044: Group_38 13
+    400046: Group_38 14
+    400048: Group_38 15
+    400050: Group_38 2
+    400052: Group_38 3
+    400054: Group_38 4
+    400056: Group_38 5
+    400058: Group_38 6
+    400060: Group_38 7
+    400062: Group_38 8
+    400064: Group_38 9
+    400066: group_4
+    400068: Group_40
+    400070: Group_40 1
+    400072: Group_40 2
+    400074: Group_40 3
+    400076: Group_40 4
+    400078: Group_40 5
+    400080: Group_40 6
+    400082: Group_40 7
+    400084: group_5
+    400086: group_6
+    400088: group_7
+    400090: group_8
+    400092: group_9
+    400094: ID103
+    400096: ID11
+    400098: ID125
+    400100: ID144
+    400102: ID152
+    400104: ID173
+    400106: ID197
+    400108: ID197 1
+    400110: ID205
+    400112: ID205 1
+    400114: ID255
+    400116: ID255 1
+    400118: ID261
+    400120: ID261 1
+    400122: ID267
+    400124: ID267 1
+    400126: ID273
+    400128: ID273 1
+    400130: ID320
+    400132: ID320 1
+    400134: ID326
+    400136: ID326 1
+    400138: ID383
+    400140: ID391
+    400142: ID397
+    400144: ID403
+    400146: ID409
+    400148: ID41
+    400150: ID427
+    400152: ID433
+    400154: ID439
+    400156: ID445
+    400158: ID459
+    400160: ID465
+    400162: ID471
+    400164: ID477
+    400166: ID483
+    400168: ID501
+    400170: ID501 1
+    400172: ID509
+    400174: ID509 1
+    400176: ID515
+    400178: ID515 1
+    400180: ID530
+    400182: image_0
+    400184: instance_0
+    400186: instance_1
+    400188: instance_10
+    400190: instance_10 1
+    400192: instance_11
+    400194: instance_11 1
+    400196: instance_12
+    400198: instance_13
+    400200: instance_14
+    400202: instance_14 1
+    400204: instance_15
+    400206: instance_15 1
+    400208: instance_16
+    400210: instance_16 1
+    400212: instance_17
+    400214: instance_17 1
+    400216: instance_18
+    400218: instance_19
+    400220: instance_2
+    400222: instance_2 1
+    400224: instance_20
+    400226: instance_21
+    400228: instance_22
+    400230: instance_23
+    400232: instance_24
+    400234: instance_25
+    400236: instance_26
+    400238: instance_27
+    400240: instance_28
+    400242: instance_29
+    400244: instance_29 1
+    400246: instance_3
+    400248: instance_3 1
+    400250: instance_30
+    400252: instance_4
+    400254: instance_4 1
+    400256: instance_5
+    400258: instance_5 1
+    400260: instance_6
+    400262: instance_7
+    400264: instance_8
+    400266: instance_8 1
+    400268: instance_9
+    400270: instance_9 1
+    400272: Object
+    400274: Plane002
+    400276: Plane002 1
+    400278: //RootNode
+    400280: skp89C1
+    400282: skp8A4F
+    400284: skpA31E
+    400286: skpA31E 1
+    400288: Sphere
+    400290: Sphere 1
+    400292: Sphere 10
+    400294: Sphere 11
+    400296: Sphere 12
+    400298: Sphere 13
+    400300: Sphere 14
+    400302: Sphere 15
+    400304: Sphere 16
+    400306: Sphere 17
+    400308: Sphere 18
+    400310: Sphere 19
+    400312: Sphere 2
+    400314: Sphere 20
+    400316: Sphere 21
+    400318: Sphere 22
+    400320: Sphere 23
+    400322: Sphere 3
+    400324: Sphere 4
+    400326: Sphere 5
+    400328: Sphere 6
+    400330: Sphere 7
+    400332: Sphere 8
+    400334: Sphere 9
+    400336: Sphere001_3
+    400338: Sphere001_3 1
+    400340: Sphere003_2
+    400342: Sphere003_2 1
+    2300000: A
+    2300002: Box001_1
+    2300004: Component_1
+    2300006: Component_1 1
+    2300008: Cylinder00_1
+    2300010: group_0
+    2300012: group_10
+    2300014: group_10 1
+    2300016: Group_19
+    2300018: Group_19 1
+    2300020: group_2
+    2300022: Group_20
+    2300024: Group_20 1
+    2300026: group_3
+    2300028: Group_38
+    2300030: Group_38 1
+    2300032: Group_38 10
+    2300034: Group_38 11
+    2300036: Group_38 12
+    2300038: Group_38 13
+    2300040: Group_38 14
+    2300042: Group_38 15
+    2300044: Group_38 2
+    2300046: Group_38 3
+    2300048: Group_38 4
+    2300050: Group_38 5
+    2300052: Group_38 6
+    2300054: Group_38 7
+    2300056: Group_38 8
+    2300058: Group_38 9
+    2300060: group_4
+    2300062: Group_40
+    2300064: Group_40 1
+    2300066: Group_40 2
+    2300068: Group_40 3
+    2300070: Group_40 4
+    2300072: Group_40 5
+    2300074: Group_40 6
+    2300076: Group_40 7
+    2300078: group_6
+    2300080: group_7
+    2300082: group_8
+    2300084: group_9
+    2300086: ID103
+    2300088: ID11
+    2300090: ID144
+    2300092: ID173
+    2300094: ID197
+    2300096: ID197 1
+    2300098: ID205
+    2300100: ID205 1
+    2300102: ID255
+    2300104: ID255 1
+    2300106: ID261
+    2300108: ID261 1
+    2300110: ID267
+    2300112: ID267 1
+    2300114: ID273
+    2300116: ID273 1
+    2300118: ID320
+    2300120: ID320 1
+    2300122: ID326
+    2300124: ID326 1
+    2300126: ID383
+    2300128: ID391
+    2300130: ID397
+    2300132: ID403
+    2300134: ID409
+    2300136: ID41
+    2300138: ID427
+    2300140: ID433
+    2300142: ID439
+    2300144: ID459
+    2300146: ID465
+    2300148: ID471
+    2300150: ID477
+    2300152: ID483
+    2300154: ID501
+    2300156: ID501 1
+    2300158: ID509
+    2300160: ID509 1
+    2300162: ID515
+    2300164: ID515 1
+    2300166: image_0
+    2300168: Object
+    2300170: Plane002
+    2300172: Plane002 1
+    2300174: //RootNode
+    2300176: Sphere
+    2300178: Sphere 1
+    2300180: Sphere 10
+    2300182: Sphere 11
+    2300184: Sphere 12
+    2300186: Sphere 13
+    2300188: Sphere 14
+    2300190: Sphere 15
+    2300192: Sphere 16
+    2300194: Sphere 17
+    2300196: Sphere 18
+    2300198: Sphere 19
+    2300200: Sphere 2
+    2300202: Sphere 20
+    2300204: Sphere 21
+    2300206: Sphere 22
+    2300208: Sphere 23
+    2300210: Sphere 3
+    2300212: Sphere 4
+    2300214: Sphere 5
+    2300216: Sphere 6
+    2300218: Sphere 7
+    2300220: Sphere 8
+    2300222: Sphere 9
+    2300224: Sphere001_3
+    2300226: Sphere001_3 1
+    2300228: Sphere003_2
+    2300230: Sphere003_2 1
+    3300000: A
+    3300002: Box001_1
+    3300004: Component_1
+    3300006: Component_1 1
+    3300008: Cylinder00_1
+    3300010: group_0
+    3300012: group_10
+    3300014: group_10 1
+    3300016: Group_19
+    3300018: Group_19 1
+    3300020: group_2
+    3300022: Group_20
+    3300024: Group_20 1
+    3300026: group_3
+    3300028: Group_38
+    3300030: Group_38 1
+    3300032: Group_38 10
+    3300034: Group_38 11
+    3300036: Group_38 12
+    3300038: Group_38 13
+    3300040: Group_38 14
+    3300042: Group_38 15
+    3300044: Group_38 2
+    3300046: Group_38 3
+    3300048: Group_38 4
+    3300050: Group_38 5
+    3300052: Group_38 6
+    3300054: Group_38 7
+    3300056: Group_38 8
+    3300058: Group_38 9
+    3300060: group_4
+    3300062: Group_40
+    3300064: Group_40 1
+    3300066: Group_40 2
+    3300068: Group_40 3
+    3300070: Group_40 4
+    3300072: Group_40 5
+    3300074: Group_40 6
+    3300076: Group_40 7
+    3300078: group_6
+    3300080: group_7
+    3300082: group_8
+    3300084: group_9
+    3300086: ID103
+    3300088: ID11
+    3300090: ID144
+    3300092: ID173
+    3300094: ID197
+    3300096: ID197 1
+    3300098: ID205
+    3300100: ID205 1
+    3300102: ID255
+    3300104: ID255 1
+    3300106: ID261
+    3300108: ID261 1
+    3300110: ID267
+    3300112: ID267 1
+    3300114: ID273
+    3300116: ID273 1
+    3300118: ID320
+    3300120: ID320 1
+    3300122: ID326
+    3300124: ID326 1
+    3300126: ID383
+    3300128: ID391
+    3300130: ID397
+    3300132: ID403
+    3300134: ID409
+    3300136: ID41
+    3300138: ID427
+    3300140: ID433
+    3300142: ID439
+    3300144: ID459
+    3300146: ID465
+    3300148: ID471
+    3300150: ID477
+    3300152: ID483
+    3300154: ID501
+    3300156: ID501 1
+    3300158: ID509
+    3300160: ID509 1
+    3300162: ID515
+    3300164: ID515 1
+    3300166: image_0
+    3300168: Object
+    3300170: Plane002
+    3300172: Plane002 1
+    3300174: //RootNode
+    3300176: Sphere
+    3300178: Sphere 1
+    3300180: Sphere 10
+    3300182: Sphere 11
+    3300184: Sphere 12
+    3300186: Sphere 13
+    3300188: Sphere 14
+    3300190: Sphere 15
+    3300192: Sphere 16
+    3300194: Sphere 17
+    3300196: Sphere 18
+    3300198: Sphere 19
+    3300200: Sphere 2
+    3300202: Sphere 20
+    3300204: Sphere 21
+    3300206: Sphere 22
+    3300208: Sphere 23
+    3300210: Sphere 3
+    3300212: Sphere 4
+    3300214: Sphere 5
+    3300216: Sphere 6
+    3300218: Sphere 7
+    3300220: Sphere 8
+    3300222: Sphere 9
+    3300224: Sphere001_3
+    3300226: Sphere001_3 1
+    3300228: Sphere003_2
+    3300230: Sphere003_2 1
+    4300000: SketchUp
+    4300002: group_0
+    4300004: ID11
+    4300006: group_2
+    4300008: ID41
+    4300010: group_3
+    4300012: group_4
+    4300014: group_6
+    4300016: ID103
+    4300018: group_7
+    4300020: ID144
+    4300022: group_8
+    4300024: group_9
+    4300026: A
+    4300028: ID173
+    4300030: Group_19
+    4300032: group_10
+    4300034: ID197
+    4300036: ID205
+    4300038: Group_38
+    4300040: Sphere
+    4300042: Group_20
+    4300044: ID255
+    4300046: ID261
+    4300048: ID267
+    4300050: ID273
+    4300052: Component_1
+    4300054: ID320
+    4300056: ID326
+    4300058: Group_40
+    4300060: Sphere
+    4300062: Group_40
+    4300064: Sphere
+    4300066: Cylinder00_1
+    4300068: ID383
+    4300070: ID391
+    4300072: ID397
+    4300074: ID403
+    4300076: ID409
+    4300078: Sphere001_3
+    4300080: Sphere001_3
+    4300082: Sphere003_2
+    4300084: Sphere003_2
+    4300086: Box001_1
+    4300088: ID427
+    4300090: ID433
+    4300092: ID439
+    4300094: Object
+    4300096: ID459
+    4300098: ID465
+    4300100: ID471
+    4300102: ID477
+    4300104: ID483
+    4300106: Plane002
+    4300108: ID501
+    4300110: ID509
+    4300112: ID515
+    4300114: image_0
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 

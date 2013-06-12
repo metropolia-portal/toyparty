@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SphereScript.cs">
+    <Files>
+      <File FileName="Assets\Scripts\SphereScript.cs" Line="23" Column="3" />
+      <File FileName="Assets\Scripts\ExtraBallScript.cs" Line="37" Column="9" />
+      <File FileName="Assets\Scripts\PowerUp.cs" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\BaseSphere.cs" Line="159" Column="1" />
+      <File FileName="Assets\Scripts\FireBall.cs" Line="19" Column="3" />
+      <File FileName="Assets\Scripts\LevelOne.cs" Line="29" Column="23" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
