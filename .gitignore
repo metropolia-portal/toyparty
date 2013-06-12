@@ -6,8 +6,3 @@
 *.csproj
 *.unityproj
 *.sln
-
-#Added after reading some advices, as it changes all the time
-Assembly-CSharp.pidb
-Assembly-UnityScript-firstpass.pidb
-brick-breaker.userprefs
