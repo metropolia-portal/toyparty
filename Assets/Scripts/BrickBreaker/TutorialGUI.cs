@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class BrickGameTutorial : MonoBehaviour {
+public class TutorialGUI : MonoBehaviour {
 	
-	public string MenuLevelId = "BrickGameMenu";
-	public string LevelId = "BrickGameLevelOne";
+	GUIStyle NoStyle = new GUIStyle();
 
 	// Use this for initialization
 	void Start () {
@@ -17,12 +16,13 @@ public class BrickGameTutorial : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "BRICK GAME LEVEL ONE TUTORIAL");
+		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), MainMenuGUI.selectedGameName.ToUpper() + " GAME LEVEL "+MainMenuGUI.currentLevel.ToString()+" TUTORIAL");
 		if (GUI.Button (new Rect(0, (Screen.height/3)*2, Screen.width/2, Screen.height/3), "Main Menu")) {
 			Application.LoadLevel("MainMenu");
 		}
 		if (GUI.Button (new Rect(Screen.width/2, (Screen.height/3)*2, Screen.width/2, Screen.height/3), "START")) {
-			Application.LoadLevel(LevelId);
+			Debug.LogWarning(MainMenuGUI.selectedGameName);
+			Application.LoadLevel(MainMenuGUI.selectedGameName+"_level_"+MainMenuGUI.currentLevel);
 		}
 	}
 }
