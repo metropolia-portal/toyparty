@@ -32,10 +32,10 @@ public class InputManager : MonoBehaviour {
 		acceleration = Input.acceleration;
 		isButtonDown = Input.touchCount == 1;
 		if (Input.touchCount==1) {
-			isbuttonDown = true;
+			isButtonDown = true;
 			cursorPosition = Input.GetTouch(0).position;
 		}else{
-			isbuttonDown = false;
+			isButtonDown = false;
 		}
 		
 #else

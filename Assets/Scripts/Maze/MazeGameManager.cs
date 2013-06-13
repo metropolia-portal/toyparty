@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MazeGameManager : MonoBehaviour {
+public class MazeGameManager : GameManager {
 	
 	public GUIText statusLine;
 	public GameObject world;
@@ -10,9 +10,6 @@ public class MazeGameManager : MonoBehaviour {
 	public Bounds cameraBounds;
 	public InputManager inputManager;
 
-	enum GameState {Running, Paused, Victory, Defeat};
-	GameState gameState = GameState.Running;
-	
 	
 	float cameraBoundsHalfWidth;
 	float cameraBoundsHalfHeight;
@@ -20,6 +17,7 @@ public class MazeGameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		SetGameState(GameManager.GameState.Running);
 		cameraBoundsHalfWidth = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(Screen.width,0,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).x) / 2;
 		cameraBoundsHalfHeight = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(0,Screen.height,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).z) / 2;
 	}
@@ -27,18 +25,11 @@ public class MazeGameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		if (IsGameRunning()) {
+		
 		if (inputManager.IsEscapeButtonDown()) {
-			RestartGame();
+			PauseGame();
 		}
-		
-		if (gameState == GameState.Paused) {
-			statusLine.text = "Paused!\n"+GetTimeLeft();
-			if (inputManager.IsButtonDown()) {
-				ResumeGame();
-			}
-		}
-		
-		if (gameState == GameState.Running) {
 			
 			if (inputManager.IsApplicationPaused()) {
 				PauseGame ();
@@ -54,26 +45,13 @@ public class MazeGameManager : MonoBehaviour {
 				Mathf.Clamp(mouse.transform.localPosition.x, cameraBounds.min.x + cameraBoundsHalfWidth, cameraBounds.max.x - cameraBoundsHalfWidth),
 				cam.camera.transform.localPosition.y,
 				Mathf.Clamp(mouse.transform.localPosition.z, cameraBounds.min.z + cameraBoundsHalfHeight, cameraBounds.max.z - cameraBoundsHalfHeight));
-				
+
+			
 		}
 		
 	}
 	
-	public void PauseGame() {
 
-		gameState = GameState.Paused;
-		Time.timeScale = 0;
-	}
-	
-	public void ResumeGame() {
-		gameState = GameState.Running;
-		Time.timeScale = 1;
-	}
-	
-	public void RestartGame() {
-		ResumeGame();
-		Application.LoadLevel("MazeLevel");
-	}
 	
 	public int GetTimeLeft() {
 		return (int)Mathf.Floor (mouse.GetComponent<Mouse>().GetWindupLeft());
@@ -83,10 +61,10 @@ public class MazeGameManager : MonoBehaviour {
 		PauseGame ();
 		
 		if (victory) {
-			gameState = GameState.Victory;
+			SetGameState(GameState.Victory);
 			statusLine.text = "Victory!\nTime score bonus: " + (GetTimeLeft()*55).ToString(); 
 		} else {
-			gameState = GameState.Defeat; 
+			SetGameState(GameState.Defeat); 
 			statusLine.text = "Defeat!\n"; 
 		}
 	}

@@ -5,12 +5,12 @@ public class GameManager : MonoBehaviour {
 	
 	public string NextLevelId = "BrickGameLevelOneTutorial";
 	public string MenuLevelId = "BrickGameMenu";
-	public string CurrentLevelId = "MainMenu";
 	
-	public enum GameState { Running, Paused, Victory, Defeat, MainMenu, GameMenu, Pregame};
+	public enum GameState { Running, Paused, Victory, Defeat, Pregame};
 	
-	public GameState gameState = GameState.MainMenu;
-
+	public static GameState gameState;
+	public static GameState prevGameState;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -21,37 +21,51 @@ public class GameManager : MonoBehaviour {
 	
 	}
 	
+	public void SetGameState(GameState s) {
+		GameManager.gameState = s;
+	}
+	
+	public GameState GetGameState() {
+		return GameManager.gameState;
+	}
+	
 	public void PauseGame() {
-		gameState = GameState.Paused;
+		GameManager.prevGameState = GetGameState();
+		GameManager.gameState = GameState.Paused;
 		Time.timeScale = 0;
 	}
 	
+	public void UnpauseGame() {
+		GameManager.gameState = GameManager.prevGameState;
+		Time.timeScale = 1;
+	}
+	
 	public void ResumeGame() {
-		gameState = GameState.Running;
+		GameManager.gameState = GameState.Running;
 		Time.timeScale = 1;
 	}
 	
 	public void RestartGame() {
 		ResumeGame();
-		Application.LoadLevel(CurrentLevelId);
+		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
 	}
 	
 	public bool IsGameRunning() {
-		return gameState == GameState.Running;
+		return GameManager.gameState == GameState.Running;
 	}
 	
 	public void GoToNextLevel() {
 		ResumeGame();
-		Application.LoadLevel(NextLevelId);
+		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 	}
 	
 	public void OnGameOver(bool victory) {
 		if (victory) {
 			Debug.LogWarning("Victory!");
-			gameState = GameState.Victory;
+			GameManager.gameState = GameState.Victory;
 		} else {
 			Debug.LogWarning("Defeat!");
-			gameState = GameState.Defeat;
+			GameManager.gameState = GameState.Defeat;
 		}
 		Time.timeScale = 0;
 	}

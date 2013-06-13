@@ -26,8 +26,8 @@ public class BrickGameManager : GameManager {
 	}
 	
 	void Update() {
-		if (gameState == GameManager.GameState.Pregame) {
-			gameState = GameManager.GameState.Running;
+		if (GetGameState() == GameManager.GameState.Pregame) {
+			SetGameState(GameManager.GameState.Running);
 		}
 			
 		if (powerupActive)

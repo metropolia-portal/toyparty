@@ -21,25 +21,26 @@ public class FlipsGameManager : GameManager {
 	// Use this for initialization
 	void Start () {
 		cardsTotal = levelGenerator.CardCount();
-		gameState = GameState.Pregame;
+		base.SetGameState(GameManager.GameState.Pregame);
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		Debug.Log("z"+GetGameState().ToString());
 		if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
 		
-		if (gameState == GameState.Pregame) {
+		if (GetGameState() == GameState.Pregame) {
 			UpdateStatus();
 			revealTime -= Time.deltaTime;
 			if (revealTime <=0) {
 				HideAllCards();
-				gameState = GameState.Running;
+				base.SetGameState(GameState.Running);
 				UpdateStatus();
 			}
 		}
 		
-		if (gameState == GameState.Running) {
+		if (GetGameState() == GameState.Running) {
 
 			Camera cam = (Camera)FindObjectOfType(typeof(Camera));
 			
@@ -88,7 +89,7 @@ public class FlipsGameManager : GameManager {
 	void OnGameOver() {
 		//Debug.LogWarning("VICTORY");
 		//Debug.Log ((Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy");
-		gameState = GameState.Victory;
+		SetGameState(GameState.Victory);
 		UpdateStatus();
 	}
 	
@@ -115,7 +116,7 @@ public class FlipsGameManager : GameManager {
 	
 	public void UpdateStatus() {
 		
-		switch (gameState) {
+		switch (GetGameState()) {
 			case GameState.Pregame:
 				statusLine.text = "Look at the cards... "+(Mathf.Ceil(revealTime)).ToString();
 			break;			
