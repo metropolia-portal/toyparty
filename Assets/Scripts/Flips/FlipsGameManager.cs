@@ -21,26 +21,32 @@ public class FlipsGameManager : GameManager {
 	// Use this for initialization
 	void Start () {
 		cardsTotal = levelGenerator.CardCount();
-		base.SetGameState(GameManager.GameState.Pregame);
-		
+		SetGameState(GameState.Pregame);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Debug.Log("z"+GetGameState().ToString());
-		if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
+
 		
 		if (GetGameState() == GameState.Pregame) {
-			UpdateStatus();
+			
+			if (inputManager.IsEscapeButtonDown()) PauseGame();
+			
+			
 			revealTime -= Time.deltaTime;
 			if (revealTime <=0) {
 				HideAllCards();
 				base.SetGameState(GameState.Running);
 				UpdateStatus();
 			}
+			
+			UpdateStatus();
 		}
 		
 		if (GetGameState() == GameState.Running) {
+			
+			if (inputManager.IsEscapeButtonDown()) PauseGame();
 
 			Camera cam = (Camera)FindObjectOfType(typeof(Camera));
 			
