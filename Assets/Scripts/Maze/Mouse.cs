@@ -45,7 +45,7 @@ public class Mouse : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float speed = speedModifier * defaultSpeed;
-		RaycastHit hit;
+		
 		Vector3 planarVelocity;
 		
 		windupLeft -= Time.deltaTime;

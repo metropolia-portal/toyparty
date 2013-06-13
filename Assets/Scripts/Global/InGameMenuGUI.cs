@@ -41,6 +41,7 @@ public class InGameMenuGUI : MonoBehaviour {
 			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
 			
 			if (GUI.Button(new Rect(0, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), "Main Menu")) {
+				Time.timeScale = 1; //releases timeScale back if it was pauses
 				Application.LoadLevel("MainMenu");
 			}
 			

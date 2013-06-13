@@ -7,12 +7,6 @@ public class BrickGameMenu : MonoBehaviour {
 	public string GameLevel = "";
 	
 	
-	string MainMenuLevelId = "";
-	string LevelId = "";
-	string StringBuilder = "";
-	
-
-
 	// Use this for initialization
 	void Start () {
 	

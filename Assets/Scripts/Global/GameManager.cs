@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 	
-	public string NextLevelId = "BrickGameLevelOneTutorial";
-	public string MenuLevelId = "BrickGameMenu";
+	public string NextLevelId = "";
+	public string MenuLevelId = "";
 	
 	public enum GameState { Running, Paused, Victory, Defeat, Pregame};
 	
