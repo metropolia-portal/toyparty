@@ -15,6 +15,7 @@ public class MainMenuGUI : MonoBehaviour {
 	int NumberOfButtons;
 	
 	public Texture gameTitleTexture;
+	public Texture gameExitTexture;
 	
 	public string[] gameList;
 	Texture[] menuOptionTextures;
@@ -24,7 +25,7 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	Rect[] rect;
 	
-	Rect gamePreviewButtonRect = new Rect( Screen.width / 6 , Screen.height/4, 4 * Screen.width / 6, Screen.height/2);
+	Rect gamePreviewButtonRect = new Rect( Screen.width / 8 , Screen.height/4.5f, 5 * Screen.width / 6, Screen.height/1.2f);
 	
 	int selectedGame = -1;
 	public static int currentLevel = 1;
@@ -47,6 +48,7 @@ public class MainMenuGUI : MonoBehaviour {
 			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/8 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Options/mainMenu_"+gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/preview_"+gameList[i]);
+			
 		}
 	}
 	
@@ -77,6 +79,14 @@ public class MainMenuGUI : MonoBehaviour {
 		} else {
 			GUI.Button(gamePreviewButtonRect, gameTitleTexture, NoStyle);
 		}	
-			//GUI.enabled = true;	
+		
+		if (GUI.Button(new Rect(-0.07f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameExitTexture, NoStyle)) {
+			Debug.Log("exit");
+			Application.Quit();
+		}
+		if (GUI.Button(new Rect(5.1f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameExitTexture, NoStyle)) {
+			
+		}
+				
 	}
 }
