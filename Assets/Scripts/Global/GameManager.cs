@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour {
 	
 	public enum GameState { Running, Paused, Victory, Defeat, Pregame};
 	
-	public static GameState gameState;
-	public static GameState prevGameState;
+	public static GameState gameState = GameState.Pregame;
+	public static GameState prevGameState = GameState.Pregame;
 	
 	// Use this for initialization
 	void Start () {

@@ -20,8 +20,6 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	void OnGUI() {
 		
-		Debug.Log(gameManager.GetGameState());
-		
 		float screenUnitW = Screen.width/100;
 		float screenUnitH = Screen.height/100;
 		string message = "";
