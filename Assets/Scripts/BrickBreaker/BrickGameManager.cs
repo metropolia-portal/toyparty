@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class BrickGameManager : MonoBehaviour 
+public class BrickGameManager : GameManager 
 {
-	public string NextLevelId = "BrickGameLevelOneTutorial";
-	public string MenuLevelId = "BrickGameMenu";
+	//public string NextLevelId = "BrickGameLevelOneTutorial";
+	//public string MenuLevelId = "BrickGameMenu";
 	public string CurrentLevelId = "BrickGameLevelOne";
 	public int shinyBricksGoal = 3;
 	
@@ -24,7 +24,7 @@ public class BrickGameManager : MonoBehaviour
 	
 	Powerup currentPowerup;
 	
-	enum GameState { Running, Paused, Victory, Defeat };
+	//enum GameState { Running, Paused, Victory, Defeat };
 	enum Medal {None, Silver, Gold, Diamond};
 	
 	int bricksLeft; // This variable stores the amount of bricks left on the field
@@ -32,20 +32,21 @@ public class BrickGameManager : MonoBehaviour
 	int bricksToNextPickup;
 	bool powerupActive = false;
 	//bool gamePaused = false;
-	GameState gameState = GameState.Running;
+	//GameState gameState = GameState.Running;
 	Medal medal = Medal.None;
 	
 
 	ScoreManager gameScore;
-	GameInputManager gameInput;
+	InputManager gameInput;
 	
 	
 
 	void Start() {	
 		//paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-		gameInput = GameObject.Find ("GameInput").GetComponent<GameInputManager>();
+		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
 		
+		SetGameState(GameState.Running);
 		bricksToNextPickup = Random.Range(powerUpSpawnRangeMin, powerUpSpawnRangeMax);
 		RecalculateBrickCount(); // Count the number of bricks at the start of the game
 	}
@@ -227,68 +228,68 @@ public class BrickGameManager : MonoBehaviour
 		gameInput.EnableInput();
 	}
 	
-	void RestartGame() {
-		ResumeGame();
-		Application.LoadLevel(CurrentLevelId);
-	}
+//	void RestartGame() {
+//		ResumeGame();
+//		Application.LoadLevel(CurrentLevelId);
+//	}
 	
-	public bool IsGameRunning() {
-		return gameState == GameState.Running;
-	}
+//	public bool IsGameRunning() {
+//		return gameState == GameState.Running;
+//	}
 	
-	void GoToNextLevel() {
-		ResumeGame();
-		Application.LoadLevel(NextLevelId);
-	}
+//	void GoToNextLevel() {
+//		ResumeGame();
+//		Application.LoadLevel(NextLevelId);
+//	}
 	
-	void OnGUI() {
-		float screenUnitW = Screen.width/100;
-		float screenUnitH = Screen.height/100;
-		string message = "";
-		
-	
-		// While the game is in progress, only display the pause button and HUD
-		if (gameState == GameState.Running) {
-			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, screenUnitW*10, screenUnitH*5), "PAUSE")) {
-				PauseGame();
-			}
-			
-			//HUD
-			GUI.Label(new Rect(0, 0, screenUnitW*10, screenUnitH*5), "Lifes: " + spheres);
-			GUI.Label(new Rect(0, screenUnitH*6, screenUnitW*100, screenUnitH*5), "Time left: " + GetRemainingTime());
-			
-			GUI.Label(new Rect(0, screenUnitH*12 , screenUnitW*30, screenUnitH*5), "Score: " + gameScore.GetScore());
-			
-			if(gameScore.GetCurrentComboScore() > 0) GUI.Label(new Rect(0, screenUnitH*18 , screenUnitW*20, screenUnitH*5), "X" + gameScore.GetCurrentComboCount() + " Combo Score! " + gameScore.GetCurrentComboScore());
-			
-		} else {
-			switch (gameState) {
-				case GameState.Paused: message = "GAME PAUSED"; break;
-				case GameState.Victory: message = "VICTORY"; break;
-				case GameState.Defeat: message = "DEFEAT"; break;
-			}
-			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message + "! Medal: " + medal.ToString().ToUpper());
-			
-			if(gameState == GameState.Victory)
-				GUI.Label( new Rect(Screen.width/2, Screen.height/3, screenUnitW*20, screenUnitH*5), "TOTAL SCORE: " + gameScore.GetScore());
-			
-			if (GUI.Button(new Rect(0, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), "MENU")) {
-				ResumeGame();
-				Application.LoadLevel(MenuLevelId);
-			}
-			
-			if (GUI.Button(new Rect(Screen.width/3, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), "RESTART")) {
-				RestartGame();
-			}
-			
-			if (gameState == GameState.Defeat) GUI.enabled = false; // Resume button is grayed out on the loss screen
-			if (GUI.Button (new Rect(Screen.width-(Screen.width/3), Screen.height - (Screen.height/3), Screen.width/3, Screen.height/3), "CONTINUE")) {
-				if (gameState == GameState.Paused) ResumeGame();
-				if (gameState == GameState.Victory) GoToNextLevel();
-			}
-			GUI.enabled = true;
-		}
-	}
+//	void OnGUI() {
+//		float screenUnitW = Screen.width/100;
+//		float screenUnitH = Screen.height/100;
+//		string message = "";
+//		
+//	
+//		// While the game is in progress, only display the pause button and HUD
+//		if (gameState == GameState.Running) {
+//			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, screenUnitW*10, screenUnitH*5), "PAUSE")) {
+//				PauseGame();
+//			}
+//			
+//			//HUD
+//			GUI.Label(new Rect(0, 0, screenUnitW*10, screenUnitH*5), "Lifes: " + spheres);
+//			GUI.Label(new Rect(0, screenUnitH*6, screenUnitW*100, screenUnitH*5), "Time left: " + GetRemainingTime());
+//			
+//			GUI.Label(new Rect(0, screenUnitH*12 , screenUnitW*30, screenUnitH*5), "Score: " + gameScore.GetScore());
+//			
+//			if(gameScore.GetCurrentComboScore() > 0) GUI.Label(new Rect(0, screenUnitH*18 , screenUnitW*20, screenUnitH*5), "X" + gameScore.GetCurrentComboCount() + " Combo Score! " + gameScore.GetCurrentComboScore());
+//			
+//		} else {
+//			switch (gameState) {
+//				case GameState.Paused: message = "GAME PAUSED"; break;
+//				case GameState.Victory: message = "VICTORY"; break;
+//				case GameState.Defeat: message = "DEFEAT"; break;
+//			}
+//			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message + "! Medal: " + medal.ToString().ToUpper());
+//			
+//			if(gameState == GameState.Victory)
+//				GUI.Label( new Rect(Screen.width/2, Screen.height/3, screenUnitW*20, screenUnitH*5), "TOTAL SCORE: " + gameScore.GetScore());
+//			
+//			if (GUI.Button(new Rect(0, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), "MENU")) {
+//				ResumeGame();
+//				Application.LoadLevel(MenuLevelId);
+//			}
+//			
+//			if (GUI.Button(new Rect(Screen.width/3, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), "RESTART")) {
+//				RestartGame();
+//			}
+//			
+//			if (gameState == GameState.Defeat) GUI.enabled = false; // Resume button is grayed out on the loss screen
+//			if (GUI.Button (new Rect(Screen.width-(Screen.width/3), Screen.height - (Screen.height/3), Screen.width/3, Screen.height/3), "CONTINUE")) {
+//				if (gameState == GameState.Paused) ResumeGame();
+//				if (gameState == GameState.Victory) GoToNextLevel();
+//			}
+//			GUI.enabled = true;
+//		}
+//	}
 		
 	
 }

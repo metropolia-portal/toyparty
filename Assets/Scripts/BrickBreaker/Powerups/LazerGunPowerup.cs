@@ -8,7 +8,7 @@ public class LazerGunPowerup : Powerup {
 	public GameObject lazerModel;
 	public Paddle paddle;
 	
-	GameInputManager gameInput;
+	InputManager gameInput;
 	
 	GameObject lazer = null; // Keeping the link to laser prefub instance to know when it's off
 	
@@ -25,7 +25,7 @@ public class LazerGunPowerup : Powerup {
 		//padModelGun = (GameObject)Resources.Load("PaddleModelGun");
 		//lazerModel = (GameObject)Resources.Load("Lazer");
 		
-		gameInput = GameObject.Find ("GameInput").GetComponent<GameInputManager>();
+		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
 	}
 	
 	// Activate event called from the BrickGameManager object when the powerup is activated

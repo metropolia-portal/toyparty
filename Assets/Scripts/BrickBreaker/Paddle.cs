@@ -14,7 +14,7 @@ public class Paddle : MonoBehaviour {
 
 	
 	BrickGameManager gameManager;
-	GameInputManager inputManager;
+	InputManager inputManager;
 	
 	float leftBound;
 	float rightBound;
@@ -71,7 +71,7 @@ public class Paddle : MonoBehaviour {
 		//movementBounds = GameObject.Find("PaddleMovementBounds");
 		//mainSphere = GameObject.Find("Sphere").GetComponent<MainSphere>();
 		//stuckTransform = GameObject.Find ("StuckPosition").transform;
-		inputManager = GameObject.Find("GameInput").GetComponent<GameInputManager>();
+		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
 			
 		ResetPaddleModel();
 		AttachSphere();
