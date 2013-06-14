@@ -69,8 +69,10 @@ public class GameManager : MonoBehaviour {
 		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 	}
 	
-	public void OnGameOver(bool victory) {
-		SetGameState (GameState.Over);
+	public void EndGame() {
+		PauseGame();
+		SetGameState(GameState.Over);
 		Time.timeScale = 0;
 	}
+
 }

@@ -23,9 +23,7 @@ public class BrickGameManager : GameManager
 	public int spheres = 3; // The number of spheres you can lose before you lose the game
 	
 	Powerup currentPowerup;
-	
-	//enum GameState { Running, Paused, Victory, Defeat };
-	enum Medal {None, Silver, Gold, Diamond};
+
 	
 	int bricksLeft; // This variable stores the amount of bricks left on the field
 	int bricksDestroyed = 0;
@@ -171,23 +169,20 @@ public class BrickGameManager : GameManager
 	void OnGameOver() {
 		//determinde the medal deserved, none for defeat
 		if (bricksLeft <=0)
-			medal = Medal.Diamond; // The game ends in victory when there are no bricks left	
+			medal = Medal.Gold; // The game ends in victory when there are no bricks left	
 		else if (shinyBricksGoal > 0) 
 			medal = Medal.None;
 		else if (bricksDestroyed * 4 > bricksLeft * 3) 
-			medal = Medal.Gold;
-		else
 			medal = Medal.Silver;
+		else
+			medal = Medal.Bronze;
 		
 		gameScore.AddFinalScore(spheres, bricksLeft, GetRemainingTime());
 		
-		if (medal != Medal.None) {
-			gameState = GameState.Victory;
-		} else {
-			gameState = GameState.Defeat;
-		}
+		SetMedal(medal);
 		
-		FreezeGameplay();
+		SetGameState (GameState.Over);
+
 	}
 	
 	
@@ -206,27 +201,7 @@ public class BrickGameManager : GameManager
 	public void AddSphere() {
 		spheres++;		
 	}
-	
-	void PauseGame() {
-		gameState = GameState.Paused;
-		FreezeGameplay();
-	}
-	
-	
-	void ResumeGame() {
-		gameState = GameState.Running;
-		DefreezeGameplay();
-	}	
-		
-	void FreezeGameplay() {
-		Time.timeScale = 0;
-		gameInput.DisableInput();
-	}
-	
-	void DefreezeGameplay() {
-		Time.timeScale = 1;
-		gameInput.EnableInput();
-	}
+
 	
 //	void RestartGame() {
 //		ResumeGame();
