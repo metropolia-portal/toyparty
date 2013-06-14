@@ -36,7 +36,7 @@ public class Paddle : MonoBehaviour {
 		}
 		
 		// Launching sphere
-		if(inputManager.IsButtonDown() && sphereAttached ) {
+		if(inputManager.IsSecondButtonDown() && sphereAttached ) {
 			LaunchSphere();
         } 
 		

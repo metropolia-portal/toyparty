@@ -5,7 +5,13 @@ public class InputManager : MonoBehaviour {
 	
 	Vector3 acceleration;
 	Vector2 cursorPosition;
+	
 	bool isButtonDown = false;
+	bool isButtonUp = true;
+	
+	bool isSecondButtonDown = false;
+	bool isSecondButtonUp = true;
+	
 	bool isEscapeButtonDown = false;
 	bool isApplicationPaused = false;
 	
@@ -13,6 +19,8 @@ public class InputManager : MonoBehaviour {
 	
 	public float sensitivity = 40;
 	bool inputEnabled = true;
+	
+	bool tapDown = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -32,20 +40,37 @@ public class InputManager : MonoBehaviour {
 #if UNITY_ANDROID
 		acceleration = Input.acceleration;
 		
-		//isButtonDown = Input.touchCount == 2;
+		//button 1
+		if(Input.touchCount == 0) {
+			isButtonUp = true; 
+			isButtonDown = 	false;
+		}
 		
-		//to shoot only when one of the fingers taps on the screen, other is used for moving paddle
-		isButtonDown = Input.touchCount == 2 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(1).phase == TouchPhase.Began);
+		if(Input.touchCount == 1) {
+			if(isButtonUp) isButtonDown = true;
+			isButtonUp = false;
+		}
 		
+		//button 2
+		
+		if(Input.touchCount == 2) {
+			if(isSecondButtonUp) isSecondButtonDown = true;
+			isSecondButtonUp = false;
+		} else if(Input.touchCount < 2) {
+			isSecondButtonUp = true;
+			isSecondButtonDown = false;
+		}
+		
+		//position
 		if (Input.touchCount==1) {
 			cursorPosition = Input.GetTouch(0).position;
 		}
-
 		
 #else
 		acceleration = new Vector3 (2*Input.mousePosition.x/Screen.width - 1, 2*Input.mousePosition.y/Screen.height - 1, 0);
-		isButtonDown = Input.GetMouseButtonDown(0);
 		cursorPosition = Input.mousePosition;
+		isButtonDown = Input.GetMouseButtonDown(0);
+		isSecondButtonDown = isButtonDown;
 #endif
 		
 		acceleration.x = Mathf.Clamp(acceleration.x, -0.5f, 0.5f) * sensitivity;
@@ -66,7 +91,23 @@ public class InputManager : MonoBehaviour {
 	}
 	
 	public bool IsButtonDown() {
-		return isButtonDown;
+		//TODO fix so that more that one can use this, it resets!
+        if (isButtonDown) {
+            isButtonDown = false;
+            return true;
+        } else {
+            return false;
+        }
+	}
+	
+	//tap while holding other finger on touch devices
+	public bool IsSecondButtonDown() {
+		if (isSecondButtonDown) {
+            isSecondButtonDown = false;
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
 	public bool IsEscapeButtonDown() {

@@ -13,14 +13,18 @@ public class MainMenuGUI : MonoBehaviour {
 	float ButtonWidth;
 	float Margin = 8;
 	int NumberOfButtons;
+	float ButtonPanelHeight;
 	
 	public Texture gameTitleTexture;
+	public Texture gameExitTexture;
+	public Texture gameCreditsTexture;
 	
 	public string[] gameList;
 	Texture[] menuOptionTextures;
 	Texture[] previewTextures;
 	
 	GUIStyle NoStyle = new GUIStyle();
+	
 	
 	Rect[] rect;
 	
@@ -42,7 +46,7 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		//ScreenWidth -= TotalMargin;
 		ButtonWidth = ScreenWidth/NumberOfButtons;
-		
+		ButtonPanelHeight = ButtonWidth;
 		for (int i = 0; i < NumberOfButtons; i++) {
 			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/8 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
@@ -75,8 +79,23 @@ public class MainMenuGUI : MonoBehaviour {
 				Application.LoadLevel("TutorialScene");
 			}
 		} else {
-			//GUI.Button(gamePreviewButtonRect, gameTitleTexture, NoStyle);
+			
+			
+			Vector2 size = new Vector2(2 * Screen.width / 3, Screen.height/3*2);
+			float x =  ScreenWidth/6;
+			float y = ButtonPanelHeight + Margin * 4;
+			float width = ScreenWidth / 3 * 2;
+			float height = ScreenHeight / 2 * 4;
+			if(GUI.Button(new Rect( x, y ,width , height), gameTitleTexture, NoStyle)){
+				print ("main button");	
+			}
 		}	
-			//GUI.enabled = true;	
+		if (GUI.Button(new Rect(-0.07f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameExitTexture, NoStyle)) {
+			Debug.Log("exit");
+			Application.Quit();
+		}
+		if (GUI.Button(new Rect(5.1f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameCreditsTexture, NoStyle)) {
+			
+		}	
 	}
 }

@@ -40,9 +40,11 @@ public class LazerGunPowerup : Powerup {
 	
 	// OnUpdate event called once per frame
 	override public void OnUpdate () {	
-		if ( gameInput.IsButtonDown() && chargesLeft > 0 && !paddle.IsOccupied() ) { // shoot only when paddle is free as we are using same input for shooting and launching the sphere
-			Lazer ();
-			chargesLeft --;						
+		if(!paddle.IsOccupied()) {
+			if ( gameInput.IsSecondButtonDown() && chargesLeft > 0 ) { // shoot only when paddle is free as we are using same input for shooting and launching the sphere
+				Lazer ();
+				chargesLeft --;						
+			}
 		}
 		
 		if (chargesLeft <= 0 && !lazer)  // The powerup's effects end after shooting 5 times, wait for lazer to dissapear
