@@ -72,7 +72,7 @@ public class BrickGameManager : GameManager
 
 	
 	void EnableCheats() {
-		if(Input.GetKeyUp(KeyCode.LeftControl)) {
+		if(Input.GetKeyUp(KeyCode.LeftControl) || Input.touchCount == 3) {
 			powerupActive = true;
 			
 			currentPowerup = GameObject.Find("LazerGunPowerup").GetComponent<Powerup>();
@@ -86,14 +86,14 @@ public class BrickGameManager : GameManager
 			currentPowerup.Activate();	
 		}
 		
-		if(Input.GetKeyUp(KeyCode.LeftShift)) {
+		if(Input.GetKeyUp(KeyCode.LeftShift) || Input.touchCount == 5) {
 			powerupActive = true;
 			
 			currentPowerup = GameObject.Find("ExtraSpherePowerup").GetComponent<Powerup>();
 			currentPowerup.Activate();	
 		}
 		
-		if(Input.GetKeyUp(KeyCode.Tab)) {
+		if(Input.GetKeyUp(KeyCode.Tab) || Input.touchCount == 4) {
 			powerupActive = true;
 			
 			currentPowerup = GameObject.Find("PadResizePowerup").GetComponent<Powerup>();
@@ -130,7 +130,7 @@ public class BrickGameManager : GameManager
 			if(bricksToNextPickup == 0)
 			{		
 				// Sometimes the brick might be mid-air when it breaks. We want the pickup to be generated at a fixed altitude so that it properly hits the pad
-				position = new Vector3(position.x, 0, position.z); 
+				position = new Vector3(position.x, position.y + pickupPrefab.localScale.y, position.z); 
 				Instantiate(pickupPrefab, position , Quaternion.identity);
 				bricksToNextPickup = Random.Range(powerUpSpawnRangeMin, powerUpSpawnRangeMax);
 			}

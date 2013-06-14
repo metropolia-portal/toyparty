@@ -47,6 +47,7 @@ public class Brick : MonoBehaviour {
 		yield return new WaitForFixedUpdate (); // Skipping this fixed frame
 		yield return new WaitForFixedUpdate (); // And waiting one more
 	
+		//TODO fix confusing names and logic here
 		gameScore.AddScore(score);
 		gameScore.ShowFloatingScore(score, transform.position);
 		
@@ -55,6 +56,7 @@ public class Brick : MonoBehaviour {
 	}
 	
 	protected virtual void OnBrickDestroyed() {
+		print (transform.position);
 		manager.OnBrickDestroyed(transform.position);
 	}
 }

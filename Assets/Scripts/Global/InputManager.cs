@@ -31,13 +31,16 @@ public class InputManager : MonoBehaviour {
 		
 #if UNITY_ANDROID
 		acceleration = Input.acceleration;
-		isButtonDown = Input.touchCount == 1;
+		
+		//isButtonDown = Input.touchCount == 2;
+		
+		//to shoot only when one of the fingers taps on the screen, other is used for moving paddle
+		isButtonDown = Input.touchCount == 2 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(1).phase == TouchPhase.Began);
+		
 		if (Input.touchCount==1) {
-			isButtonDown = true;
 			cursorPosition = Input.GetTouch(0).position;
-		}else{
-			isButtonDown = false;
 		}
+
 		
 #else
 		acceleration = new Vector3 (2*Input.mousePosition.x/Screen.width - 1, 2*Input.mousePosition.y/Screen.height - 1, 0);
