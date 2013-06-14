@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour {
 
 	
 	public float sensitivity = 40;
+	bool inputEnabled = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -70,6 +71,13 @@ public class InputManager : MonoBehaviour {
 	}
 	public Vector2 GetCursorPosition() {
 		return cursorPosition;
+	}
+	public void DisableInput() {
+		inputEnabled = false;
+	}
+	
+	public void EnableInput() {
+		inputEnabled = true;
 	}
 	
 }

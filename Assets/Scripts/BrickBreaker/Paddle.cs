@@ -22,15 +22,48 @@ public class Paddle : MonoBehaviour {
 	// The paddle's model can be changed through Powerups
 	GameObject currentPaddleModel;
 
-
-	
-
-	
 	bool sphereAttached = true;
+	
+	// Update is called once per frame
+	void Update () {
+		if (!gameManager.IsGameRunning()) return;
+	
+		// Getting a projection ray from the mouse position on the screen, and saving it's first hit on the field
+		RaycastHit hit;
+		if(Physics.Raycast(Camera.main.ScreenPointToRay(inputManager.GetCursorPosition()), out hit)) {
+		 	//changing x position of the paddle
+			transform.position = new Vector3(Mathf.Clamp(hit.point.x, leftBound, rightBound), transform.position.y, transform.position.z);
+		}
+		
+		// Launching sphere
+		if(inputManager.IsButtonDown() && sphereAttached ) {
+			LaunchSphere();
+        } 
+		
+		// For debugging
+		if(Input.GetKeyUp(KeyCode.Space)) {
+			AttachSphere();
+		}
+	}
+	
+	// Use this for initialization
+	void Start () {
+		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
+		//movementBounds = GameObject.Find("PaddleMovementBounds");
+		//mainSphere = GameObject.Find("Sphere").GetComponent<MainSphere>();
+		//stuckTransform = GameObject.Find ("StuckPosition").transform;
+		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
+			
+		ResetPaddleModel();
+		AttachSphere();
+	}
 	
 #region Interface
 	// Changes the paddle model to the clone of the given argument
 	// This allows a Powerup to change the model of the paddle, e.g. to a wider one
+	
+	
+	
 	public void SetPaddleModel(GameObject newModel) {
 		StartCoroutine(AnimateAndSetPaddleModel(newModel));
 	}
@@ -64,19 +97,6 @@ public class Paddle : MonoBehaviour {
 		return sphereAttached;
 	}
 #endregion
-	
-	// Use this for initialization
-	void Start () {
-		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
-		//movementBounds = GameObject.Find("PaddleMovementBounds");
-		//mainSphere = GameObject.Find("Sphere").GetComponent<MainSphere>();
-		//stuckTransform = GameObject.Find ("StuckPosition").transform;
-		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
-			
-		ResetPaddleModel();
-		AttachSphere();
-	}
-	
 	
 	// This method is called each time paddle model has changed (e.g. width powerup) so that bounds are accodingly updated
 	void UpdateMovementBounds() {
@@ -125,25 +145,4 @@ public class Paddle : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (!gameManager.IsGameRunning()) return;
-	
-		// Getting a projection ray from the mouse position on the screen, and saving it's first hit on the field
-		RaycastHit hit;
-		if(Physics.Raycast(Camera.main.ScreenPointToRay(inputManager.GetCursorPosition()), out hit)) {
-		 	//changing x position of the paddle
-			transform.position = new Vector3(Mathf.Clamp(hit.point.x, leftBound, rightBound), transform.position.y, transform.position.z);
-		}
-		
-		// Launching sphere
-		if(inputManager.IsButtonDown() && sphereAttached ) {
-			LaunchSphere();
-        } 
-		
-		// For debugging
-		if(Input.GetKeyUp(KeyCode.Space)) {
-			AttachSphere();
-		}
-	}
 }
