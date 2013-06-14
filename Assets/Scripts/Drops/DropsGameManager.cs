@@ -55,13 +55,10 @@ public class DropsGameManager : GameManager {
 	public void OnBomb() {
 		medals --;
 		if (medals <= 0) {
-			OnGameOver(Medal.None);
+			SetMedal(Medal.None);
+			EndGame();
 		}
 	}
-	
-	public void OnGameOver(Medal m) {
-		SetGameState (GameState.Over);
-		SetMedal(m);
-	}
+
 	
 }
