@@ -21,6 +21,8 @@ public class Mouse : MonoBehaviour {
 	void Start () {
 		windupLeft = windupAtStart;
 		model = transform.Find("MouseModel").transform;
+		EnableControls();
+		speedModifier = 1;
 	}
 	
 	public float GetWindupLeft() {

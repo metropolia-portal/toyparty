@@ -22,7 +22,7 @@ public class MazeGameManager : GameManager {
 	// Use this for initialization
 	void Start () {
 		pickupManager = GetComponent<PickupManager>();
-		SetGameState(GameState.Running);
+		ResumeGame();
 		cameraBoundsHalfWidth = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(Screen.width,0,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).x) / 2;
 		cameraBoundsHalfHeight = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(0,Screen.height,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).z) / 2;
 	}
@@ -30,11 +30,9 @@ public class MazeGameManager : GameManager {
 	// Update is called once per frame
 	void Update () {
 		
-		if (IsGameRunning()) {
 		
-			if (inputManager.IsEscapeButtonDown()) {
-				PauseGame();
-			}
+		
+		if (IsGameRunning()) {
 			
 			statusLine.text = GetTimeLeft().ToString();			
 			if (GetTimeLeft() <= 0) 
