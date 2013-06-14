@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour {
 	public string NextLevelId = "BrickGameLevelOneTutorial";
 	public string MenuLevelId = "BrickGameMenu";
 	
-	public enum GameState { Running, Paused, Victory, Defeat, Pregame};
+	public enum GameState { Pregame, Running, Paused, Over };
+	public enum Medal { None, Bronze, Silver, Gold };
 	
-	public static GameState gameState = GameState.Pregame;
-	public static GameState prevGameState = GameState.Pregame;
+	public static Medal medal = Medal.None;
+	public static GameState gameState;
+	public static GameState prevGameState;
 	
 	// Use this for initialization
 	void Start () {
@@ -19,6 +21,14 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	public void SetMedal(Medal m) {
+		GameManager.medal = m;
+	}
+	
+	public Medal GetMedal() {
+		return GameManager.medal;
 	}
 	
 	public void SetGameState(GameState s) {
@@ -60,13 +70,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void OnGameOver(bool victory) {
-		if (victory) {
-			Debug.LogWarning("Victory!");
-			GameManager.gameState = GameState.Victory;
-		} else {
-			Debug.LogWarning("Defeat!");
-			GameManager.gameState = GameState.Defeat;
-		}
+		SetGameState (GameState.Over);
 		Time.timeScale = 0;
 	}
 }

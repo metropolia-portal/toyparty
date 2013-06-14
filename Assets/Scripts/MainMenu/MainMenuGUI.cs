@@ -24,7 +24,7 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	Rect[] rect;
 	
-	Rect gamePreviewButtonRect = new Rect( Screen.width / 6 , Screen.height/4, 4 * Screen.width / 6, Screen.height/2);
+	Rect gamePreviewButtonRect = new Rect( Screen.width / 8 , Screen.height/4, 7 * Screen.width / 8, Screen.height);
 	
 	int selectedGame = -1;
 	public static int currentLevel = 1;
@@ -45,8 +45,8 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		for (int i = 0; i < NumberOfButtons; i++) {
 			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/8 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
-			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Options/mainMenu_"+gameList[i]);
-			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/preview_"+gameList[i]);
+			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
+			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/"+gameList[i]);
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class MainMenuGUI : MonoBehaviour {
 				Application.LoadLevel("TutorialScene");
 			}
 		} else {
-			GUI.Button(gamePreviewButtonRect, gameTitleTexture, NoStyle);
+			//GUI.Button(gamePreviewButtonRect, gameTitleTexture, NoStyle);
 		}	
 			//GUI.enabled = true;	
 	}

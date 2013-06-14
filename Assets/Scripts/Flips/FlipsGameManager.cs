@@ -95,12 +95,13 @@ public class FlipsGameManager : GameManager {
 	void OnGameOver() {
 		//Debug.LogWarning("VICTORY");
 		//Debug.Log ((Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy");
-		SetGameState(GameState.Victory);
+		SetGameState(GameState.Over);
+		SetMedal(Medal.Gold); //TODO: give different medals depending on accuracy
 		UpdateStatus();
 	}
 	
 	public float GetSuccessRatio() {
-		return (float)cardsGuessed/(float)flips;
+		return (float)cardsGuessed/(float)cardsTotal;
 	}
 	
 	public void ShowAllCards() {
@@ -134,7 +135,7 @@ public class FlipsGameManager : GameManager {
 				else
 					statusLine.text += "N/A";
 			break;
-			case GameState.Victory:
+			case GameState.Over:
 				statusLine.text = ("Victory! "+Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy";
 			break;
 		}

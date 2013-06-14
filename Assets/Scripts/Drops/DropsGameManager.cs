@@ -13,8 +13,6 @@ public class DropsGameManager : GameManager {
 	int score = 0;
 	int medals = 3;
 	
-	public enum Medal {None, Bronze, Silver, Gold};
-	
 	// Use this for initialization
 	void Start () {
 		SetGameState(GameManager.GameState.Running);
@@ -59,10 +57,8 @@ public class DropsGameManager : GameManager {
 	}
 	
 	public void OnGameOver(Medal m) {
-		if (m == Medal.None)
-			SetGameState(GameState.Defeat);
-		else 
-			SetGameState(GameState.Victory);
+		SetGameState (GameState.Over);
+		SetMedal(m);
 	}
 	
 }

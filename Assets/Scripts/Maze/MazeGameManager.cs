@@ -59,12 +59,13 @@ public class MazeGameManager : GameManager {
 	
 	public void EndGame(bool victory) {
 		PauseGame ();
-		
+		SetGameState(GameState.Over);
 		if (victory) {
-			SetGameState(GameState.Victory);
+			
+			SetMedal(Medal.Gold);
 			statusLine.text = "Victory!\nTime score bonus: " + (GetTimeLeft()*55).ToString(); 
 		} else {
-			SetGameState(GameState.Defeat); 
+			SetMedal(Medal.None);
 			statusLine.text = "Defeat!\n"; 
 		}
 	}
