@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public bool IsGameRunning() {
-		return GameManager.gameState == GameState.Running;
+		return GetGameState() == GameState.Running;
 	}
 	
 	public void GoToNextLevel() {
@@ -74,5 +74,6 @@ public class GameManager : MonoBehaviour {
 		SetGameState(GameState.Over);
 		Time.timeScale = 0;
 	}
+
 
 }
