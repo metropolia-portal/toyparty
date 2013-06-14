@@ -5,7 +5,6 @@ public class Mouse : MonoBehaviour {
 	
 	
 	public float windupAtStart = 30;
-	public GameObject keyObject;
 	public InputManager inputManager;
 	
 	float rotSpeed = 10;
@@ -61,7 +60,7 @@ public class Mouse : MonoBehaviour {
 		if (planarVelocity.magnitude > 0.5f)
 			model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(planarVelocity), rotSpeed*Time.deltaTime);
 		
-		keyObject.transform.rotation = Quaternion.Euler(0, 180*windupLeft,0);
+
 		
 	}
 }
