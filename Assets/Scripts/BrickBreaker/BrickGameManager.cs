@@ -50,6 +50,7 @@ public class BrickGameManager : GameManager
 	}
 	
 	void Update() {
+		if(!IsGameRunning()) return;
 		
 		if (powerupActive)
 			currentPowerup.OnUpdate();
@@ -180,9 +181,7 @@ public class BrickGameManager : GameManager
 		gameScore.AddFinalScore(spheres, bricksLeft, GetRemainingTime());
 		
 		SetMedal(medal);
-		
-		SetGameState (GameState.Over);
-
+		EndGame();
 	}
 	
 	
