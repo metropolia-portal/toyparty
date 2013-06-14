@@ -29,10 +29,13 @@ public class DropsGameManager : GameManager {
 				Debug.Log(result);
 				if (result > medals) result = medals;
 				
-				if (result == 3) OnGameOver(Medal.Gold);
-				else if (result == 2) OnGameOver(Medal.Silver);
-				else if (result == 1) OnGameOver(Medal.Bronze);
-				else if (result == 0) OnGameOver(Medal.None);
+				
+				
+				if (result == 3) SetMedal(Medal.Gold);
+				else if (result == 2) SetMedal(Medal.Silver);
+				else if (result == 1) SetMedal(Medal.Bronze);
+				else if (result == 0) SetMedal(Medal.None);
+				EndGame ();
 			}
 			
 			

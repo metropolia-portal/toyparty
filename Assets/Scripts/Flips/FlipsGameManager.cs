@@ -26,8 +26,6 @@ public class FlipsGameManager : GameManager {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("z"+GetGameState().ToString());
-
 		
 		if (GetGameState() == GameState.Pregame) {
 			
@@ -74,7 +72,11 @@ public class FlipsGameManager : GameManager {
 						firstCard.Disappear();
 						secondCard.Disappear();
 						if (cardsGuessed >= cardsTotal) {
-							OnGameOver(); 
+							if (GetSuccessRatio()<0.1f) SetMedal(Medal.None);
+							else if (GetSuccessRatio()<0.3f) SetMedal(Medal.Bronze);
+							else if (GetSuccessRatio()<0.6f) SetMedal(Medal.Silver);
+							else SetMedal(Medal.Gold);
+							EndGame();
 							return;
 						}
 					}else{
@@ -92,16 +94,8 @@ public class FlipsGameManager : GameManager {
 		}	
 	}
 	
-	void OnGameOver() {
-		//Debug.LogWarning("VICTORY");
-		//Debug.Log ((Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy");
-		SetGameState(GameState.Over);
-		SetMedal(Medal.Gold); //TODO: give different medals depending on accuracy
-		UpdateStatus();
-	}
-	
 	public float GetSuccessRatio() {
-		return (float)cardsGuessed/(float)cardsTotal;
+		return (float)cardsGuessed/(float)flips;
 	}
 	
 	public void ShowAllCards() {

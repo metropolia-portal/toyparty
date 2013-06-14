@@ -10,6 +10,6 @@ public class SpinningEffect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		phase += Time.deltaTime;
-		transform.rotation = Quaternion.Euler(0, phase*rotationSpeed,0);
+		transform.rotation = Quaternion.Euler(phase*rotationSpeed, phase*rotationSpeed, phase*rotationSpeed);
 	}
 }

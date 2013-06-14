@@ -9,6 +9,10 @@ public class MazeGameManager : GameManager {
 	public Camera cam;
 	public Bounds cameraBounds;
 	public InputManager inputManager;
+	public int BronzeMedalScore;
+	public int SilverMedalScore;
+	public int GoldMedalScore;
+	PickupManager pickupManager;
 
 	
 	float cameraBoundsHalfWidth;
@@ -17,6 +21,7 @@ public class MazeGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
+		pickupManager = GetComponent<PickupManager>();
 		SetGameState(GameManager.GameState.Running);
 		cameraBoundsHalfWidth = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(Screen.width,0,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).x) / 2;
 		cameraBoundsHalfHeight = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(0,Screen.height,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).z) / 2;
@@ -38,7 +43,15 @@ public class MazeGameManager : GameManager {
 			statusLine.text = GetTimeLeft().ToString();			
 			if (GetTimeLeft() <= 0) 
 			{
-				EndGame(false);
+				int totalScore = pickupManager.TotalScore();
+				
+				if (totalScore < BronzeMedalScore) SetMedal(Medal.None);
+				else if (totalScore < SilverMedalScore) SetMedal(Medal.Bronze);
+				else if (totalScore < GoldMedalScore) SetMedal(Medal.Silver);
+				else SetMedal(Medal.Gold);
+				
+				EndGame();
+				
 			}	
 			
 			cam.camera.transform.localPosition = new Vector3(
@@ -57,16 +70,5 @@ public class MazeGameManager : GameManager {
 		return (int)Mathf.Floor (mouse.GetComponent<Mouse>().GetWindupLeft());
 	}
 	
-	public void EndGame(bool victory) {
-		PauseGame ();
-		SetGameState(GameState.Over);
-		if (victory) {
-			
-			SetMedal(Medal.Gold);
-			statusLine.text = "Victory!\nTime score bonus: " + (GetTimeLeft()*55).ToString(); 
-		} else {
-			SetMedal(Medal.None);
-			statusLine.text = "Defeat!\n"; 
-		}
-	}
+
 }
