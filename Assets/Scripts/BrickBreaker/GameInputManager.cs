@@ -6,6 +6,8 @@ public class GameInputManager : MonoBehaviour {
 #if UNITY_ANDROID || UNITY_IPHONE	
 	Vector3 lastTouchPosition = Vector3.zero;
 #endif
+	bool inputEnabled = true;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -15,10 +17,17 @@ public class GameInputManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 #if UNITY_ANDROID || UNITY_IPHONE
-		
 		if( Input.touchCount < 2 )
 			lastTouchPosition = Input.GetTouch(0).position;
 #endif
+	}
+	
+	public void DisableInput() {
+		inputEnabled = false;
+	}
+	
+	public void EnableInput() {
+		inputEnabled = true;
 	}
 	
 	public Vector3 GetCursorPosition(){
@@ -33,11 +42,15 @@ public class GameInputManager : MonoBehaviour {
 	}
 	
 	public bool IsButtonDown(){
+		if(inputEnabled) {
 #if UNITY_ANDROID || UNITY_IPHONE
-		return Input.touchCount == 2;
+		return false;
 #else
 		return Input.GetMouseButtonDown(1);		
 #endif
+		}
+		else
+			return false;
 		
 	}
 

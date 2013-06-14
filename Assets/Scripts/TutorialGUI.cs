@@ -22,7 +22,6 @@ public class TutorialGUI : MonoBehaviour {
 		}
 		if (GUI.Button (new Rect(Screen.width/2, (Screen.height/3)*2, Screen.width/2, Screen.height/3), "START")) {
 			Debug.LogWarning(MainMenuGUI.selectedGameName);
-			Time.timeScale = 1;
 			Application.LoadLevel(MainMenuGUI.selectedGameName+"_level_"+MainMenuGUI.currentLevel);
 		}
 	}

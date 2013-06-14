@@ -4,9 +4,9 @@ SubstanceImporter:
   serializedVersion: 5
   materialInstances:
   - serializedVersion: 7
-    name: Wood_Planks_01
+    name: 
     prototypeName: Wood_Planks_01
-    shaderName: Diffuse
+    shaderName: Bumped Specular
     inputs:
     - name: $normalformat
       value:
@@ -117,14 +117,21 @@ SubstanceImporter:
       serializedVersion: 5
       offset: {x: 0, y: 0}
       scale: {x: 1, y: 1}
-      generateAllOutputs: 0
-      animationUpdateRate: 0
+      generateAllOutputs: 1
+      animationUpdateRate: 42
     materialProperties:
       serializedVersion: 2
       texEnvs:
         data:
           first:
             name: _MainTex
+          second:
+            texture: {instanceID: 0}
+            scale: {x: 1, y: 1}
+            offset: {x: 0, y: 0}
+        data:
+          first:
+            name: _BumpMap
           second:
             texture: {instanceID: 0}
             scale: {x: 1, y: 1}
@@ -155,6 +162,51 @@ SubstanceImporter:
       aniso: 1
       wrapMode: 0
     - name: Wood_Planks_01_Normal
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Wood_Planks_01_Bump
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Wood_Planks_01_Displacement
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Wood_Planks_01_Height
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Diffuse
+      alphaSource: 5
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Specular
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Normal
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Bump
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Displacement
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: _Height
       alphaSource: 0
       filterMode: 1
       aniso: 1

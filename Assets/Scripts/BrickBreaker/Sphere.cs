@@ -4,7 +4,11 @@ using System.Collections;
 public abstract class Sphere : MonoBehaviour {
 
 	// The sphere moves in 2d space at a constant speed
-	public float speed = 20;
+	public float speed = 20;	
+	public float velocityFixZRation = 0.1f;// Fixes the speed by changing z pos by velocityFixZRation*speed
+	
+	//TODO move it to Main Sphere
+	protected ScoreManager gameScore;
 	
 	// This method is called when the sphere leaves the level bounds and collides with the KillZone object
 	protected abstract void OnSphereLost();
@@ -26,6 +30,10 @@ public abstract class Sphere : MonoBehaviour {
 		transform.rigidbody.isKinematic = true;
 	}
 	
+	protected virtual void Start() {
+		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+	}
+	
 
 	protected virtual void FixedUpdate () {
 		if (transform.rigidbody.isKinematic) return;
@@ -34,45 +42,40 @@ public abstract class Sphere : MonoBehaviour {
 	
 		RaycastHit hit;
 		//TODO check that  speed * Time.fixedDeltaTime is reliable check on a phone
-		if (rigidbody.SweepTest (transform.rigidbody.velocity, out hit, speed * Time.fixedDeltaTime)) { // SweepTest searches for objects in front of the sphere
+		if (rigidbody.SweepTest (rigidbody.velocity, out hit, speed * Time.fixedDeltaTime)) { // SweepTest searches for objects in front of the sphere
+			//on each collision we will add sort of gravity force, so that there will be no endless reflection situation and ball will return back faster
+			rigidbody.velocity = new Vector3(rigidbody.velocity.x,rigidbody.velocity.y, rigidbody.velocity.z - velocityFixZRation * speed);
+			rigidbody.velocity  = rigidbody.velocity.normalized * speed; //fix the speed
 			
-			
-			// if(IsSphereIdleLoop());
 			//Debug.DrawRay(transform.position, rigidbody.velocity * 5, Color.blue,1);	
-            SphereCollision(hit); // We want to detect and freeze bricks right before the sphere collides with them
+			// We want to detect and freeze bricks right before the sphere collides with them
 			// By doing so, we ensure that bricks don't get pushed away by the sphere, but can still abide by the laws of physics (fall down) when the sphere is away
+            SphereCollision(hit); 		
         }
 	}	
 	
-//	bool IsSphereIdleLoop() {
-//		Vector3 backDir = rigidbody.velocity;
-//		backDir.x *= -1;
-//		if(	Vector3. rigidbody.velocity.
-//			Physics.Raycast(transform.position, rigidbody.velocity, LayerMask.NameToLayer("Bricks")) && 
-//			Physics.Raycast(transform.position, backDir, LayerMask.NameToLayer("Bricks")) 	 
-//	}
-	// This is called from the Update method to handle different collision situations
-	void SphereCollision(RaycastHit hit) {
+	virtual protected void SphereCollision(RaycastHit hit) {
 		// However, the only case we actually want to handle is the Brick collision
 		// In all other situations, Unity's built-in physics engine is sufficient
 		if(hit.collider.CompareTag("Brick")) { 
-	        hit.collider.GetComponent<Brick>().OnHit();	
+			//print ("brick hit!");
+			Brick brick =  hit.collider.GetComponent<Brick>();
+	       	brick.OnHit();	
+//			gameScore.OnSphereScore(brick.GetScore());
     	}
+		
+//		if(hit.collider.CompareTag("Paddle"))
+//			ReleaseComboScore();	
 	}
-	
-//	void OnCollisionExit(Collision collision) {
-//		if(collision.collider.CompareTag("Brick")) {
-//			collision.collider.GetComponent<Brick>().OnHitEnd();		
-//		}
-//	}
 
 	protected virtual void OnTriggerEnter(Collider other) {		
-    	if(other.gameObject.name == "DeathZone")	
+    	if(other.CompareTag("DeathZone")) {
+//			ReleaseComboScore(); 
 			OnSphereLost();
+		}
 	}
-	
-	void OnCollisionEnter( Collision collision) {
-		//Debug.DrawRay(transform.position, rigidbody.velocity * 5, Color.red,1);	
-	}
-		
+
+	//releases accumulated combo score to score manager when combo is lost
+	//100, 400, 1000, (x + box) * 2 
+
 }
