@@ -24,8 +24,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	
 	
-	void OnGUI() {
-		
+	void OnGUI() {		
 		float screenUnitW = Screen.width/100;
 		float screenUnitH = Screen.height/100;
 		string message = "";
@@ -65,11 +64,8 @@ public class InGameMenuGUI : MonoBehaviour {
 				) GUI.enabled = false; // Resume button is grayed out on the loss screen
 			
 			if (GUI.Button (new Rect(Screen.width-(Screen.width/3), Screen.height - (Screen.height/3), Screen.width/3, Screen.height/3), PlayButton, NoStyle)) {
-				if (gameManager.GetGameState()== GameManager.GameState.Paused) gameManager.UnpauseGame();
-				if (
-					(gameManager.GetGameState() == GameManager.GameState.Over) &&
-					(gameManager.GetMedal() != GameManager.Medal.None)
-					) gameManager.GoToNextLevel();
+				if (gameManager.GetGameState() == GameManager.GameState.Paused) gameManager.UnpauseGame();
+				if (gameManager.GetGameState() == GameManager.GameState.Over) gameManager.GoToNextLevel();
 			}
 			GUI.enabled = true;
 			

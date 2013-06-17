@@ -13,16 +13,23 @@ public class DropsGameManager : GameManager {
 	int score = 0;
 	int medals = 3;
 	
+	ScoreGUI scoreGUI;
+	
 	// Use this for initialization
 	void Start () {
+		scoreGUI = GetComponent<ScoreGUI>();
+		scoreGUI.SetMaxScore(maxScore);
+		scoreGUI.setMaxTimer((int)timeLeft);
 		SetGameState(GameManager.GameState.Running);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (IsGameRunning()) {
+			scoreGUI.SetScore(score);
 			float newScale;
 			timeLeft -= Time.deltaTime;
+			scoreGUI.setTimer(Mathf.Floor(timeLeft));
 			GUITimer.text = Mathf.Floor(timeLeft).ToString();
 			if (timeLeft <= 0) {
 				int result = (int)Mathf.Floor(3f*score / maxScore);
@@ -54,6 +61,7 @@ public class DropsGameManager : GameManager {
 	
 	public void OnBomb() {
 		medals --;
+		scoreGUI.SetMaxMedals(medals);
 		if (medals <= 0) {
 			SetMedal(Medal.None);
 			EndGame();

@@ -3,8 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 	
-	public string NextLevelId = "";
-	public string MenuLevelId = "";
+	public bool isLastLevel = true;
 	
 	public enum GameState { Pregame, Running, Paused, Over };
 	public enum Medal { None, Bronze, Silver, Gold };
