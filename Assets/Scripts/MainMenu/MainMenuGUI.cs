@@ -28,7 +28,7 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	Rect[] rect;
 	
-	Rect gamePreviewButtonRect = new Rect( Screen.width / 8 , Screen.height/4, 7 * Screen.width / 8, Screen.height);
+	Rect gamePreviewButtonRect = new Rect(Screen.width / 12 , Screen.height/4, 7 * Screen.width / 8, Screen.height);
 	
 	int selectedGame = -1;
 	public static int currentLevel = 1;
@@ -48,7 +48,7 @@ public class MainMenuGUI : MonoBehaviour {
 		ButtonWidth = ScreenWidth/NumberOfButtons;
 		ButtonPanelHeight = ButtonWidth;
 		for (int i = 0; i < NumberOfButtons; i++) {
-			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/8 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
+			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/7 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/"+gameList[i]);
 		}
@@ -80,21 +80,17 @@ public class MainMenuGUI : MonoBehaviour {
 			}
 		} else {
 			
+			float ButtonArea = Screen.height/4;
 			
-			Vector2 size = new Vector2(2 * Screen.width / 3, Screen.height/3*2);
-			float x =  ScreenWidth/6;
-			float y = ButtonPanelHeight + Margin * 4;
-			float width = ScreenWidth / 3 * 2;
-			float height = ScreenHeight / 2 * 4;
-			if(GUI.Button(new Rect( x, y ,width , height), gameTitleTexture, NoStyle)){
+			if(GUI.Button(new Rect(ScreenWidth/4 , Screen.height/4 + 25 , Screen.width/2 + 20, ScreenHeight/2 + 110), gameTitleTexture, NoStyle)){
 				print ("main button");	
 			}
 		}	
-		if (GUI.Button(new Rect(-0.07f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameExitTexture, NoStyle)) {
+		if (GUI.Button(new Rect(16,Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), gameExitTexture, NoStyle)) {
 			Debug.Log("exit");
 			Application.Quit();
 		}
-		if (GUI.Button(new Rect(5.1f * (ButtonWidth) + Margin, ScreenHeight/1.1f - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameCreditsTexture, NoStyle)) {
+		if (GUI.Button(new Rect(Screen.width -Screen.width/6,Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), gameCreditsTexture, NoStyle)) {
 			
 		}	
 	}

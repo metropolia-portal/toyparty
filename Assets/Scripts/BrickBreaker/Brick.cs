@@ -56,7 +56,6 @@ public class Brick : MonoBehaviour {
 	}
 	
 	protected virtual void OnBrickDestroyed() {
-		print (transform.position);
 		manager.OnBrickDestroyed(transform.position);
 	}
 }
