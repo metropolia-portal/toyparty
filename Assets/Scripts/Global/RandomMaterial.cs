@@ -9,7 +9,6 @@ public class RandomMaterial : MonoBehaviour {
 	void Start () {
 		Material mat = materialList[Random.Range(0, materialList.Length)];
 		gameObject.renderer.material = mat;
-		Debug.Log(renderer.material);
 	}
 	
 	// Update is called once per frame

@@ -20,6 +20,7 @@ public class FlipsGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
+		base.Start ();
 		cardsTotal = levelGenerator.CardCount();
 		SetGameState(GameState.Pregame);
 	}
