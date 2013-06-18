@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour {
 			isEscapeButtonDown = false;
 		}
 		
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
 		acceleration = Input.acceleration;
 		
 		//button 1

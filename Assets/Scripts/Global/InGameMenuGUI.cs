@@ -24,8 +24,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	
 	
-	void OnGUI() {
-		
+	void OnGUI() {		
 		float screenUnitW = Screen.width/100;
 		float screenUnitH = Screen.height/100;
 		string message = "";
@@ -66,10 +65,9 @@ public class InGameMenuGUI : MonoBehaviour {
 			
 			if (GUI.Button (new Rect(Screen.width -Screen.width/6,Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
 				if (gameManager.GetGameState()== GameManager.GameState.Paused) gameManager.UnpauseGame();
-				if (
-					(gameManager.GetGameState() == GameManager.GameState.Over) &&
-					(gameManager.GetMedal() != GameManager.Medal.None)
+				if ((gameManager.GetGameState() == GameManager.GameState.Over)
 					) gameManager.GoToNextLevel();
+
 			}
 			GUI.enabled = true;
 			
