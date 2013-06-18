@@ -20,7 +20,7 @@ public class Bucket : MonoBehaviour {
 	
 		    if (Physics.Raycast(ray, out hit)) {
 				transform.position = new Vector3(
-					Mathf.Clamp(hit.point.x, -4f, 4f)
+					Mathf.Clamp(hit.point.x, -9f, 9f)
 					, 1, -4);
 			}
 		}
