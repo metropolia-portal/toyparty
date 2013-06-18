@@ -13,13 +13,14 @@ public class PaddleAnimation : MonoBehaviour {
 	public int idleIndex = 0;
 	
 	public int enableAnimationOffset = -1;
-	//public int enable
+
+	public float convertionAnimationFPS = 0.2f;
 	
 	float minDisplacement = 0.01f; //min displaycement for the robot to start animating
 	float displacementLimit = 0.05f;
 	float holdTime = 0.3f;
 	
-	float convertionAnimationFPS = 0.2f;
+
 	float movementAnimationSPF = 0.2f;
 	
 	bool movementAnimationEnable = true;
