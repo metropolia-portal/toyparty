@@ -36,9 +36,9 @@ public class Paddle : MonoBehaviour {
 		}
 		
 		// Launching sphere
-		if(inputManager.IsSecondButtonDown() && sphereAttached ) {
-			LaunchSphere();
-        } 
+		if(sphereAttached) //separating condition because we can only check inputManager.IsSecondButtonDown() once per frame, and lazer conflicts with it! 
+			if(inputManager.IsSecondButtonDown())
+				LaunchSphere();
 		
 		// For debugging
 		if(Input.GetKeyUp(KeyCode.Space)) {

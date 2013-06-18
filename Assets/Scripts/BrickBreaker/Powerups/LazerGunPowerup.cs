@@ -5,7 +5,10 @@ public class LazerGunPowerup : Powerup {
 	public float lazerOnTime = 0.3f;
 	
 	public GameObject padModelGun;
+	
 	public GameObject lazerModel;
+	public Vector3 lazerShotOffset;
+	
 	public Paddle paddle;
 	
 	InputManager gameInput;
@@ -41,6 +44,8 @@ public class LazerGunPowerup : Powerup {
 	// OnUpdate event called once per frame
 	override public void OnUpdate () {	
 		if(!paddle.IsOccupied()) {
+			//print ( gameInput.IsSecondButtonDown());
+			//print ( chargesLeft);
 			if ( gameInput.IsSecondButtonDown() && chargesLeft > 0 ) { // shoot only when paddle is free as we are using same input for shooting and launching the sphere
 				Lazer ();
 				chargesLeft --;						
@@ -62,7 +67,7 @@ public class LazerGunPowerup : Powerup {
 		// A ray is cast forward from the paddle (Spheres use the IgnoreRaycast layer and will not interfere with this)
 		RaycastHit hit;
 		if (Physics.Raycast(paddle.transform.position, new Vector3(0,0,1), out hit)) { 		
-			lazer = (GameObject) GameObject.Instantiate(lazerModel, paddle.transform.position, paddle.transform.rotation);
+			lazer = (GameObject) GameObject.Instantiate(lazerModel, paddle.transform.position + lazerShotOffset, Quaternion.identity);
 			GameObject.Destroy(lazer, lazerOnTime); // Create the lazer model and destroy it after 0.3 seconds
 			
 			GameObject lazerTarget = hit.collider.gameObject;

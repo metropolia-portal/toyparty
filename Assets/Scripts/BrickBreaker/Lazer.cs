@@ -25,6 +25,5 @@ public class Lazer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 	}
 }
