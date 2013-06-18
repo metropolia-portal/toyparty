@@ -32,7 +32,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 		// While the game is in progress, only display the pause button
 		if ((gameManager.GetGameState() == GameManager.GameState.Running)||(gameManager.GetGameState() == GameManager.GameState.Pregame)) {
-			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 6, screenUnitW*10, screenUnitH*5), PauseButton, NoStyle)) {
+			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 6, (Screen.width/12), (Screen.width/12)), PauseButton, NoStyle)) {
 				gameManager.PauseGame();
 			}
 		} else {
@@ -50,12 +50,12 @@ public class InGameMenuGUI : MonoBehaviour {
 		
 			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
 			
-			if (GUI.Button(new Rect(0, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), MainMenuButton, NoStyle)) {
+			if (GUI.Button(new Rect(16, Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
 				Time.timeScale = 1; //releases timeScale back if it was pauses
 				Application.LoadLevel("MainMenu");
 			}
 			
-			if (GUI.Button(new Rect(Screen.width/3, Screen.height - (Screen.height/3), Screen.width/3, (Screen.height/3)), Restart, NoStyle)) {
+			if (GUI.Button(new Rect(Screen.width -(Screen.width/2 + Screen.width/18),Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), Restart, NoStyle)) {
 				gameManager.RestartGame();
 			}
 			
@@ -64,7 +64,7 @@ public class InGameMenuGUI : MonoBehaviour {
 				(gameManager.GetMedal() == GameManager.Medal.None)
 				) GUI.enabled = false; // Resume button is grayed out on the loss screen
 			
-			if (GUI.Button (new Rect(Screen.width-(Screen.width/3), Screen.height - (Screen.height/3), Screen.width/3, Screen.height/3), PlayButton, NoStyle)) {
+			if (GUI.Button (new Rect(Screen.width -Screen.width/6,Screen.height - (Screen.width/6 - 16), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
 				if (gameManager.GetGameState()== GameManager.GameState.Paused) gameManager.UnpauseGame();
 				if (
 					(gameManager.GetGameState() == GameManager.GameState.Over) &&
