@@ -48,7 +48,7 @@ public class MainMenuGUI : MonoBehaviour {
 		ButtonWidth = ScreenWidth/NumberOfButtons;
 		ButtonPanelHeight = ButtonWidth;
 		for (int i = 0; i < NumberOfButtons; i++) {
-			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/8 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
+			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/7 - (ButtonWidth - Margin*2)/2, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/"+gameList[i]);
 		}
