@@ -8,6 +8,7 @@ public class ScoreGUI : MonoBehaviour {
 	public Texture2D goldCoinTexture;
 	public Texture2D scoreBarTexture;
 	public Texture2D timerTexture;
+	public Texture2D crossTexture;
 	int score = 0;
 	int maxScore = 100;
 	int maxMedals = 3;
@@ -51,12 +52,15 @@ public class ScoreGUI : MonoBehaviour {
 		GUI.DrawTextureWithTexCoords(new Rect((10 - 3*(float)score/maxScore)*Screen.width/10, 0, 3*((float)score/maxScore)*Screen.width/10, Screen.width/10), scoreBarTexture,
 			new Rect(3-(float)score/maxScore,0,(float)score/maxScore,1));
 		GUI.depth = 0;
-		if (maxMedals > 0)
 		GUI.DrawTexture(new Rect(9*Screen.width/10, 0, Screen.width/10, Screen.width/10), bronzeCoinTexture);
-		if (maxMedals > 1)
+		if (maxMedals < 1)
+		GUI.DrawTexture(new Rect(9*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
 		GUI.DrawTexture(new Rect(8*Screen.width/10, 0, Screen.width/10, Screen.width/10), silverCoinTexture);
-		if (maxMedals > 2)
+		if (maxMedals < 2)
+		GUI.DrawTexture(new Rect(8*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
 		GUI.DrawTexture(new Rect(7*Screen.width/10, 0, Screen.width/10, Screen.width/10), goldCoinTexture);
+		if (maxMedals < 3)
+		GUI.DrawTexture(new Rect(7*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
 		
 	}
 }

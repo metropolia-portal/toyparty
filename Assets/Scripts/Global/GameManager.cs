@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour {
 	
 	public void GoToNextLevel() {
 		ResumeGame();
+		if (!isLastLevel)
 		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 	}
 	
