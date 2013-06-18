@@ -44,7 +44,6 @@ public class ScoreGUI : MonoBehaviour {
 	
 	void OnGUI() {
 		float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
-		Debug.Log(timer);
 		GUI.depth = 1;
 		GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
 			new Rect(t,0,0.1f,1));

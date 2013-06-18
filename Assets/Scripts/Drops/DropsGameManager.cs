@@ -54,9 +54,9 @@ public class DropsGameManager : GameManager {
 	}
 	
 	public void OnToy() {
-		Debug.Log("Toy acquired.");
+
 		score += toyScore;
-		Debug.Log(score);
+
 	}
 	
 	public void OnBomb() {
