@@ -69,6 +69,7 @@ public class InputManager : MonoBehaviour {
 #else
 		acceleration = new Vector3 (2*Input.mousePosition.x/Screen.width - 1, 2*Input.mousePosition.y/Screen.height - 1, 0);
 		cursorPosition = Input.mousePosition;
+		
 		isButtonDown = Input.GetMouseButtonDown(0);
 		isSecondButtonDown = isButtonDown;
 #endif
