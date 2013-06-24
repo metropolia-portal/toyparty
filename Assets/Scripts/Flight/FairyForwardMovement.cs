@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class FlightGameManager : MonoBehaviour {
-
+public class FairyForwardMovement : MonoBehaviour {
+	
+	public float speed = 0.03f;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -10,6 +12,6 @@ public class FlightGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector2.Distance(Input.mousePosition, new Vector2(Screen.width/20,Screen.width/20));
+		transform.position += -transform.right*speed;
 	}
 }

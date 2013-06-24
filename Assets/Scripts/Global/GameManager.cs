@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public static GameState gameState;
 	public static GameState prevGameState;
 	
+	
 	// Use this for initialization
 	public void Start () {
 		Time.timeScale = 1;
