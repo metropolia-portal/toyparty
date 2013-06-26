@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class FairyForwardMovement : MonoBehaviour {
-	
-	public float speed = 0.03f;
-	
+public class Dragon : MonoBehaviour {
+
 	// Use this for initialization
 	void Start () {
 	
@@ -12,6 +10,6 @@ public class FairyForwardMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += -transform.right*speed;
+	
 	}
 }
