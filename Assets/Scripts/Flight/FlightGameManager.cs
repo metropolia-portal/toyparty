@@ -53,7 +53,7 @@ public class FlightGameManager : GameManager {
 	void Update () {
 		Vector2 mpos;
 		
-		fairyDelay -= Time.deltaTime;
+		//fairyDelay -= Time.deltaTime;
 		if ( fairyDelay <=0 ) {
 			Instantiate(fairyPrefab, new Vector3(10,0,Random.Range(-5f, 5f)), Quaternion.identity);
 			fairyDelay = Random.Range(fairyDelayAvg*1.5f,fairyDelayAvg*2f);
