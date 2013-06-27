@@ -10,7 +10,7 @@ public class Dragon : MonoBehaviour {
 	void Start () {
 		superAttackGraphic = transform.FindChild("FireLine").gameObject;
 		superAttackGraphic.SetActive(false);
-		gameManager = GameObject.Find("Manager Object").GetComponent<FlightGameManager>();
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
 	}
 	
 	// Update is called once per frame

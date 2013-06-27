@@ -37,6 +37,8 @@ public class FlightGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
+		base.Start();
+		SetGameState(GameState.Running);
 		GameObject dragonObject = (GameObject) Instantiate(dragonPrefab);
 		flightGUI = GetComponent<FlightGUI>();
 		dragon = dragonObject.GetComponent<Dragon>();
@@ -47,6 +49,7 @@ public class FlightGameManager : GameManager {
 	}
 	
 	void UpdateDragonPosition() {
+		
 		Vector2 padData = flightGUI.GetPadDirection();
 		
 		Vector3 dragonShift = new Vector3 (padData.x, 0, -padData.y) * 0.1f;
@@ -108,6 +111,7 @@ public class FlightGameManager : GameManager {
 	}
 	
 	void FixedUpdate() {
+		if (!IsGameRunning()) return;
 		UpdateDragonPosition();
 		UpdateBullets();
 		GenerateEnemies();
@@ -121,10 +125,12 @@ public class FlightGameManager : GameManager {
 	public void PlayerDamage(int d) {
 		Debug.Log("I'm hit!");
 		life --;
-		if (life<0) Death();
+		if (life<=0) Death();
 	}
 	
 	void Death() {
 		Debug.Log("YOU LOST");
+		SetMedal(GameManager.Medal.None);
+		EndGame();
 	}
 }
