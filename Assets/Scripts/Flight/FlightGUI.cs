@@ -54,7 +54,7 @@ public class FlightGUI : MonoBehaviour {
 			}
 		if (drag && !padTouched) {
 			drag = false;
-			padDirection = new Vector2(0,0,0);
+			padDirection = new Vector2(0,0);
 		}
 #else
 		
