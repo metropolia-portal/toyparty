@@ -17,15 +17,20 @@ public class DropsGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
+		base.Start();
+		Debug.Log("waha");
 		scoreGUI = GetComponent<ScoreGUI>();
 		scoreGUI.SetMaxScore(maxScore);
 		scoreGUI.setMaxTimer((int)timeLeft);
-		SetGameState(GameManager.GameState.Running);
+		SetGameState(GameState.Running);
+		Debug.Log(GetGameState());	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(IsGameRunning());
 		if (IsGameRunning()) {
+			Debug.Log("waha");
 			scoreGUI.SetScore(score);
 			float newScale;
 			timeLeft -= Time.deltaTime;

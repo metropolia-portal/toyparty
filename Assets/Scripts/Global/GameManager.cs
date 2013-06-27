@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour {
 	public static GameState gameState;
 	public static GameState prevGameState;
 	
-	// Use this for initialization
-	void Start () {
 	
+	// Use this for initialization
+	public void Start () {
+		Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
@@ -60,7 +61,8 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public bool IsGameRunning() {
-		return GetGameState() == GameState.Running;
+		if (GetGameState() == GameState.Running) return true;
+		return false;
 	}
 	
 	public void GoToNextLevel() {
