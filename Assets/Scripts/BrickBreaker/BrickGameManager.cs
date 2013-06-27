@@ -40,7 +40,8 @@ public class BrickGameManager : GameManager
 	
 
 	void Start() {	
-		//paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
+		base.Start ();//do some stuff common to all games
+		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
 		
@@ -169,10 +170,10 @@ public class BrickGameManager : GameManager
 	
 	void OnGameOver() {
 		//determinde the medal deserved, none for defeat
-		if (bricksLeft <=0)
-			medal = Medal.Gold; // The game ends in victory when there are no bricks left	
-		else if (shinyBricksGoal > 0) 
+		if (shinyBricksGoal > 0 || spheres == 0) // we loose if any shiny bricks left or no spheres left
 			medal = Medal.None;
+		else if (bricksLeft <=0)
+			medal = Medal.Gold; // The game ends in victory when there are no bricks left	
 		else if (bricksDestroyed * 4 > bricksLeft * 3) 
 			medal = Medal.Silver;
 		else
