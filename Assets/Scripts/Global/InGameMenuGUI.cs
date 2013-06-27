@@ -26,7 +26,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	void OnGUI() {		
 		float screenUnitW = Screen.width/100;
-		float screenUnitH = Screen.height/100;
+		
 		string message = "";
 	
 		// While the game is in progress, only display the pause button
