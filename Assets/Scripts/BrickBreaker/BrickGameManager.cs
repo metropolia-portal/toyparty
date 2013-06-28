@@ -22,6 +22,8 @@ public class BrickGameManager : GameManager
 	
 	public int spheres = 3; // The number of spheres you can lose before you lose the game
 	
+	float gameStartDelay = 0.1f; //a delay before actual game start, after reading the tutorial, so that the paddle will not be affected by the user clicking buttons
+	
 	Powerup currentPowerup;
 
 	
@@ -45,10 +47,16 @@ public class BrickGameManager : GameManager
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
 		
-		SetGameState(GameState.Running);
 		bricksToNextPickup = Random.Range(powerUpSpawnRangeMin, powerUpSpawnRangeMax);
 		RecalculateBrickCount(); // Count the number of bricks at the start of the game
+		
+		Invoke("StartGame", gameStartDelay);
 	}
+	
+	void StartGame() {
+		SetGameState(GameState.Running);	
+	}
+	
 	
 	void Update() {
 		if(!IsGameRunning()) return;

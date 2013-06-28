@@ -24,10 +24,16 @@ public class Paddle : MonoBehaviour {
 
 	bool sphereAttached = true;
 	
+	bool paddleMoved = false;
+	
 	// Update is called once per frame
 	void Update () {
-		if (!gameManager.IsGameRunning()) return;
+		if(inputManager.GetCursorPosition() != new Vector2(0,0)) paddleMoved = true; //at game start don't move paddle until user touches the screen, as the GetCursorPosition() gives 0,0
+		
+		if (!gameManager.IsGameRunning() || !paddleMoved) return;
 	
+
+		
 		// Getting a projection ray from the mouse position on the screen, and saving it's first hit on the field
 		RaycastHit hit;
 		if(Physics.Raycast(Camera.main.ScreenPointToRay(inputManager.GetCursorPosition()), out hit)) {
