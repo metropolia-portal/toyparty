@@ -26,7 +26,7 @@ public class ScoreGUI : MonoBehaviour {
 	
 	GameManager gameManager;
 	
-	float coinSize = Screen.width / 30;
+	float coinSize = Screen.width / 26;
 	
 	public void SetMedalRequirements(int bronze, int silver, int gold) {
 		bronzeScore = bronze;
@@ -65,7 +65,7 @@ public class ScoreGUI : MonoBehaviour {
 			
 			return (2 + ((float)(score-silverScore)/(goldScore-silverScore)))/3;
 		} else {
-			return 1;
+			return 0.99f;
 		}
 	}
 	
