@@ -86,7 +86,7 @@ public class MainMenuGUI : MonoBehaviour {
 				print ("main button");	
 			}
 #else
-			if(GUI.Button(new Rect(Screen.width/2 -Screen.width/4 , Screen.height/4 + Screen.width/10, Screen.width/2 , Screen.width/2 -Screen.width/10 ), gameTitleTexture, NoStyle)){
+			if(GUI.Button(new Rect(Screen.width/2 -Screen.width/5 , Screen.height/4 + Margin, Screen.width/2 , Screen.width/2 -Screen.width/10 ), gameTitleTexture, NoStyle)){
 				print ("main button");	
 			}
 			
