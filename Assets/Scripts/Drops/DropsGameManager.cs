@@ -7,6 +7,10 @@ public class DropsGameManager : GameManager {
 	public GUIText GUITimer;
 	public GameObject greenBox;
 	public GameObject redBox;
+	public Camera camera;
+	public GameObject background;
+	public float maxDistanceFromCenter;
+	public int currentLevel;
 	
 	int toyScore = 5;
 	int maxScore = 100;
@@ -17,20 +21,25 @@ public class DropsGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
+		MainMenuGUI.selectedGameName = "grab";
+		MainMenuGUI.currentLevel = currentLevel;
+		maxDistanceFromCenter *= camera.aspect;
+		background.transform.localScale = new Vector3(camera.aspect, 1, 1);
 		base.Start();
-		Debug.Log("waha");
+
 		scoreGUI = GetComponent<ScoreGUI>();
 		scoreGUI.SetMaxScore(maxScore);
 		scoreGUI.setMaxTimer((int)timeLeft);
 		SetGameState(GameState.Running);
-		Debug.Log(GetGameState());	
+		
+		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(IsGameRunning());
+
 		if (IsGameRunning()) {
-			Debug.Log("waha");
+
 			scoreGUI.SetScore(score);
 			float newScale;
 			timeLeft -= Time.deltaTime;
@@ -48,6 +57,10 @@ public class DropsGameManager : GameManager {
 				else if (result == 1) SetMedal(Medal.Bronze);
 				else if (result == 0) SetMedal(Medal.None);
 				EndGame ();
+			}
+			
+			if (timeLeft < 5) {
+				GetComponent<ItemGenerator>().Stop();
 			}
 			
 			

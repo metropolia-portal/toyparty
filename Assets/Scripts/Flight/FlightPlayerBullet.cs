@@ -15,7 +15,7 @@ public class FlightPlayerBullet : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		gameManager = GameObject.Find("Manager Object").GetComponent<FlightGameManager>();
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
 	}
 	
 	public void Damage() {

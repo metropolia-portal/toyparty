@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class LifePickup : MonoBehaviour {
+public class FlightSuperAttackPickup : MonoBehaviour {
 	
 	float speed = 1f;
 	FlightGameManager gameManager;
@@ -15,7 +15,7 @@ public class LifePickup : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		
 		if (other.CompareTag("Player")) {
-			gameManager.RestoreLife();
+			gameManager.ChargeUp();
 			Destroy(gameObject);
 		}
 		
@@ -23,7 +23,7 @@ public class LifePickup : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		gameManager = GameObject.Find("Manager Object").GetComponent<FlightGameManager>();	
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();	
 	}
 	
 	// Update is called once per frame
