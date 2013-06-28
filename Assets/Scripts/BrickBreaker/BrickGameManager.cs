@@ -5,7 +5,7 @@ public class BrickGameManager : GameManager
 {
 	//public string NextLevelId = "BrickGameLevelOneTutorial";
 	//public string MenuLevelId = "BrickGameMenu";
-	public string CurrentLevelId = "BrickGameLevelOne";
+	public int levelId = 1;
 	public int shinyBricksGoal = 3;
 	
 	public float timeToComplete = 30f; //time in which you have to complete the level
@@ -43,6 +43,8 @@ public class BrickGameManager : GameManager
 
 	void Start() {	
 		base.Start ();//do some stuff common to all games
+		MainMenuGUI.currentLevel = levelId; //TODO put this bahaviou to super class
+		MainMenuGUI.selectedGameName = "brick";
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
