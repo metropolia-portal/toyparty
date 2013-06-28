@@ -31,7 +31,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 		// While the game is in progress, only display the pause button
 		if ((gameManager.GetGameState() == GameManager.GameState.Running)||(gameManager.GetGameState() == GameManager.GameState.Pregame)) {
-			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 6, (Screen.width/12), (Screen.width/12)), PauseButton, NoStyle)) {
+			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, (Screen.width/10), (Screen.width/10)), PauseButton, NoStyle)) {
 				gameManager.PauseGame();
 			}
 		} else {

@@ -5,6 +5,7 @@ public class FallingItem : MonoBehaviour {
 	
 	float fallSpeed = 1;
 	
+	
 	public float rotationSpeed = 180;
 	
 	float phase = 0;
@@ -15,7 +16,8 @@ public class FallingItem : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		transform.position = new Vector3(Random.Range(-8f,8f), 1, 4.5f);
+		DropsGameManager gameManager = GameObject.Find("GameManager").GetComponent<DropsGameManager>();
+		transform.position = new Vector3(Random.Range(-gameManager.maxDistanceFromCenter,gameManager.maxDistanceFromCenter), 1, 4.5f);
 		transform.localScale = transform.localScale*Random.Range(0.8f, 1.2f);
 		rotationSpeed = rotationSpeed * Random.Range(-1f,1f);
 	}

@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour {
 	public static GameState gameState;
 	public static GameState prevGameState;
 	
+	public int bronzeMedalScore = 30;
+	public int silverMedalScore = 60;
+	public int goldMedalScore = 90;
+	
 	
 	// Use this for initialization
 	public void Start () {
@@ -68,7 +72,9 @@ public class GameManager : MonoBehaviour {
 	public void GoToNextLevel() {
 		ResumeGame();
 		if (!isLastLevel)
-		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
+			Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
+		else
+			Application.LoadLevel("MainMenu");
 	}
 	
 	public void EndGame() {
