@@ -8,6 +8,8 @@ public class FlightGUI : MonoBehaviour {
 	public Texture2D buttonATexture;
 	public Texture2D buttonBTexture;
 	
+	GameManager gameManager;
+	
 	float padHandleRadius;
 	
 	float padTriggerRadius = Screen.height/5;
@@ -52,6 +54,8 @@ public class FlightGUI : MonoBehaviour {
 		
 		padCenter = new Vector2(padMargin + padTriggerRadius, Screen.height - padTriggerRadius - padMargin);
 		padHandleRadius = padTriggerRadius / 5;
+		
+		gameManager = GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -142,6 +146,9 @@ public class FlightGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		
+		if (!gameManager.IsGameRunning()) return;
+		
 		Color transparent = new Color(1,1,1,0.5f);
 		Color opaque = new Color(1,1,1,0.9f);
 		
