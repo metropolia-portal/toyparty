@@ -66,8 +66,9 @@ public class LazerGunPowerup : Powerup {
 	void Lazer() {		
 		// A ray is cast forward from the paddle (Spheres use the IgnoreRaycast layer and will not interfere with this)
 		RaycastHit hit;
-		if (Physics.Raycast(paddle.transform.position, new Vector3(0,0,1), out hit)) { 		
-			lazer = (GameObject) GameObject.Instantiate(lazerModel, paddle.transform.position + lazerShotOffset, Quaternion.identity);
+		Vector3 lazerSourcePosition = paddle.transform.position + lazerShotOffset;
+		if (Physics.Raycast(lazerSourcePosition, new Vector3(0,0,1), out hit)) { 		
+			lazer = (GameObject) GameObject.Instantiate(lazerModel, lazerSourcePosition, Quaternion.identity);
 			GameObject.Destroy(lazer, lazerOnTime); // Create the lazer model and destroy it after 0.3 seconds
 			
 			GameObject lazerTarget = hit.collider.gameObject;
