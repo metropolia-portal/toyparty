@@ -9,6 +9,7 @@ public class BrickGameManager : GameManager
 	public int shinyBricksGoal = 3;
 	
 	public float timeToComplete = 30f; //time in which you have to complete the level
+	//TODO synchronize with other time game, put in super class
 	
 	public Paddle paddle;
 	
@@ -37,6 +38,7 @@ public class BrickGameManager : GameManager
 	
 
 	ScoreManager gameScore;
+	ScoreGUI scoreGUI;
 	InputManager gameInput;
 	
 	
@@ -48,6 +50,10 @@ public class BrickGameManager : GameManager
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
+		
+		scoreGUI = GetComponent<ScoreGUI>();
+		//scoreGUI.SetMaxScore(maxScore);
+		scoreGUI.setMaxTimer((int)timeToComplete);
 		
 		bricksToNextPickup = Random.Range(powerUpSpawnRangeMin, powerUpSpawnRangeMax);
 		RecalculateBrickCount(); // Count the number of bricks at the start of the game
@@ -62,6 +68,8 @@ public class BrickGameManager : GameManager
 	
 	void Update() {
 		if(!IsGameRunning()) return;
+		
+		scoreGUI.setTimer(Mathf.Floor(GetRemainingTime()));
 		
 		if (powerupActive)
 			currentPowerup.OnUpdate();
