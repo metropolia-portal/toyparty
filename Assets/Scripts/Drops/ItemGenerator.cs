@@ -15,16 +15,23 @@ public class ItemGenerator : MonoBehaviour {
 	
 	float delayToNextItem = 0;
 	
+	bool stopped = false;
+	
 	// Use this for initialization
 	void Start () {
-	
+		stopped = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (stopped) return;
 		delayToNextItem -= Time.deltaTime;
 		if (delayToNextItem <=0) 
 			GenerateItem();
+	}
+	
+	public void Stop() {
+		stopped = true;
 	}
 	
 	void GenerateItem() {

@@ -9,6 +9,8 @@ public class ScoreGUI : MonoBehaviour {
 	public Texture2D scoreBarTexture;
 	public Texture2D timerTexture;
 	public Texture2D crossTexture;
+	public bool timerEnabled = false;
+	float paddingLeft = Screen.width / 10;
 	int score = 0;
 	int maxScore = 100;
 	int maxMedals = 3;
@@ -42,24 +44,37 @@ public class ScoreGUI : MonoBehaviour {
 	
 	}
 	
+	public void EnableTimer(bool enable = true) {
+		timerEnabled = true;
+	}
+	
 	void OnGUI() {
-		float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
-		GUI.depth = 1;
-		GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
-			new Rect(t,0,0.1f,1));
 		
-		GUI.DrawTextureWithTexCoords(new Rect((10 - 3*(float)score/maxScore)*Screen.width/10, 0, 3*((float)score/maxScore)*Screen.width/10, Screen.width/10), scoreBarTexture,
-			new Rect(3-(float)score/maxScore,0,(float)score/maxScore,1));
+		if (timerEnabled) {
+			float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
+			GUI.depth = 1;
+			GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10 - paddingLeft, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
+				new Rect(t,0,0.1f,1)); // draw timer
+		}
+		
+		GUI.DrawTextureWithTexCoords(new Rect((10 - 3*(float)score/maxScore)*Screen.width/10 - paddingLeft, 0, 3*((float)score/maxScore)*Screen.width/10, Screen.width/10), scoreBarTexture,
+			new Rect(3-(float)score/maxScore,0,(float)score/maxScore,1)); // draw score bar
+			
+		
+		
 		GUI.depth = 0;
-		GUI.DrawTexture(new Rect(9*Screen.width/10, 0, Screen.width/10, Screen.width/10), bronzeCoinTexture);
+		 // draw medals
+		GUI.DrawTexture(new Rect(9*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), bronzeCoinTexture);
 		if (maxMedals < 1)
-		GUI.DrawTexture(new Rect(9*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
-		GUI.DrawTexture(new Rect(8*Screen.width/10, 0, Screen.width/10, Screen.width/10), silverCoinTexture);
+			GUI.DrawTexture(new Rect(9*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), crossTexture); 
+		
+		GUI.DrawTexture(new Rect(8*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), silverCoinTexture);
 		if (maxMedals < 2)
-		GUI.DrawTexture(new Rect(8*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
-		GUI.DrawTexture(new Rect(7*Screen.width/10, 0, Screen.width/10, Screen.width/10), goldCoinTexture);
+			GUI.DrawTexture(new Rect(8*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), crossTexture);
+		
+		GUI.DrawTexture(new Rect(7*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), goldCoinTexture);
 		if (maxMedals < 3)
-		GUI.DrawTexture(new Rect(7*Screen.width/10, 0, Screen.width/10, Screen.width/10), crossTexture);
+			GUI.DrawTexture(new Rect(7*Screen.width/10 - paddingLeft, 0, Screen.width/10, Screen.width/10), crossTexture);
 		
 	}
 }
