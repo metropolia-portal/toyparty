@@ -26,19 +26,20 @@ public class DropsGameManager : GameManager {
 		maxDistanceFromCenter *= camera.aspect;
 		background.transform.localScale = new Vector3(camera.aspect, 1, 1);
 		base.Start();
-		Debug.Log("waha");
+
 		scoreGUI = GetComponent<ScoreGUI>();
 		scoreGUI.SetMaxScore(maxScore);
 		scoreGUI.setMaxTimer((int)timeLeft);
 		SetGameState(GameState.Running);
-		Debug.Log(GetGameState());	
+		
+		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(IsGameRunning());
+
 		if (IsGameRunning()) {
-			Debug.Log("waha");
+
 			scoreGUI.SetScore(score);
 			float newScale;
 			timeLeft -= Time.deltaTime;

@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour {
 	public static GameState gameState;
 	public static GameState prevGameState;
 	
+	public int bronzeMedalScore = 30;
+	public int silverMedalScore = 60;
+	public int goldMedalScore = 90;
+	
 	
 	// Use this for initialization
 	public void Start () {

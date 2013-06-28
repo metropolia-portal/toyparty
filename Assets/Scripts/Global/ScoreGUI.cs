@@ -17,6 +17,16 @@ public class ScoreGUI : MonoBehaviour {
 	float timer = 0;
 	int maxTimer = 30;
 	
+	int bronzeScore = 30;
+	int silverScore = 60;
+	int goldScore = 90;
+	
+	public void SetMedalRequirements(int bronze, int silver, int gold) {
+		bronzeScore = bronze;
+		silverScore = silver;
+		goldScore = gold;
+	}
+	
 	public void setTimer(float t) {
 		timer = t;
 		if (timer<0) timer = 0;
@@ -39,6 +49,19 @@ public class ScoreGUI : MonoBehaviour {
 		if (score>maxScore) score = maxScore;
 	}
 	
+	float ScoreBarWidth() {
+		if (score<bronzeScore) {
+			return ((float)score/bronzeScore)/3;
+		} else if (score<silverScore) {
+			return (1 + ((float)(score-bronzeScore)/(silverScore-bronzeScore)))/3;
+		} else if (score<goldScore) {
+			
+			return (2 + ((float)(score-silverScore)/(goldScore-silverScore)))/3;
+		} else {
+			return 1;
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -57,8 +80,8 @@ public class ScoreGUI : MonoBehaviour {
 				new Rect(t,0,0.1f,1)); // draw timer
 		}
 		
-		GUI.DrawTextureWithTexCoords(new Rect((10 - 3*(float)score/maxScore)*Screen.width/10 - paddingLeft, 0, 3*((float)score/maxScore)*Screen.width/10, Screen.width/10), scoreBarTexture,
-			new Rect(3-(float)score/maxScore,0,(float)score/maxScore,1)); // draw score bar
+		GUI.DrawTextureWithTexCoords(new Rect((10 - 3*ScoreBarWidth())*Screen.width/10 - paddingLeft, 0, 3*ScoreBarWidth()*Screen.width/10, Screen.width/10), scoreBarTexture,
+			new Rect(3-ScoreBarWidth(),0,ScoreBarWidth(),1)); // draw score bar
 			
 		
 		
