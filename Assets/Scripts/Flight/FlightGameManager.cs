@@ -43,7 +43,7 @@ public class FlightGameManager : GameManager {
 		flightGUI = GetComponent<FlightGUI>();
 		dragon = dragonObject.GetComponent<Dragon>();
 		worldBounds.extents = new Vector3(worldBounds.extents.x * camera.aspect, 1, worldBounds.extents.z);
-		backgroundPlane.transform.localScale = worldBounds.extents / 5;
+		backgroundPlane.transform.localScale = new Vector3(camera.aspect, 1,1);
 		
 		fairyDelay = Random.Range(fairyDelayMin, fairyDelayMax);
 	}
