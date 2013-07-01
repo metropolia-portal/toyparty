@@ -10,7 +10,6 @@ public class TutorialGUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		string name1 = MainMenuGUI.selectedGameName+"_level_"+MainMenuGUI.currentLevel;
-		Debug.LogWarning("name: " + name);
 		Background = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
 		PlayButton = (Texture)Resources.Load("MenuCommon/play_" + MainMenuGUI.selectedGameName);
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
