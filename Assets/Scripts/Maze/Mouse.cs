@@ -14,7 +14,7 @@ public class Mouse : MonoBehaviour {
 	float speedModifier = 1;
 	bool controlsEnabled = true;
 	Vector3 savedVelocity;
-	Transform model;
+	public Transform model;
 
 	// Use this for initialization
 	void Start () {
