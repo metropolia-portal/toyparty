@@ -21,6 +21,7 @@ public class MazeGameManager : GameManager {
 	
 	public void OnTrap() {
 		life --;
+		GetComponent<ScoreGUI>().SetMaxMedals(life);
 	}
 	
 	// Use this for initialization
@@ -40,12 +41,6 @@ public class MazeGameManager : GameManager {
 		if (IsGameRunning()) {
 						if (life <= 0) 
 			{
-				int totalScore = pickupManager.TotalScore();
-				
-				if (totalScore < bronzeMedalScore) SetMedal(Medal.None);
-				else if (totalScore < silverMedalScore) SetMedal(Medal.Bronze);
-				else if (totalScore < goldMedalScore) SetMedal(Medal.Silver);
-				else SetMedal(Medal.Gold);
 				
 				EndGame();
 				
@@ -58,6 +53,22 @@ public class MazeGameManager : GameManager {
 
 			
 		}
+		
+	}
+	
+	public void OnExit() {
+		int result = 0;
+		int score = pickupManager.TotalScore();
+				if (score > bronzeMedalScore) result = 1;
+				if (score > silverMedalScore) result = 2;
+				if (score > goldMedalScore) result = 3;
+				if (result > life) result = life;
+				
+				if (result == 3) SetMedal(Medal.Gold);
+				else if (result == 2) SetMedal(Medal.Silver);
+				else if (result == 1) SetMedal(Medal.Bronze);
+				else if (result == 0) SetMedal(Medal.None);
+				EndGame ();
 		
 	}
 	

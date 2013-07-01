@@ -45,11 +45,11 @@ public class DropsGameManager : GameManager {
 			scoreGUI.setTimer(Mathf.Floor(timeLeft));
 			GUITimer.text = Mathf.Floor(timeLeft).ToString();
 			if (timeLeft <= 0) {
-				int result = (int)Mathf.Floor(3f*score / maxScore);
-				Debug.Log(result);
+				int result = 0;
+				if (score > bronzeMedalScore) result = 1;
+				if (score > silverMedalScore) result = 2;
+				if (score > goldMedalScore) result = 3;
 				if (result > medals) result = medals;
-				
-				
 				
 				if (result == 3) SetMedal(Medal.Gold);
 				else if (result == 2) SetMedal(Medal.Silver);

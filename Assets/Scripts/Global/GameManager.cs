@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour {
 		SetGameState(GameState.Over);
 		Time.timeScale = 0;
 	}
+	
+
 
 
 }
