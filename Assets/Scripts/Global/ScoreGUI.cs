@@ -32,6 +32,7 @@ public class ScoreGUI : MonoBehaviour {
 		bronzeScore = bronze;
 		silverScore = silver;
 		goldScore = gold;
+		maxScore = goldScore;
 	}
 	
 	public void setTimer(float t) {
@@ -79,7 +80,7 @@ public class ScoreGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if (!gameManager.IsGameRunning()) return;
+		if (!(gameManager.IsGameRunning() || gameManager.GetGameState() == GameManager.GameState.Pregame )) return;
 		/*
 		if (timerEnabled) {
 			float t = 0.1f*Mathf.Floor(10*timer/maxTimer);

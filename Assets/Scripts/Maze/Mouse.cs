@@ -4,12 +4,11 @@ using System.Collections;
 public class Mouse : MonoBehaviour {
 	
 	
-	public float windupAtStart = 30;
 	public InputManager inputManager;
 	
 	float rotSpeed = 10;
 	
-	float windupLeft;
+
 		
 	public float defaultSpeed = 0.5f;
 	float speedModifier = 1;
@@ -19,15 +18,13 @@ public class Mouse : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		windupLeft = windupAtStart;
+
 		model = transform.Find("MouseModel").transform;
 		EnableControls();
 		speedModifier = 1;
 	}
 	
-	public float GetWindupLeft() {
-		return windupLeft;
-	}
+
 	
 	public void SetSpeedModifier(float m) {
 		speedModifier = m;
@@ -49,7 +46,7 @@ public class Mouse : MonoBehaviour {
 		
 		Vector3 planarVelocity;
 		
-		windupLeft -= Time.deltaTime;
+
 	
 		if (controlsEnabled) {
 			rigidbody.velocity = new Vector3 (inputManager.GetAcceleration().x*speed,0,inputManager.GetAcceleration().y*speed);

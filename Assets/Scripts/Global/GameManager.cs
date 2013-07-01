@@ -4,6 +4,8 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 	
 	public bool isLastLevel = true;
+	public int currentLevel = 1;
+	public string gameName;
 	
 	public enum GameState { Pregame, Running, Paused, Over };
 	public enum Medal { None, Bronze, Silver, Gold };
@@ -15,6 +17,11 @@ public class GameManager : MonoBehaviour {
 	public int bronzeMedalScore = 30;
 	public int silverMedalScore = 60;
 	public int goldMedalScore = 90;
+	
+	public void Awake() {		
+		MainMenuGUI.selectedGameName = gameName;
+		MainMenuGUI.currentLevel = currentLevel;
+	}
 	
 	
 	// Use this for initialization

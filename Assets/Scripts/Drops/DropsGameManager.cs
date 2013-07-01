@@ -10,7 +10,7 @@ public class DropsGameManager : GameManager {
 	public Camera camera;
 	public GameObject background;
 	public float maxDistanceFromCenter;
-	public int currentLevel;
+
 	
 	int toyScore = 5;
 	int maxScore = 100;
@@ -21,8 +21,7 @@ public class DropsGameManager : GameManager {
 	
 	// Use this for initialization
 	void Start () {
-		MainMenuGUI.selectedGameName = "grab";
-		MainMenuGUI.currentLevel = currentLevel;
+		
 		maxDistanceFromCenter *= camera.aspect;
 		background.transform.localScale = new Vector3(camera.aspect, 1, 1);
 		base.Start();
