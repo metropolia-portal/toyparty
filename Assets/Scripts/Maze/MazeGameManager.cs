@@ -31,10 +31,12 @@ public class MazeGameManager : GameManager {
 		ResumeGame();
 		cameraBoundsHalfWidth = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(Screen.width,0,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).x) / 2;
 		cameraBoundsHalfHeight = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(0,Screen.height,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).z) / 2;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		
 		
 		
