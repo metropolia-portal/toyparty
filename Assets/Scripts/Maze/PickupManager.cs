@@ -20,6 +20,7 @@ public class PickupManager : MonoBehaviour {
 			statusText.text += pickup.type + " x" + pickup.count.ToString() + "\n";
 		}
 		statusText.text += "--------------\nTotal score: "+TotalScore().ToString();
+		GetComponent<ScoreGUI>().SetScore(TotalScore());
 	}
 	
 	public int TotalScore() {

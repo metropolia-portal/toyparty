@@ -9,9 +9,9 @@ public class MazeGameManager : GameManager {
 	public Camera cam;
 	public Bounds cameraBounds;
 	public InputManager inputManager;
-	public int BronzeMedalScore;
-	public int SilverMedalScore;
-	public int GoldMedalScore;
+	
+	public int life = 3;
+
 	PickupManager pickupManager;
 
 	
@@ -19,8 +19,14 @@ public class MazeGameManager : GameManager {
 	float cameraBoundsHalfHeight;
 	
 	
+	public void OnTrap() {
+		life --;
+		GetComponent<ScoreGUI>().SetMaxMedals(life);
+	}
+	
 	// Use this for initialization
 	void Start () {
+		GetComponent<ScoreGUI>().SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 		pickupManager = GetComponent<PickupManager>();
 		ResumeGame();
 		cameraBoundsHalfWidth = Mathf.Abs((cam.camera.ScreenToWorldPoint(new Vector3(Screen.width,0,1)) - cam.camera.ScreenToWorldPoint(Vector3.up)).x) / 2;
@@ -33,16 +39,8 @@ public class MazeGameManager : GameManager {
 		
 		
 		if (IsGameRunning()) {
-			
-			statusLine.text = GetTimeLeft().ToString();			
-			if (GetTimeLeft() <= 0) 
+						if (life <= 0) 
 			{
-				int totalScore = pickupManager.TotalScore();
-				
-				if (totalScore < BronzeMedalScore) SetMedal(Medal.None);
-				else if (totalScore < SilverMedalScore) SetMedal(Medal.Bronze);
-				else if (totalScore < GoldMedalScore) SetMedal(Medal.Silver);
-				else SetMedal(Medal.Gold);
 				
 				EndGame();
 				
@@ -58,10 +56,20 @@ public class MazeGameManager : GameManager {
 		
 	}
 	
-
-	
-	public int GetTimeLeft() {
-		return (int)Mathf.Floor (mouse.GetComponent<Mouse>().GetWindupLeft());
+	public void OnExit() {
+		int result = 0;
+		int score = pickupManager.TotalScore();
+				if (score > bronzeMedalScore) result = 1;
+				if (score > silverMedalScore) result = 2;
+				if (score > goldMedalScore) result = 3;
+				if (result > life) result = life;
+				
+				if (result == 3) SetMedal(Medal.Gold);
+				else if (result == 2) SetMedal(Medal.Silver);
+				else if (result == 1) SetMedal(Medal.Bronze);
+				else if (result == 0) SetMedal(Medal.None);
+				EndGame ();
+		
 	}
 	
 

@@ -16,6 +16,9 @@ public class FlipsGameManager : GameManager {
 	int cardsGuessed = 0;
 	int flips = 0;
 	
+	float endGameTimer = -1;
+	bool doEndGame = false;
+	
 	
 	
 	// Use this for initialization
@@ -44,6 +47,13 @@ public class FlipsGameManager : GameManager {
 		}
 		
 		if (GetGameState() == GameState.Running) {
+			
+			if (doEndGame) {
+				endGameTimer -= Time.deltaTime;
+				if (endGameTimer <= 0) {
+					EndGame();
+				}
+			}
 			
 			if (inputManager.IsEscapeButtonDown()) PauseGame();
 
@@ -77,7 +87,8 @@ public class FlipsGameManager : GameManager {
 							else if (GetSuccessRatio()<0.3f) SetMedal(Medal.Bronze);
 							else if (GetSuccessRatio()<0.6f) SetMedal(Medal.Silver);
 							else SetMedal(Medal.Gold);
-							EndGame();
+							endGameTimer = 1;
+							doEndGame = true;
 							return;
 						}
 					}else{
@@ -126,9 +137,9 @@ public class FlipsGameManager : GameManager {
 			case GameState.Running:
 				statusLine.text = "Accuracy so far: ";
 				if (flips > 1)
-					statusLine.text += (Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"%";
+					GetComponent<ScoreGUI>().SetScore((int)Mathf.Ceil(GetSuccessRatio()*100));
 				else
-					statusLine.text += "N/A";
+					GetComponent<ScoreGUI>().SetScore(0);
 			break;
 			case GameState.Over:
 				statusLine.text = ("Victory! "+Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy";
