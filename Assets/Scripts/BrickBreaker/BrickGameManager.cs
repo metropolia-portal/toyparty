@@ -8,10 +8,10 @@ public class BrickGameManager : GameManager
 	public int levelId = 1;
 	//public int shinyBricksGoal = 3;
 	
-	int maxScore = 3000;
-	int goldScore = 2000;
-	int silverScore = 1000;
-	int bronzeScore = 500;
+//	int maxScore = 3000;
+//	int goldScore = 2000;
+//	int silverScore = 1000;
+//	int bronzeScore = 500;
 	
 	public float timeToComplete = 30f; //time in which you have to complete the level
 	//TODO synchronize with other time game, put in super class
@@ -60,8 +60,7 @@ public class BrickGameManager : GameManager
 		scoreGUI = GetComponent<ScoreGUI>();
 		//scoreGUI.SetMaxScore(maxScore);
 		scoreGUI.setMaxTimer((int)timeToComplete);
-		scoreGUI.SetMaxScore(maxScore);
-		scoreGUI.SetMedalRequirements(bronzeScore, silverScore, goldScore);
+		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 		
 		bricksToNextPickup = Random.Range(powerUpSpawnRangeMin, powerUpSpawnRangeMax);
 		RecalculateBrickCount(); // Count the number of bricks at the start of the game
@@ -198,11 +197,11 @@ public class BrickGameManager : GameManager
 		//determinde the medal deserved, none for defeat
 		
 		int score = gameScore.GetScore();
-		if (score >= goldScore && spheres == 3) // we loose if any shiny bricks left or no spheres left
+		if (score >= goldMedalScore && spheres == 3) // we loose if any shiny bricks left or no spheres left
 			medal = Medal.Gold;
-		else if (score >= silverScore && spheres >= 2)
+		else if (score >= silverMedalScore && spheres >= 2)
 			medal = Medal.Silver; // The game ends in victory when there are no bricks left	
-		else if (score >= bronzeScore && spheres >= 1) 
+		else if (score >= bronzeMedalScore && spheres >= 1) 
 			medal = Medal.Silver;
 		else
 			medal = Medal.None;
