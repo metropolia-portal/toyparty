@@ -2,10 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class ScoreManager : MonoBehaviour {
-	public float comboMaxDeltaTime = 2f; //Max delta time between brick hits to keep the combo mode
-	public int sphereLeftScore = 200; //extra score per each saved life
-	public int secondLeftScore = 100; //extra score per each second left to finish the level
-	public int noBricksScore = 10000; //extra score granted for destruction of all bricks
+	
+	public AudioClip comboSound;
+	
+	public float comboMaxDeltaTime = 1f; //Max delta time between brick hits to keep the combo mode
+	//public int sphereLeftScore = 200; //extra score per each saved life
+	//public int secondLeftScore = 100; //extra score per each second left to finish the level
 	
 	public GameObject floatingScoreTextPrefab;
 
@@ -23,6 +25,7 @@ public class ScoreManager : MonoBehaviour {
 	
 	public void AddScore(int score) {
 		this.score += score;	
+		GameObject.Find("GameManager").GetComponent<ScoreGUI>().SetScore(this.score);
 	}
 	
 	public void OnSphereScore(int hitScore) {
@@ -38,10 +41,10 @@ public class ScoreManager : MonoBehaviour {
 	}
 	
 	
-	public void AddFinalScore(int spheres, int bricks, float time) {
-		AddScore(spheres * sphereLeftScore + (int)time * secondLeftScore);
-		if (bricks==0) AddScore(noBricksScore);
-	}
+//	public void AddFinalScore(int spheres, int bricks, float time) {
+//		AddScore(spheres * sphereLeftScore + (int)time * secondLeftScore);
+//		//if (bricks==0) AddScore(noBricksScore);
+//	}
 	
 	public void ShowFloatingScore( int score, Vector3 position) {
 		GameObject obj = (GameObject)Instantiate (floatingScoreTextPrefab, position, Quaternion.identity);
@@ -54,9 +57,11 @@ public class ScoreManager : MonoBehaviour {
 	
 	void ReleaseComboScore() {
 		
+		
 		if(comboMultiplier > 1) {
 			//print ("Combo! +" + comboScore);
 			AddScore(comboScore);
+			Camera.main.audio.PlayOneShot(comboSound);
 		}
 		
 		comboMultiplier = 0;

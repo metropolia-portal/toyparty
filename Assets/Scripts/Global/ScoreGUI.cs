@@ -40,6 +40,7 @@ public class ScoreGUI : MonoBehaviour {
 		if (timer<0) timer = 0;
 	}
 	
+	//TODO fix to Set convention
 	public void setMaxTimer(int t) {
 		maxTimer = t;
 	}
@@ -81,13 +82,13 @@ public class ScoreGUI : MonoBehaviour {
 	
 	void OnGUI() {
 		if (!(gameManager.IsGameRunning() || gameManager.GetGameState() == GameManager.GameState.Pregame )) return;
-		/*
+		
 		if (timerEnabled) {
 			float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
 			GUI.depth = 1;
-			GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10 - paddingLeft, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
+			GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
 				new Rect(t,0,0.1f,1)); // draw timer
-		}*/
+		}
 		
 		
 		

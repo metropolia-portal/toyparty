@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Brick : MonoBehaviour {	
-	
-	public int score = 100;//score for destroying the brick
+		
+    public int score = 10;//score for destroying the brick
 	
 	protected BrickGameManager manager;
 	protected ScoreManager gameScore;
