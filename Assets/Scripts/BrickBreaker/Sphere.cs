@@ -4,7 +4,12 @@ using System.Collections;
 public abstract class Sphere : MonoBehaviour {
 
 	// The sphere moves in 2d space at a constant speed
-	public float speed = 20;	
+	public float speed = 3;
+#if UNITY_EDITOR
+	public float testingSpeed = 10;
+#endif
+	public bool testingEnabled = true;
+	
 	public float velocityFixZRation = 0.1f;// Fixes the speed by changing z pos by velocityFixZRation*speed
 	
 	//TODO move it to Main Sphere
@@ -31,6 +36,9 @@ public abstract class Sphere : MonoBehaviour {
 	}
 	
 	protected virtual void Start() {
+#if UNITY_EDITOR
+		if(testingEnabled) speed = testingSpeed;
+#endif		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 	}
 	
