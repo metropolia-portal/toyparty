@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class FairyMovementTwo : MonoBehaviour {
+	public bool shooting = true;
 	float movementDuration = 4;
 	float decelerationTime = 1; 
 	float sidewaysSpeed = 0.5f;
@@ -9,6 +10,10 @@ public class FairyMovementTwo : MonoBehaviour {
 	float idleTime = 1;
 	float speed;
 	float deceleration = 1;
+	float bulletDelay = 1;
+	float bulletDelayRemaining;
+	public GameObject bulletPrefab;
+	
 	public float turnAngle = -70;
 	int movementState = 0;
 	Vector3 direction;
@@ -16,6 +21,13 @@ public class FairyMovementTwo : MonoBehaviour {
 	
 	
 	void FixedUpdate() {
+		if ((movementState != 0)&& shooting) {
+			bulletDelayRemaining -= Time.fixedDeltaTime;
+			if (bulletDelayRemaining < 0) {
+				bulletDelayRemaining = bulletDelay;
+				Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+			}
+		}
 		switch (movementState) {
 		case 0:
 			transform.position += speed * direction * Time.fixedDeltaTime;
@@ -26,6 +38,7 @@ public class FairyMovementTwo : MonoBehaviour {
 			if (movementDuration < 0) { 
 				movementState ++;
 				((GameObject)Instantiate(balls, transform.position, Quaternion.identity)).GetComponent<FairyBalls>().SetParent(transform);
+				bulletDelayRemaining = bulletDelay;
 			}
 			break;
 		case 1:

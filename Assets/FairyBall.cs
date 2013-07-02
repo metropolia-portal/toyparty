@@ -2,7 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class FairyBall : MonoBehaviour {
-	
+	public GameObject bulletPrefab;
+	public bool shooting = false;
+	float bulletDelay = 2;
+	float bulletDelayRemaining;
 	float hiddenTime = 0;
 	int movementState = 0;
 	float distance = 0;
@@ -15,6 +18,13 @@ public class FairyBall : MonoBehaviour {
 	GameObject model;
 	
 	void FixedUpdate() {
+		if ((movementState == 2)&& shooting) {
+			bulletDelayRemaining -= Time.fixedDeltaTime;
+			if (bulletDelayRemaining < 0) {
+				bulletDelayRemaining = bulletDelay;
+				Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+			}
+		}		
 		angle += Time.fixedDeltaTime * spinSpeed;
 		if (angle>360) angle -= 360;
 		transform.position = transform.parent.position + Quaternion.Euler(0,angle,0)*(Vector3.left*distance);
@@ -42,13 +52,16 @@ public class FairyBall : MonoBehaviour {
 	
 		
 	void OnTriggerEnter(Collider other) {
+		
 //		Debug.Log(other.tag);
 		if (other.CompareTag("PlayerBullet")) {
+			if (movementState < 2) return;
 			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();
 		} else if (other.CompareTag("Bomb")) {
 			Damage(15);
 		} else if (other.CompareTag("Player")) {
+			if (movementState < 1) return;
 			gameManager.PlayerDamage(1);
 			Damage (10);
 		}
