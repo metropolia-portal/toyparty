@@ -9,6 +9,7 @@ public class MazeGameManager : GameManager {
 	public Camera cam;
 	public Bounds cameraBounds;
 	public InputManager inputManager;
+
 	
 	public int life = 3;
 
@@ -57,6 +58,8 @@ public class MazeGameManager : GameManager {
 		}
 		
 	}
+	
+
 	
 	public void OnExit() {
 		int result = 0;

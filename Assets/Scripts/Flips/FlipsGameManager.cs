@@ -19,6 +19,8 @@ public class FlipsGameManager : GameManager {
 	float endGameTimer = -1;
 	bool doEndGame = false;
 	
+	public Texture2D catTextureNormal;	
+	
 	
 	
 	// Use this for initialization
@@ -116,6 +118,10 @@ public class FlipsGameManager : GameManager {
 			card = cardBack.transform.parent.GetComponent<Card>();
 			if (card.IsFaceDown()) card.Rotate();
 		}
+	}
+	
+	public void OnGUI() {
+		if (IsGameRunning() || GetGameState() == GameManager.GameState.Pregame) GUI.DrawTexture(new Rect(0,2*Screen.height/6, Screen.height/3, 2*Screen.height/3), catTextureNormal);
 	}
 	
 	public void HideAllCards() {
