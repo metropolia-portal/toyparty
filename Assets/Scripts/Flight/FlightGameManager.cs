@@ -35,6 +35,10 @@ public class FlightGameManager : GameManager {
 		return !worldBounds.Contains(pos);
 	}
 	
+	public Dragon GetDragon() {
+		return dragon;
+	}
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -74,6 +78,7 @@ public class FlightGameManager : GameManager {
 	}
 	
 	void GenerateEnemies() {
+		return;
 		fairyDelay -= Time.fixedDeltaTime;
 		if (fairyDelay < 0) {
 			fairyDelay = Random.Range(fairyDelayMin, fairyDelayMax);
