@@ -3,14 +3,15 @@ using System.Collections;
 
 public class FairyBall : MonoBehaviour {
 	
-	float hiddenTime = 1;
+	float hiddenTime = 0;
 	int movementState = 0;
 	float distance = 0;
 	float speed = 1;
 	float maxDistance = 1;
 	public float angle = 0;
 	float spinSpeed = 60;
-	
+	FlightGameManager gameManager;
+	int life = 1;
 	GameObject model;
 	
 	void FixedUpdate() {
@@ -39,8 +40,36 @@ public class FairyBall : MonoBehaviour {
 		}
 	}
 	
+		
+	void OnTriggerEnter(Collider other) {
+//		Debug.Log(other.tag);
+		if (other.CompareTag("PlayerBullet")) {
+			Damage(1);
+			other.GetComponent<FlightPlayerBullet>().Damage();
+		} else if (other.CompareTag("Bomb")) {
+			Damage(15);
+		} else if (other.CompareTag("Player")) {
+			gameManager.PlayerDamage(1);
+			Damage (10);
+		}
+		
+	}
+	
+	void Damage(int d) {
+		life -= d;
+		if (life<=0) {
+			Death();
+		}
+	}
+	
+	void Death() {
+
+		Destroy(gameObject);
+	}	
+	
 	// Use this for initialization
 	void Start () {
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
 		model = transform.FindChild("Plane").gameObject;
 		model.SetActive(false);
 	}

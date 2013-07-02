@@ -15,7 +15,7 @@ public class Fairy : MonoBehaviour {
 	
 	
 	void OnTriggerEnter(Collider other) {
-		Debug.Log(other.tag);
+		//Debug.Log(other.tag);
 		if (other.CompareTag("PlayerBullet")) {
 			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();

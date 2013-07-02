@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class FairyMovementTwo : MonoBehaviour {
-	float movementDuration = 2;
+	float movementDuration = 4;
 	float decelerationTime = 1; 
 	float sidewaysSpeed = 0.5f;
 	float forwardSpeed = 1;
@@ -12,6 +12,7 @@ public class FairyMovementTwo : MonoBehaviour {
 	public float turnAngle = -70;
 	int movementState = 0;
 	Vector3 direction;
+	public GameObject balls;
 	
 	
 	void FixedUpdate() {
@@ -22,7 +23,10 @@ public class FairyMovementTwo : MonoBehaviour {
 			if (movementDuration < decelerationTime)
 				speed -= Time.fixedDeltaTime * deceleration;
 			if (speed < 0) speed = 0;
-			if (movementDuration < 0) movementState ++;
+			if (movementDuration < 0) { 
+				movementState ++;
+				((GameObject)Instantiate(balls, transform.position, Quaternion.identity)).GetComponent<FairyBalls>().SetParent(transform);
+			}
 			break;
 		case 1:
 			idleTime -= Time.fixedDeltaTime;
