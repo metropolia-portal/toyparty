@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
+	static InputManager instance = null;
 	
 	Vector3 acceleration;
 	Vector2 cursorPosition;
@@ -22,8 +23,15 @@ public class InputManager : MonoBehaviour {
 	
 	bool tapDown = false;
 	
+	//we have only one instance each game
+	static public InputManager Instance() {
+		return instance;
+	}
+	
 	// Use this for initialization
 	void Start () {
+		instance = this;
+		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		cursorPosition = new Vector2(0,0);
 	}
