@@ -99,6 +99,12 @@ public class InputManager : MonoBehaviour {
 		return acceleration;
 	}
 	
+	//returns true if mouse left button is hold, or touch is hold
+	public bool IsCursorButtonDown() {
+		return isButtonDown;
+	}
+	
+	//TODO Depricated, does not do what it says, rename it, and use smth else
 	public bool IsButtonDown() {
 		//TODO fix so that more that one can use this, it resets!
         if (isButtonDown) {
