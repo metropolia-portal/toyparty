@@ -7,10 +7,22 @@ public class LineBrush : Brush {
 	public PhysicMaterial blockPhysicsMaterial;
 	public PhysicMaterial colliderMeshMaterial;
 	
+	public GameObject trailRendererPrefub;
+	
+	override protected void StartDraw(Vector2 pos) {
+		base.StartDraw(pos);
+		
+		trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
+	}
+	
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
 		createBox(toVector3(from), toVector3(to));
 		createBoxWithoutFrontSide(toVector3(from), toVector3(to));
+		
+		trailRenderer.transform.position = to;
 	}
+	
+	
 	
 	Vector3 toVector3(Vector2 vec) {
 		return new Vector3(vec.x, vec.y);	
@@ -18,8 +30,8 @@ public class LineBrush : Brush {
 	
 	void createBoxWithoutFrontSide (Vector3 p1, Vector3 p2)
 	{	
-		GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		cube.transform.position = p1;
+//		GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+//		cube.transform.position = p1;
 		//TODO: recalculate border. Add one more side.
 		// 
 		Vector3 topLeftFront = p1;
@@ -165,4 +177,6 @@ public class LineBrush : Brush {
 		
 		//go.transform.parent = GameObject.Find ("UserMeshes").transform;
 	}
+	
+	GameObject trailRenderer;
 }
