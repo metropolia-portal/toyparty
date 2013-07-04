@@ -14,7 +14,7 @@ public class FairyBall : MonoBehaviour {
 	public float angle = 0;
 	float spinSpeed = 60;
 	FlightGameManager gameManager;
-	int life = 1;
+	public int life = 1;
 	GameObject model;
 	
 	void FixedUpdate() {
@@ -56,8 +56,9 @@ public class FairyBall : MonoBehaviour {
 //		Debug.Log(other.tag);
 		if (other.CompareTag("PlayerBullet")) {
 			if (movementState < 2) return;
-			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();
+			Damage(1);
+			
 		} else if (other.CompareTag("Bomb")) {
 			Damage(15);
 		} else if (other.CompareTag("Player")) {
