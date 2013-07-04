@@ -9,10 +9,20 @@ public class LineBrush : Brush {
 	
 	public GameObject trailRendererPrefub;
 	
+	public GameObject linesContainer;
+	
+	int lineCount = 0;
+	GameObject lineContainer;
+	
 	override protected void StartDraw(Vector2 pos) {
 		base.StartDraw(pos);
 		
+		lineCount++;
+		lineContainer = new GameObject("Line"+lineCount.ToString());
+		lineContainer.transform.parent = linesContainer.transform;
+		
 		trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
+		trailRenderer.transform.parent = lineContainer.transform;
 	}
 	
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
@@ -175,7 +185,7 @@ public class LineBrush : Brush {
 			go.GetComponent<MeshCollider> ().material = blockPhysicsMaterial;	
 		go.GetComponent<MeshCollider> ().material  = colliderMeshMaterial;
 		
-		//go.transform.parent = GameObject.Find ("UserMeshes").transform;
+		go.transform.parent = lineContainer.transform;
 	}
 	
 	GameObject trailRenderer;
