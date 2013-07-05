@@ -147,6 +147,8 @@ public class FlightGUI : MonoBehaviour {
 	
 	void OnGUI() {
 		
+#if UNITY_ANDROID || UNITY_IOS
+		
 		if (!gameManager.IsGameRunning()) return;
 		
 		Color transparent = new Color(1,1,1,0.5f);
@@ -174,5 +176,6 @@ public class FlightGUI : MonoBehaviour {
 		else
 			GUI.color = transparent;
 		GUI.DrawTexture(new Rect(buttonBCenter.x - buttonBRadius, buttonBCenter.y - buttonBRadius, buttonBRadius*2, buttonBRadius*2), buttonBTexture);
+#endif
 	}
 }

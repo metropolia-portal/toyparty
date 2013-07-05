@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelGenerator : MonoBehaviour {
 	
 	public GameObject cardPrefab;
-	public int colCount = 3;
+	public int colCount = 4;
 	public int rowCount = 2;
 	public float cardDist = 0;
 	public Material[] textures; // List of materials for each available card suit

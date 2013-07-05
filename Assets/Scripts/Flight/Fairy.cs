@@ -7,18 +7,15 @@ public class Fairy : MonoBehaviour {
 	public GameObject[] powerups;
 	public float powerupChance = 0.01f;
 	
-	float speed = 1f;
+
 	
 	FlightGameManager gameManager;
 	
-	void FixedUpdate() {
-		transform.position += Vector3.left * Time.fixedDeltaTime * speed;
-		if (gameManager.IsOutside(transform.position)) Destroy(gameObject);
-	}
+
 	
 	
 	void OnTriggerEnter(Collider other) {
-		Debug.Log(other.tag);
+		//Debug.Log(other.tag);
 		if (other.CompareTag("PlayerBullet")) {
 			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();
@@ -38,6 +35,10 @@ public class Fairy : MonoBehaviour {
 		}
 	}
 	
+	void FixedUpdate() {
+		if (gameManager.IsOutside(transform.position*0.3f)) Destroy(gameObject);
+	}
+	
 	void Death() {
 		if (Random.Range(0f,1f)<powerupChance) {
 			Instantiate(powerups[Random.Range(0, powerups.Length)], transform.position, Quaternion.identity);
@@ -48,6 +49,7 @@ public class Fairy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
+		transform.position = new Vector3(transform.position.x*gameManager.camera.aspect,transform.position.y,transform.position.z);
 	}
 	
 	// Update is called once per frame
