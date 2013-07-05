@@ -77,7 +77,7 @@ public class FairyBall : MonoBehaviour {
 	}
 	
 	void Death() {
-
+		gameManager.OnFairyDeath(1);
 		Destroy(gameObject);
 	}	
 	
