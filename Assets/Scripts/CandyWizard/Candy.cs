@@ -8,6 +8,13 @@ public class Candy : MonoBehaviour {
 		rigidbody.useGravity = true;
 	}
 	
+	void OnTriggerEnter(Collider collider) {
+		if(collider.CompareTag("Star")) {
+			collider.gameObject.SetActive(false);
+			CandyWizardGameManager.Instance().OnStarCollected();
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
 	
