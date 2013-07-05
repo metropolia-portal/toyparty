@@ -7,6 +7,8 @@ public class InGameMenuGUI : MonoBehaviour {
 	Texture Restart, PlayButton, MainMenuButton, PauseButton, PauseMenu;
 	GUIStyle NoStyle = new GUIStyle();
 	public Texture gameTitleTexture;
+	Texture medalTexture;
+	Texture pauseTexture;
 	float Margin = Screen.width/45;
 	float aspect = 0.0f;
 	GameObject pauseBackground;
@@ -22,7 +24,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		Restart = (Texture)Resources.Load("PauseMenu/replay_" + MainMenuGUI.selectedGameName);
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
 		pauseBackground = (GameObject)Resources.Load("PauseMenu/pause_background");
-		
+		pauseTexture = (Texture)Resources.Load("PauseMenu/pause_menu");
 		aspect = (float)Screen.width / Screen.height;
 		pauseBackground =	((GameObject)Instantiate (pauseBackground));
 		pauseBackground.SetActive(false);
@@ -42,34 +44,43 @@ public class InGameMenuGUI : MonoBehaviour {
 		// While the game is in progress, only display the pause button
 		if ((gameManager.GetGameState() == GameManager.GameState.Running)||(gameManager.GetGameState() == GameManager.GameState.Pregame)) {
 			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, (Screen.width/10), (Screen.width/10)), PauseButton, NoStyle)) {
+				
+				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
 				gameManager.PauseGame();
-				DisplayPause();
+				//DisplayPause();
 			}
+			
 		} else {
-			switch (gameManager.GetGameState()) {
-			case GameManager.GameState.Paused: message = "GAME PAUSED"; break;
-			case GameManager.GameState.Over:
-					switch (gameManager.GetMedal()) {
-					case GameManager.Medal.None: message = "YOU LOST"; 
-					medalWon = "none";
+				Texture medal;
+				switch (gameManager.GetGameState()) {
+				case GameManager.GameState.Paused: message = "GAME PAUSED"; break;
+				case GameManager.GameState.Over:
+						switch (gameManager.GetMedal()) {
+						case GameManager.Medal.None: message = "YOU LOST"; 
+						medalWon = "loss";
+						medal =DisplayMedal();
+						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+						break;
+						case GameManager.Medal.Bronze: message = "Bronze medal. Stage clear.";
+						medalWon = "bronze";
+						medal =DisplayMedal();
+						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+						break;
+						case GameManager.Medal.Silver: message = "Silver medal. Good job.";
+						medalWon = "silver";
+						medal =DisplayMedal();
+						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+						break;
+						case GameManager.Medal.Gold: message = "Gold medal. Garts.";
+						medalWon = "gold";
+						medal =DisplayMedal();
+						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+						break;
+						}	
 					break;
-					case GameManager.Medal.Bronze: message = "Bronze medal. Stage clear.";
-					medalWon = "bronze";
-					DisplayMedal();
-					break;
-					case GameManager.Medal.Silver: message = "Silver medal. Good job.";
-					medalWon = "silver";
-					DisplayMedal();
-					break;
-					case GameManager.Medal.Gold: message = "Gold medal. Garts.";
-					medalWon = "gold";
-					DisplayMedal();
-					break;
-					}	
-				break;
 			}
 		
-			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
+			//GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
 			
 
 			if (GUI.Button(new Rect(16, Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), MainMenuButton, NoStyle)) {
@@ -93,7 +104,6 @@ public class InGameMenuGUI : MonoBehaviour {
 					pauseBackground.SetActive(false);
 				}
 				if ((gameManager.GetGameState() == GameManager.GameState.Over)){
-					medalScreen.SetActive(false);
 					gameManager.GoToNextLevel();
 				}
 
@@ -108,31 +118,18 @@ public class InGameMenuGUI : MonoBehaviour {
 	}
 	
 	void DisplayPause(){
-		
-		if(aspect >= 1.24f && aspect <= 1.25f){ // 5/4 aspect ratio
 			
-			pauseBackground.SetActive(true);
-		}
-		else if(aspect >= 1.33f && aspect <= 1.34f){ // 4/3 aspect ratio
-				
-			pauseBackground.SetActive(true);
-		}
-		else if(aspect >= 1.49f && aspect <= 1.50f){ // 3/2 aspect ratio
+		pauseBackground.SetActive(true);
 		
-			pauseBackground.SetActive(true);	
-		}
-		else{// all other ratios
-			
-			pauseBackground.SetActive(true);	
-		}
 	}
-	void DisplayMedal(){
+	
+	Texture DisplayMedal(){
 		if(count < 1){
-			medalScreen = (GameObject)Resources.Load("MedalMenu/" + medalWon + "_screen");
-			medalScreen =	((GameObject)Instantiate (medalScreen));
-			medalScreen.SetActive(true);
+			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
 			count++;
+			return medalTexture;
 		}
+		return medalTexture;
 	}
 }
 

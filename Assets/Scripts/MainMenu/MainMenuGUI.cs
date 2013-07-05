@@ -29,8 +29,9 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	
 	Rect[] rect;
+	Rect gamePreviewButtonRect;
 	
-	Rect gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+	
 	
 	int selectedGame = -1;
 	public static int currentLevel = 1;
@@ -47,11 +48,57 @@ public class MainMenuGUI : MonoBehaviour {
 		previewTextures = new Texture[NumberOfButtons];
 		rect = new Rect[NumberOfButtons];
 		
+		
+		
+		
+		if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
+				
+				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+				
+			}
+		else if(aspect >= 1.32f && aspect <= 1.34f){ // 4/3 aspect ratio
+				
+				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+				
+			}
+		else if(aspect >= 1.49f && aspect <= 1.50f){ // 3/2 aspect ratio
+				
+				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );		
+				
+			}
+		else{// all other ratios
+				
+				gamePreviewButtonRect = new Rect(Screen.width/2 -Screen.width/3 , Screen.height/4 + Margin, Screen.width, Screen.height*4);	
+				
+			}
+		
 		//ScreenWidth -= TotalMargin;
 		ButtonWidth = ScreenWidth/NumberOfButtons;
 		
 		for (int i = 0; i < NumberOfButtons; i++) {
-			rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/45, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
+			
+			if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
+				
+				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/25, ButtonWidth - Margin*2, ButtonWidth - Margin*2);
+				
+			}
+			else if(aspect >= 1.32f && aspect <= 1.34f){ // 4/3 aspect ratio
+				
+				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/25, ButtonWidth - Margin*2, ButtonWidth - Margin*2);
+				
+			}
+			else if(aspect >= 1.49f && aspect <= 1.50f){ // 3/2 aspect ratio
+				
+				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/40, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
+				
+			}
+			else{// all other ratios
+				
+				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/55, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
+				
+			}
+			
+				
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/"+gameList[i]);
 		}
@@ -118,11 +165,11 @@ public class MainMenuGUI : MonoBehaviour {
 			
 #endif
 		}	
-		if (GUI.Button(new Rect(Margin,ScreenHeight - (ButtonWidth - Margin*2), ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameExitTexture, NoStyle)) {
+		if (GUI.Button(new Rect(Margin,ScreenHeight - (ButtonWidth - Margin*2), Screen.width/9, Screen.width/9), gameExitTexture, NoStyle)) {
 			Debug.Log("exit");
 			Application.Quit();
 		}
-		if (GUI.Button(new Rect(Screen.width -Screen.width/6 + Margin, ScreenHeight - (ButtonWidth - Margin*2) , ButtonWidth - Margin*2, ButtonWidth - Margin*2), gameCreditsTexture, NoStyle)) {
+		if (GUI.Button(new Rect(Screen.width -Screen.width/6 + Margin, ScreenHeight - (ButtonWidth - Margin*2) , Screen.width/9, Screen.width/9), gameCreditsTexture, NoStyle)) {
 			
 		}	
 	}
