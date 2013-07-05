@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour {
 	public void RestartGame() {
 		ResumeGame();
 		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
+		Debug.Log(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
 	}
 	
 	public bool IsGameRunning() {
