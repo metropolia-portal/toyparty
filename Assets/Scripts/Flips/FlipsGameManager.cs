@@ -121,7 +121,7 @@ public class FlipsGameManager : GameManager {
 	}
 	
 	public void OnGUI() {
-		if (IsGameRunning() || GetGameState() == GameManager.GameState.Pregame) GUI.DrawTexture(new Rect(0,2*Screen.height/6, Screen.height/3, 2*Screen.height/3), catTextureNormal);
+		if (IsGameRunning() || GetGameState() == GameManager.GameState.Pregame) GUI.DrawTexture(new Rect(0,1*Screen.height/2, Screen.height/3, 1*Screen.height/2), catTextureNormal);
 	}
 	
 	public void HideAllCards() {
