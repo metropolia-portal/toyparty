@@ -86,7 +86,7 @@ public class ScoreGUI : MonoBehaviour {
 		if (timerEnabled) {
 			float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
 			GUI.depth = 1;
-			GUI.DrawTextureWithTexCoords(new Rect(9*Screen.width/10, Screen.width/10, Screen.width/10, Screen.width/5), timerTexture,
+			GUI.DrawTextureWithTexCoords(new Rect(0, 0, Screen.width/20, Screen.width/10), timerTexture,
 				new Rect(t,0,0.1f,1)); // draw timer
 		}
 		
