@@ -13,6 +13,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	float aspect = 0.0f;
 	GameObject pauseBackground;
 	GameObject medalScreen;
+	AudioClip medalMusic;
 	string medalWon;
 	int count = 0;
 
@@ -25,6 +26,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
 		pauseBackground = (GameObject)Resources.Load("PauseMenu/pause_background");
 		pauseTexture = (Texture)Resources.Load("PauseMenu/pause_menu");
+		medalMusic = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		aspect = (float)Screen.width / Screen.height;
 		pauseBackground =	((GameObject)Instantiate (pauseBackground));
 		pauseBackground.SetActive(false);
@@ -45,9 +47,9 @@ public class InGameMenuGUI : MonoBehaviour {
 		if ((gameManager.GetGameState() == GameManager.GameState.Running)||(gameManager.GetGameState() == GameManager.GameState.Pregame)) {
 			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, (Screen.width/10), (Screen.width/10)), PauseButton, NoStyle)) {
 				
-				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
+				//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
 				gameManager.PauseGame();
-				//DisplayPause();
+				DisplayPause();
 			}
 			
 		} else {
@@ -127,6 +129,8 @@ public class InGameMenuGUI : MonoBehaviour {
 		if(count < 1){
 			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
 			count++;
+			audio.Stop();
+			audio.PlayOneShot(medalMusic, 0.5f);
 			return medalTexture;
 		}
 		return medalTexture;
