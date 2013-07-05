@@ -22,6 +22,7 @@ public class FairyBalls : MonoBehaviour {
 			if (ptransform != null) {
 				transform.position = ptransform.position;
 			} else {
+				GameObject.Find ("Game Manager").GetComponent<FlightGameManager>().OnFairyDeath(10);
 				Destroy(gameObject);
 			}
 		}

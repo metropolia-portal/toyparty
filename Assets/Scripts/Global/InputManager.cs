@@ -75,11 +75,11 @@ public class InputManager : MonoBehaviour {
 		accel = new Vector3(0,0,0);
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			accel += new Vector3(0,0.5f,0);
-			Debug.Log("up"+accel.ToString());
+			
 			c = true;
 		} else if (Input.GetKey(KeyCode.DownArrow)) {
 			accel -= new Vector3(0,0.5f,0);
-			Debug.Log("down"+accel.ToString());
+			
 			c = true;
 		}
 		

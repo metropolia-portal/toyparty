@@ -7,6 +7,10 @@ public class FlightGUI : MonoBehaviour {
 	public Texture2D PadHandleTexture;
 	public Texture2D buttonATexture;
 	public Texture2D buttonBTexture;
+	public Texture2D bossLifeTexture;
+	
+	float bossLife;
+	bool showBossLife = false;
 	
 	GameManager gameManager;
 	
@@ -34,6 +38,14 @@ public class FlightGUI : MonoBehaviour {
 	
 	bool buttonADown = false;
 	bool buttonBDown = false;
+	
+	public void ShowBossLife(bool show) {
+		showBossLife = show;
+	}
+	
+	public void SetBossLife(float l) {
+		bossLife = l;
+	}
 	
 	public Vector2 GetPadDirection() {
 		return padDirection;
@@ -146,13 +158,16 @@ public class FlightGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		if (!gameManager.IsGameRunning()) return;
 		
 #if UNITY_ANDROID || UNITY_IOS
 		
-		if (!gameManager.IsGameRunning()) return;
+		
 		
 		Color transparent = new Color(1,1,1,0.5f);
 		Color opaque = new Color(1,1,1,0.9f);
+		
+		
 		
 		if (padDirection.magnitude>0) 
 			GUI.color = opaque;
@@ -177,5 +192,17 @@ public class FlightGUI : MonoBehaviour {
 			GUI.color = transparent;
 		GUI.DrawTexture(new Rect(buttonBCenter.x - buttonBRadius, buttonBCenter.y - buttonBRadius, buttonBRadius*2, buttonBRadius*2), buttonBTexture);
 #endif
+		
+		
+		
+		if (showBossLife) {
+			GUI.DrawTexture(
+				new Rect(
+				Screen.width/30,
+				Screen.height/50,
+				((float)bossLife/100)*7*Screen.width/10,
+				Screen.height/20), 
+				bossLifeTexture); 
+		}
 	}
 }
