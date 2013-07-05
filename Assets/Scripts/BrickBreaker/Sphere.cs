@@ -82,6 +82,17 @@ public abstract class Sphere : MonoBehaviour {
 			OnSphereLost();
 		}
 	}
+	
+	void Update() {
+		AnimateRotate();
+	}  
+	
+	Vector3 eulerAngleVelocity = -Vector3.right * 100;
+	float rotationCoeff = Mathf.PI;
+
+	void AnimateRotate() {
+		transform.Rotate(new Vector3(rigidbody.velocity.z, 0, -rigidbody.velocity.x) * rotationCoeff,  Space.World);
+	}
 
 	//releases accumulated combo score to score manager when combo is lost
 	//100, 400, 1000, (x + box) * 2 
