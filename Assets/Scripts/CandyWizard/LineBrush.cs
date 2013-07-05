@@ -27,7 +27,7 @@ public class LineBrush : Brush {
 	
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
 		createBox(toVector3(from), toVector3(to));
-		createBoxWithoutFrontSide(toVector3(from), toVector3(to));
+		createBoxWithoutFrontSide(toVector3(to), toVector3(from));
 		
 		trailRenderer.transform.position = to;
 	}
