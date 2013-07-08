@@ -51,8 +51,8 @@ public class BrickGameManager : GameManager
 
 	void Start() {	
 		base.Start ();//do some stuff common to all games
-		MainMenuGUI.currentLevel = levelId; //TODO put this bahaviou to super class
-		MainMenuGUI.selectedGameName = "brick";
+		//MainMenuGUI.currentLevel = levelId; //TODO put this bahaviou to super class
+		//MainMenuGUI.selectedGameName = "brick";
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
