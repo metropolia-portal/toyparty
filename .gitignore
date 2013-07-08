@@ -11,4 +11,5 @@ ToyParty.userprefs
 *.sln
 
 #!!ONLY FOR CandyWizard BRANCH!!
-**/maze
+**/[mM]aze
+[mM]aze
