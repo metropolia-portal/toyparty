@@ -14,9 +14,14 @@ public class BrickGameManager : GameManager
 //	int bronzeScore = 500;
 	
 	public float timeToComplete = 30f; //time in which you have to complete the level
+	
+	public float gameFinishedDelay = 1f;
+	public float gameLooseNoSpheresDelay = 0.5f;
+	public float sphereExplosionTime = 0.5f;
 	//TODO synchronize with other time game, put in super class
 	
 	public Paddle paddle;
+	//public Sphere mainSphere;
 	
 	public Powerup[] powerups;
 		
@@ -41,6 +46,7 @@ public class BrickGameManager : GameManager
 	
 	bool firstSphereLaunched = false; //true when at least one sphere was launched
 	float firstLaunchTime = 0;
+	bool gameOver = false;
 	//bool gamePaused = false;
 	//GameState gameState = GameState.Running;
 	Medal medal = Medal.None;
@@ -54,14 +60,11 @@ public class BrickGameManager : GameManager
 
 	void Start() {	
 		base.Start ();//do some stuff common to all games
-		//MainMenuGUI.currentLevel = levelId; //TODO put this bahaviou to super class
-		//MainMenuGUI.selectedGameName = "brick";
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
 		
 		scoreGUI = GetComponent<ScoreGUI>();
-		//scoreGUI.SetMaxScore(maxScore);
 		scoreGUI.setMaxTimer((int)timeToComplete);
 		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 		
@@ -84,7 +87,6 @@ public class BrickGameManager : GameManager
 		if (powerupActive)
 			currentPowerup.OnUpdate();
 		
-	
 		if(GetRemainingTime() == 0 && gameState == GameState.Running)
 			OnGameOver();
 		
@@ -137,6 +139,9 @@ public class BrickGameManager : GameManager
 			currentPowerup.Activate();	
 		}
 		
+		if(Input.GetKeyUp(KeyCode.E))
+			OnGameOver();
+		
 		if(Input.GetKeyUp(KeyCode.P)) {
 			OnPickup();
 		}
@@ -180,11 +185,8 @@ public class BrickGameManager : GameManager
 	public void OnPickup() {
 		powerupActive = true;
 		
-		// All pickups are destroyed to prevent having muliple powerups active at the same time
-		foreach ( GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")) {
-			Destroy (pickup);
-		}
-		
+		DestroyAllPickups();
+
 		// Select a powerup at random
 		currentPowerup = powerups[Random.Range (0, powerups.Length)];
 	
@@ -192,6 +194,14 @@ public class BrickGameManager : GameManager
 		currentPowerup.Activate();
 		
 	}
+	
+	void DestroyAllPickups() {
+		// All pickups are destroyed to prevent having muliple powerups active at the same time
+		foreach ( GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")) {
+			Destroy (pickup);
+		}
+	}
+		
 	
 	// This method counts every object with the "Brick" tag
 	public void RecalculateBrickCount() {
@@ -205,8 +215,12 @@ public class BrickGameManager : GameManager
 	}
 	
 	void OnGameOver() {
+		//a safeguard to protect calling twice
+		if(gameOver) return;
+		gameOver = true;
 		//finilazing all scores, combos
 		gameScore.OnBeforeGameFinished();
+		scoreGUI.timerEnabled = false;
 		
 		int score = gameScore.GetScore();
 		//determinde the medal deserved, none for defeat
@@ -221,8 +235,27 @@ public class BrickGameManager : GameManager
 		
 		SetMedal(medal);
 		
-		
-		EndGame();
+		//do effects unless game is lost by loosing all spheres
+		if(spheres > 0) {
+			Invoke("DestroyAllPickups", 0.01f); //wait for the last pickup to be generated, then destroy all
+			
+			PlaySpheresFinishEffect();
+					
+			Invoke("EndGame", gameFinishedDelay);
+		} else
+			Invoke("EndGame", gameLooseNoSpheresDelay);
+	}
+	
+	void PlaySpheresFinishEffect() {
+		foreach(GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
+			sphere.GetComponent<Sphere>().setDirection(Vector2.zero);
+			
+		Invoke ("ExplodeSpheres", gameFinishedDelay - sphereExplosionTime );
+	}
+	
+	void ExplodeSpheres() {
+		foreach(GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
+			sphere.GetComponent<Sphere>().Explode();
 	}
 	
 	
