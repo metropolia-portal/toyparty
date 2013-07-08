@@ -102,7 +102,8 @@ public class BrickGameManager : GameManager
 	float GetRemainingTime() {
 		if(firstSphereLaunched)
 			return 	Mathf.Max(0f, timeToComplete - Time.timeSinceLevelLoad + firstLaunchTime);	
-		else return timeToComplete;
+		else 
+			return timeToComplete;
 	}
 		
 
@@ -204,9 +205,11 @@ public class BrickGameManager : GameManager
 	}
 	
 	void OnGameOver() {
-		//determinde the medal deserved, none for defeat
+		//finilazing all scores, combos
+		gameScore.OnBeforeGameFinished();
 		
 		int score = gameScore.GetScore();
+		//determinde the medal deserved, none for defeat
 		if (score >= goldMedalScore && spheres == 3) // we loose if any shiny bricks left or no spheres left
 			medal = Medal.Gold;
 		else if (score >= silverMedalScore && spheres >= 2)
@@ -216,9 +219,9 @@ public class BrickGameManager : GameManager
 		else
 			medal = Medal.None;
 		
-		//gameScore.AddFinalScore(spheres, bricksLeft, GetRemainingTime());
-		
 		SetMedal(medal);
+		
+		
 		EndGame();
 	}
 	

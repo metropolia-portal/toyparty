@@ -23,6 +23,12 @@ public class ScoreManager : MonoBehaviour {
 		ReleaseComboScore();
 	}
 	
+	//called when the game is about to finish
+	public void OnBeforeGameFinished() {
+		print("releasing combo before game finished");
+		ReleaseComboScore();
+	}
+	
 	public void AddScore(int score) {
 		this.score += score;	
 		GameObject.Find("GameManager").GetComponent<ScoreGUI>().SetScore(this.score);
