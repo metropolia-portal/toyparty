@@ -9,3 +9,6 @@ ToyParty.userprefs
 *.csproj
 *.unityproj
 *.sln
+
+#!!ONLY FOR CandyWizard BRANCH!!
+**/maze
