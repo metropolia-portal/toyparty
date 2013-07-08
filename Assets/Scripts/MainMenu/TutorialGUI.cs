@@ -29,6 +29,7 @@ public class TutorialGUI : MonoBehaviour {
 		if (GUI.Button (new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6 - 16), Screen.width/9, Screen.width/9), PlayButton, NoStyle)) {
 			Debug.LogWarning(MainMenuGUI.selectedGameName);
 			Application.LoadLevel(MainMenuGUI.selectedGameName+"_level_"+MainMenuGUI.currentLevel);
+			Camera.main.audio.Stop();
 		}
 	}
 }

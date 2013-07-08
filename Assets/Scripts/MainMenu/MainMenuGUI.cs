@@ -127,6 +127,7 @@ public class MainMenuGUI : MonoBehaviour {
 		if (selectedGame > -1 ) {
 			if (GUI.Button(gamePreviewButtonRect, previewTextures[selectedGame], NoStyle)) {
 				Application.LoadLevel("TutorialScene");
+				Camera.DontDestroyOnLoad(Camera.main.audio);
 			}
 		} else {
 			

@@ -3,19 +3,18 @@ using System.Collections;
 
 public class InGameMenuGUI : MonoBehaviour {
 	
-	GameManager gameManager;
-	Texture Restart, PlayButton, MainMenuButton, PauseButton, PauseMenu;
-	GUIStyle NoStyle = new GUIStyle();
 	public Texture gameTitleTexture;
-	Texture medalTexture;
-	Texture pauseTexture;
+	
+	GameManager gameManager;
+	Texture Restart, PlayButton, MainMenuButton, PauseButton, medalTexture, pauseTexture;
+	GUIStyle NoStyle = new GUIStyle();
+	
 	float Margin = Screen.width/45;
 	float aspect = 0.0f;
-	GameObject pauseBackground;
-	GameObject medalScreen;
 	AudioClip medalMusic;
 	string medalWon;
 	int count = 0;
+	bool isPrinting = false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,12 +23,10 @@ public class InGameMenuGUI : MonoBehaviour {
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
 		Restart = (Texture)Resources.Load("PauseMenu/replay_" + MainMenuGUI.selectedGameName);
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
-		pauseBackground = (GameObject)Resources.Load("PauseMenu/pause_background");
 		pauseTexture = (Texture)Resources.Load("PauseMenu/pause_menu");
 		medalMusic = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		aspect = (float)Screen.width / Screen.height;
-		pauseBackground =	((GameObject)Instantiate (pauseBackground));
-		pauseBackground.SetActive(false);
+		
 	}
 	
 	// Update is called once per frame
@@ -49,7 +46,10 @@ public class InGameMenuGUI : MonoBehaviour {
 				
 				//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
 				gameManager.PauseGame();
-				DisplayPause();
+				if (isPrinting)
+				isPrinting = false;
+				else
+				isPrinting = true;
 			}
 			
 		} else {
@@ -82,8 +82,9 @@ public class InGameMenuGUI : MonoBehaviour {
 					break;
 			}
 		
-			//GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
-			
+			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
+			if (isPrinting)
+				printTexture();
 
 			if (GUI.Button(new Rect(16, Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), MainMenuButton, NoStyle)) {
 				Time.timeScale = 1; //releases timeScale back if it was pauses
@@ -103,37 +104,33 @@ public class InGameMenuGUI : MonoBehaviour {
 				if (gameManager.GetGameState()== GameManager.GameState.Paused){
 					
 					gameManager.UnpauseGame();
-					pauseBackground.SetActive(false);
+					
 				}
 				if ((gameManager.GetGameState() == GameManager.GameState.Over)){
 					gameManager.GoToNextLevel();
 				}
 
 			}
-			
-			
+	
 			GUI.enabled = true;
-			
-			
 		}
 				
-	}
-	
-	void DisplayPause(){
-			
-		pauseBackground.SetActive(true);
-		
 	}
 	
 	Texture DisplayMedal(){
 		if(count < 1){
 			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
 			count++;
-			audio.Stop();
-			audio.PlayOneShot(medalMusic, 0.5f);
+			Camera.main.audio.Stop();
+			Camera.main.audio.PlayOneShot(medalMusic, 0.5f);
 			return medalTexture;
 		}
 		return medalTexture;
+	}
+	
+	void printTexture(){
+ 
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture); 
 	}
 }
 
