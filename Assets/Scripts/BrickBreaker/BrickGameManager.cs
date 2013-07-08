@@ -38,6 +38,9 @@ public class BrickGameManager : GameManager
 	int bricksDestroyed = 0;
 	int bricksToNextPickup;
 	bool powerupActive = false;
+	
+	bool firstSphereLaunched = false; //true when at least one sphere was launched
+	float firstLaunchTime = 0;
 	//bool gamePaused = false;
 	//GameState gameState = GameState.Running;
 	Medal medal = Medal.None;
@@ -85,6 +88,11 @@ public class BrickGameManager : GameManager
 		if(GetRemainingTime() == 0 && gameState == GameState.Running)
 			OnGameOver();
 		
+		if(!firstSphereLaunched && !paddle.IsOccupied()) {
+			firstLaunchTime = Time.timeSinceLevelLoad;
+			firstSphereLaunched = true;
+		}
+			
 #if UNITY_EDITOR		
 		EnableCheats();
 #endif
@@ -92,7 +100,9 @@ public class BrickGameManager : GameManager
 
 		
 	float GetRemainingTime() {
-		return 	Mathf.Max(0f, timeToComplete - Time.timeSinceLevelLoad);	
+		if(firstSphereLaunched)
+			return 	Mathf.Max(0f, timeToComplete - Time.timeSinceLevelLoad + firstLaunchTime);	
+		else return timeToComplete;
 	}
 		
 
