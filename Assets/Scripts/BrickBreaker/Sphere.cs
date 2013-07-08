@@ -12,6 +12,8 @@ public abstract class Sphere : MonoBehaviour {
 	
 	public float velocityFixZRation = 0.1f;// Fixes the speed by changing z pos by velocityFixZRation*speed
 	
+	public GameObject explodeEffect;
+	
 	//TODO move it to Main Sphere
 	protected ScoreManager gameScore;
 	
@@ -33,6 +35,12 @@ public abstract class Sphere : MonoBehaviour {
 	// Freeze the sphere by disabling physics for it
 	public void Freeze() {
 		transform.rigidbody.isKinematic = true;
+	}
+	
+	//explodes spheres at the end of the game
+	public void Explode() {
+		gameObject.SetActive(false);
+		Instantiate(explodeEffect, transform.position, Quaternion.identity);
 	}
 	
 	protected virtual void Start() {
