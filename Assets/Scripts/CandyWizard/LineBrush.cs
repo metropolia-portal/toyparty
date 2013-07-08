@@ -15,14 +15,24 @@ public class LineBrush : Brush {
 	GameObject lineContainer;
 	
 	override protected void StartDraw(Vector2 pos) {
-		base.StartDraw(pos);
-		
-		lineCount++;
-		lineContainer = new GameObject("Line"+lineCount.ToString());
-		lineContainer.transform.parent = linesContainer.transform;
-		
-		trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
-		trailRenderer.transform.parent = lineContainer.transform;
+		if(CandyWizardGameManager.Instance().CanDrawLineAt(toVector3(pos))) {
+			base.StartDraw(pos);
+			
+			lineCount++;
+			lineContainer = new GameObject("Line"+lineCount.ToString());
+			lineContainer.transform.parent = linesContainer.transform;
+			
+			trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
+			trailRenderer.transform.parent = lineContainer.transform;
+		}
+	}
+	
+	override protected void DrawTo(Vector2 pos) {
+		if(CandyWizardGameManager.Instance().CanDrawLineAt(toVector3(pos))) {
+			base.DrawTo(pos);	
+		}
+		else
+			FinishDraw();
 	}
 	
 	protected override void DrawSegment(Vector2 from, Vector2 to) {

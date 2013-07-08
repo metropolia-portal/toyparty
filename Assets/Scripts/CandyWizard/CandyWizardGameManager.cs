@@ -6,6 +6,8 @@ public class CandyWizardGameManager : GameManager {
 	public Brush lineBrush;
 	public Candy candy;
 	
+	public LayerMask forbidDrawLineLayerMask;
+	
 	//we have only one instance each game
 	static public CandyWizardGameManager Instance() {
 		return instance;
@@ -33,6 +35,16 @@ public class CandyWizardGameManager : GameManager {
 		SetMedal(medal);
 		
 		SetGameState(GameState.Over);
+	}
+	
+	//checks that a segment of line can be at particular point in game world and relevant screen position
+	public bool CanDrawLineAt(Vector3 pos) {
+		if(gameState != GameState.Pregame)
+			return false;			
+		if(Physics.OverlapSphere(pos, 0.1f, forbidDrawLineLayerMask).Length > 0)
+			return false;
+		else
+			return true;
 	}
 	
 	// Use this for initialization

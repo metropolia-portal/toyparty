@@ -22,7 +22,7 @@ public abstract class Brush : MonoBehaviour {
 			StartDraw(GetCursorPosition());
 			//TODO bring smoothing to a separate module
 			smoothedCursorPosition = GetCursorPosition(); //start drawing line straight where user points
-			brushDown = true;
+			
 		}
 		
 		//continue drawing
@@ -33,7 +33,6 @@ public abstract class Brush : MonoBehaviour {
 		else if(! Input.GetMouseButton(0) && brushDown) {
 			DrawTo(smoothedCursorPosition);
 			FinishDraw();
-			brushDown = false;
 		}
 		
 		//update smoothed user input
@@ -45,11 +44,12 @@ public abstract class Brush : MonoBehaviour {
 	// start drawing of line at given position, pos - position in gameWorld, without z axis, as it is 0
 	virtual protected void StartDraw(Vector2 pos) {
 		Debug.Log("Started drawing");
+		brushDown = true;
 		brushPosition = pos;
 	}
 	
 	//continue drawing the line to the point given, called every frame
-	protected void DrawTo(Vector2 pos) {
+	virtual protected void DrawTo(Vector2 pos) {
 		//print ((brushPosition - pos).magnitude);
 		if( (brushPosition - pos).magnitude > minSegmentLength) {
 			Debug.Log("Drawing...");
@@ -64,8 +64,9 @@ public abstract class Brush : MonoBehaviour {
 	protected abstract void DrawSegment(Vector2 from, Vector2 to);
 	
 	//finish drawing the line at last position
-	protected void FinishDraw() {
+	virtual protected void FinishDraw() {
 		Debug.Log("Finished drawing");
+		brushDown = false;
 	}
 
 	//get cursor position on gameworld
