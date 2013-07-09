@@ -179,5 +179,8 @@ public class InputManager : MonoBehaviour {
 	public void EnableInput() {
 		inputEnabled = true;
 	}
-	
+	public static Vector3 MouseScreenToGUI(){
+		var mousePos = new Vector3(Input.mousePosition.x, Screen.height - Input.mousePosition.y,0);
+		return mousePos;
+	}
 }
