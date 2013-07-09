@@ -18,6 +18,7 @@ public class InGameMenuGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		PlayButton = (Texture)Resources.Load("MenuCommon/play_" + MainMenuGUI.selectedGameName);
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
