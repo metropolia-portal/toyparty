@@ -23,7 +23,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
 		Restart = (Texture)Resources.Load("PauseMenu/replay_" + MainMenuGUI.selectedGameName);
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
-		pauseTexture = (Texture)Resources.Load("PauseMenu/pause_menu");
+		pauseTexture = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
 		medalMusic = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		aspect = (float)Screen.width / Screen.height;
 		
@@ -88,7 +88,7 @@ public class InGameMenuGUI : MonoBehaviour {
 
 			if (GUI.Button(new Rect(Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
 				Time.timeScale = 1; //releases timeScale back if it was pauses
-				Camera.main.audio.Stop();
+				Camera.DestroyObject(Camera.main.audio);
 				Application.LoadLevel("MainMenu");
 			}
 			
@@ -120,7 +120,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	Texture DisplayMedal(){
 		if(count < 1){
-			medalTexture = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
+			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
 			count++;
 			Camera.main.audio.Stop();
 			Camera.main.audio.PlayOneShot(medalMusic, 0.5f);

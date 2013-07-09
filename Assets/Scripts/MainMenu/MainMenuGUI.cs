@@ -21,6 +21,7 @@ public class MainMenuGUI : MonoBehaviour {
 	public Texture gameExitTexture;
 	public Texture gameCreditsTexture;
 	
+	Texture PlayButton;
 	public string[] gameList;
 	Texture[] menuOptionTextures;
 	Texture[] previewTextures;
@@ -29,7 +30,7 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	
 	Rect[] rect;
-	Rect gamePreviewButtonRect;
+	Rect gamePreviewButton;
 	
 	
 	
@@ -49,33 +50,34 @@ public class MainMenuGUI : MonoBehaviour {
 		rect = new Rect[NumberOfButtons];
 		
 		
+		
 #if UNITY_IPONE
-			gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
 #else	
 		
 		if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
 				
-				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+				gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
 				
 			}
 		else if(aspect >= 1.32f && aspect <= 1.34f){ // 4/3 aspect ratio
 				
-				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+				gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
 				
 			}
 		else if(aspect >= 1.49f && aspect <= 1.50f){ // 3/2 aspect ratio
 				
-				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );		
+				gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);		
 				
 			}
 		else if(aspect >= 1.6f && aspect <= 1.61f){ // web play aspect ratio
 				
-				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/6 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );		
+				gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);		
 				
 			}
 		else{// all other ratios
 				
-				gamePreviewButtonRect = new Rect(Screen.width/2 -Screen.width/3 , Screen.height/4 + Margin, Screen.width, Screen.height*4);	
+				gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
 				
 			}
 #endif
@@ -129,12 +131,14 @@ public class MainMenuGUI : MonoBehaviour {
 		for (int i=0; i< NumberOfButtons; i++) 
 			if (GUI.Button(rect[i], menuOptionTextures[i], NoStyle)) 
 				SelectGame(i);
-	
 		
 		
 		
 		if (selectedGame > -1 ) {
-			if (GUI.Button(gamePreviewButtonRect, previewTextures[selectedGame])) {
+			
+			GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 ), previewTextures[selectedGame]);	
+			PlayButton = (Texture)Resources.Load("MenuCommon/play_" + selectedGameName);
+			if (GUI.Button(gamePreviewButton, PlayButton, NoStyle)) {
 				Application.LoadLevel("TutorialScene");
 				Camera.DontDestroyOnLoad(Camera.main.audio);
 			}

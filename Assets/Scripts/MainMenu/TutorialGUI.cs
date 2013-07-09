@@ -25,7 +25,7 @@ public class TutorialGUI : MonoBehaviour {
 	void OnGUI() {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), Background);
 		if (GUI.Button (new Rect(Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
-			Camera.main.audio.Stop();
+			Camera.DestroyObject(Camera.main.audio);
 			Application.LoadLevel("MainMenu");
 		}
 		if (GUI.Button (new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
