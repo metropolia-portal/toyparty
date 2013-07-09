@@ -81,14 +81,14 @@ public class MainMenuGUI : MonoBehaviour {
 #endif
 		
 		//ScreenWidth -= TotalMargin;
-		ButtonWidth = ScreenWidth/NumberOfButtons;
+		ButtonWidth = ScreenWidth/(NumberOfButtons-0.09f);
 		
 		for (int i = 0; i < NumberOfButtons; i++) {
 			
 			
 			if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
 				
-				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/25, ButtonWidth - Margin*2, ButtonWidth - Margin*2);
+				rect[i] = new Rect(i * ButtonWidth, ScreenHeight/30, ButtonWidth , ButtonWidth);
 				
 			}
 			else if(aspect >= 1.32f && aspect <= 1.34f){ // 4/3 aspect ratio
@@ -134,7 +134,7 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		
 		if (selectedGame > -1 ) {
-			if (GUI.Button(gamePreviewButtonRect, previewTextures[selectedGame], NoStyle)) {
+			if (GUI.Button(gamePreviewButtonRect, previewTextures[selectedGame])) {
 				Application.LoadLevel("TutorialScene");
 				Camera.DontDestroyOnLoad(Camera.main.audio);
 			}
@@ -142,45 +142,22 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			float ButtonArea = Screen.height/4;
 #if UNITY_IPONE
-			if(GUI.Button(new Rect(Screen.width/2 -Screen.width/4 , Screen.height/4 + Screen.width/10, Screen.width/2 , Screen.width/2 -Screen.width/2), gameTitleTexture, NoStyle)){
-				print ("main button");	
-			}
+			GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture);
 #else
-			
-			if(aspect >= 1.24f && aspect <= 1.25f){ // 5/4 aspect ratio
-				
-				if(GUI.Button(new Rect(Screen.width/3 -Screen.width/10 , Screen.height/4 + Margin*3, Screen.width/9 + Screen.width*6, Screen.width/2 -Screen.width/100 ), gameTitleTexture, NoStyle)){
-					print ("main button");	
-				}
-			}
-			else if(aspect >= 1.32f && aspect <= 1.34f){ // 4/3 aspect ratio
-				
-				if(GUI.Button(new Rect(Screen.width/3 -Screen.width/10 , Screen.height/4 + Margin*2, Screen.width/10 + Screen.width*6, Screen.width/2 -Screen.width/100 ), gameTitleTexture, NoStyle)){
-					print ("main button");	
-				}
-			}
-			else if(aspect >= 1.49f && aspect <= 1.50f){ // 3/2 aspect ratio
-				
-				if(GUI.Button(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/10 + Screen.width*5, Screen.width/2 -Screen.width/20 ), gameTitleTexture, NoStyle)){
-					print ("main button");	
-				}
-			}
-			else{// all other ratios
-				
-				if(GUI.Button(new Rect(Screen.width/2 -Screen.width/5 , Screen.height/4 + Margin, Screen.width/2 , Screen.width/2 -Screen.width/9 ), gameTitleTexture, NoStyle)){
-					print ("main button");	
-				}
-			}
-			
+	
+			GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
 			
 #endif
 		}	
-		if (GUI.Button(new Rect(Margin,ScreenHeight - (ButtonWidth - Margin*2), Screen.width/9, Screen.width/9), gameExitTexture, NoStyle)) {
+		if (GUI.Button(new Rect(Margin,Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), gameExitTexture, NoStyle)) {
 			Debug.Log("exit");
 			Application.Quit();
 		}
-		if (GUI.Button(new Rect(Screen.width -Screen.width/6 + Margin, ScreenHeight - (ButtonWidth - Margin*2) , Screen.width/9, Screen.width/9), gameCreditsTexture, NoStyle)) {
-			
+		
+		if (GUI.Button(new Rect(Screen.width -Screen.width/6 + Margin/2, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), gameCreditsTexture, NoStyle)) {
+			Debug.Log("credits");
+			Application.LoadLevel("CreditsSCreen");
+			Camera.DontDestroyOnLoad(Camera.main.audio);
 		}	
 	}
 }

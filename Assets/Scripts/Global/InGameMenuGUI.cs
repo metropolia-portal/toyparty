@@ -27,6 +27,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		medalMusic = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		aspect = (float)Screen.width / Screen.height;
 		
+		
 	}
 	
 	// Update is called once per frame
@@ -85,13 +86,13 @@ public class InGameMenuGUI : MonoBehaviour {
 			if (isPrinting)
 				printTexture();
 
-			if (GUI.Button(new Rect(16, Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), MainMenuButton, NoStyle)) {
+			if (GUI.Button(new Rect(Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
 				Time.timeScale = 1; //releases timeScale back if it was pauses
 				Camera.main.audio.Stop();
 				Application.LoadLevel("MainMenu");
 			}
 			
-			if (GUI.Button(new Rect(Screen.width -(Screen.width/2 + Screen.width/18),Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), Restart, NoStyle)) {
+			if (GUI.Button(new Rect(Screen.width -(Screen.width/2 + Screen.width/14),Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), Restart, NoStyle)) {
 				gameManager.RestartGame();
 			}
 			
@@ -100,7 +101,7 @@ public class InGameMenuGUI : MonoBehaviour {
 				(gameManager.GetMedal() == GameManager.Medal.None)
 				) GUI.enabled = false; // Resume button is grayed out on the loss screen
 			
-			if (GUI.Button (new Rect(Screen.width -Screen.width/6,Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), PlayButton, NoStyle)) {
+			if (GUI.Button (new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
 				if (gameManager.GetGameState()== GameManager.GameState.Paused){
 					
 					gameManager.UnpauseGame();
@@ -119,7 +120,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	Texture DisplayMedal(){
 		if(count < 1){
-			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
+			medalTexture = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
 			count++;
 			Camera.main.audio.Stop();
 			Camera.main.audio.PlayOneShot(medalMusic, 0.5f);
