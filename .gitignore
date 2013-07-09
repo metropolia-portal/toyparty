@@ -9,3 +9,7 @@ ToyParty.userprefs
 *.csproj
 *.unityproj
 *.sln
+
+#!!ONLY FOR CandyWizard BRANCH!!
+#**/[mM]aze
+#[mM]aze

@@ -124,9 +124,17 @@ public class InputManager : MonoBehaviour {
 		return acceleration;
 	}
 	
-	//returns true if mouse left button is hold, or touch is hold
+	//returns true if mouse left button is just pressed, or touch is pressed
 	public bool IsCursorButtonDown() {
 		return isButtonDown;
+	}
+	
+	public bool IsCursorButtonUp() {
+		return Input.GetMouseButtonUp(0);	
+	}
+	
+	public bool IsCursorButtonHold() {
+		return Input.GetMouseButton(0);	
 	}
 	
 	//TODO Depricated, does not do what it says, rename it, and use smth else
@@ -153,9 +161,17 @@ public class InputManager : MonoBehaviour {
 	public bool IsEscapeButtonDown() {
 		return isEscapeButtonDown;
 	}
+	
 	public Vector2 GetCursorPosition() {
 		return cursorPosition;
 	}
+	
+	//TODO merge with GetCursorPosition, which does not work correctly
+	public Vector2 GetCurrentCursorPosition() {
+		return Input.mousePosition;
+	}
+	
+	
 	public void DisableInput() {
 		inputEnabled = false;
 	}
