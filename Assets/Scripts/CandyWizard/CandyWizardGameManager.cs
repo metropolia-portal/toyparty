@@ -41,7 +41,7 @@ public class CandyWizardGameManager : GameManager {
 	public bool CanDrawLineAt(Vector3 pos) {
 		if(gameState != GameState.Pregame)
 			return false;			
-		if(Physics.OverlapSphere(pos, 0.1f, forbidDrawLineLayerMask).Length > 0)
+		if(Physics.OverlapSphere(pos, 0.01f, forbidDrawLineLayerMask).Length > 0)
 			return false;
 		else
 			return true;

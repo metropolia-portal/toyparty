@@ -18,7 +18,7 @@ public abstract class Brush : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//started drawing
-		if(Input.GetMouseButton(0) && !brushDown) {
+		if(InputManager.Instance().IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
 			//TODO bring smoothing to a separate module
 			smoothedCursorPosition = GetCursorPosition(); //start drawing line straight where user points
@@ -26,11 +26,11 @@ public abstract class Brush : MonoBehaviour {
 		}
 		
 		//continue drawing
-		else if(Input.GetMouseButton(0) && brushDown) {
+		else if(InputManager.Instance().IsCursorButtonHold() && brushDown) {
 			DrawTo(smoothedCursorPosition);
 		}
 		
-		else if(! Input.GetMouseButton(0) && brushDown) {
+		else if(InputManager.Instance().IsCursorButtonUp() && brushDown) {
 			DrawTo(smoothedCursorPosition);
 			FinishDraw();
 		}
