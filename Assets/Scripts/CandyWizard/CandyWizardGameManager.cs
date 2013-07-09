@@ -36,6 +36,10 @@ public class CandyWizardGameManager : GameManager {
 		
 		SetGameState(GameState.Over);
 	}
+
+	public void OnCandyClicked() {
+		StartGame();
+	}
 	
 	//checks that a segment of line can be at particular point in game world and relevant screen position
 	public bool CanDrawLineAt(Vector3 pos) {

@@ -15,13 +15,19 @@ public class Candy : MonoBehaviour {
 		}
 	}
 	
+	void Update() {
+		if(InputManager.Instance().IsCursorButtonDown()) {
+			Vector2 screenPos = InputManager.Instance().GetCursorPosition();	
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y)), gameObject.layer)) {
+				CandyWizardGameManager.Instance().OnCandyClicked();
+			}
+			
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
