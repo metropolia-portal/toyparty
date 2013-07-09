@@ -49,7 +49,9 @@ public class MainMenuGUI : MonoBehaviour {
 		rect = new Rect[NumberOfButtons];
 		
 		
-		
+#if UNITY_IPONE
+			gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );
+#else	
 		
 		if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
 				
@@ -66,16 +68,23 @@ public class MainMenuGUI : MonoBehaviour {
 				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );		
 				
 			}
+		else if(aspect >= 1.6f && aspect <= 1.61f){ // web play aspect ratio
+				
+				gamePreviewButtonRect = new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/6 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 );		
+				
+			}
 		else{// all other ratios
 				
 				gamePreviewButtonRect = new Rect(Screen.width/2 -Screen.width/3 , Screen.height/4 + Margin, Screen.width, Screen.height*4);	
 				
 			}
+#endif
 		
 		//ScreenWidth -= TotalMargin;
 		ButtonWidth = ScreenWidth/NumberOfButtons;
 		
 		for (int i = 0; i < NumberOfButtons; i++) {
+			
 			
 			if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
 				
@@ -97,7 +106,7 @@ public class MainMenuGUI : MonoBehaviour {
 				rect[i] = new Rect(i * (ButtonWidth) + Margin, ScreenHeight/55, ButtonWidth - Margin*2, ButtonWidth - Margin*2);	
 				
 			}
-			
+
 				
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/"+gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/"+gameList[i]);
@@ -138,7 +147,7 @@ public class MainMenuGUI : MonoBehaviour {
 			}
 #else
 			
-			if(aspect >= 1.23f && aspect <= 1.25f){ // 5/4 aspect ratio
+			if(aspect >= 1.24f && aspect <= 1.25f){ // 5/4 aspect ratio
 				
 				if(GUI.Button(new Rect(Screen.width/3 -Screen.width/10 , Screen.height/4 + Margin*3, Screen.width/9 + Screen.width*6, Screen.width/2 -Screen.width/100 ), gameTitleTexture, NoStyle)){
 					print ("main button");	

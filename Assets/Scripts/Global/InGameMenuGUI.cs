@@ -81,12 +81,13 @@ public class InGameMenuGUI : MonoBehaviour {
 					break;
 			}
 		
-			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
+			//GUI.Box(new Rect(0, 0, Screen.width, Screen.height), message);
 			if (isPrinting)
 				printTexture();
 
 			if (GUI.Button(new Rect(16, Screen.height - (Screen.width/8), Screen.width/9, Screen.width/9), MainMenuButton, NoStyle)) {
 				Time.timeScale = 1; //releases timeScale back if it was pauses
+				Camera.main.audio.Stop();
 				Application.LoadLevel("MainMenu");
 			}
 			
