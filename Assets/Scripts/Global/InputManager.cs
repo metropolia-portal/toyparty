@@ -2,9 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
+	static InputManager instance = null;
 	
 	Vector3 acceleration;
 	Vector2 cursorPosition;
+	
+
+	Vector3 accel = new Vector3(0,0,0);
 	
 	bool isButtonDown = false;
 	bool isButtonUp = true;
@@ -22,8 +26,15 @@ public class InputManager : MonoBehaviour {
 	
 	bool tapDown = false;
 	
+	//we have only one instance each game
+	static public InputManager Instance() {
+		return instance;
+	}
+	
 	// Use this for initialization
 	void Start () {
+		instance = this;
+		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		cursorPosition = new Vector2(0,0);
 	}
@@ -67,7 +78,29 @@ public class InputManager : MonoBehaviour {
 		}
 		
 #else
-		acceleration = new Vector3 (2*Input.mousePosition.x/Screen.width - 1, 2*Input.mousePosition.y/Screen.height - 1, 0);
+		
+		bool c = false;
+		accel = new Vector3(0,0,0);
+		if (Input.GetKey(KeyCode.UpArrow)) {
+			accel += new Vector3(0,0.5f,0);
+			
+			c = true;
+		} else if (Input.GetKey(KeyCode.DownArrow)) {
+			accel -= new Vector3(0,0.5f,0);
+			
+			c = true;
+		}
+		
+		if (Input.GetKey(KeyCode.LeftArrow)) {
+			accel -= new Vector3(0.5f,0,0);
+			c = true;
+		} else if (Input.GetKey(KeyCode.RightArrow)) {
+			accel += new Vector3(0.5f,0,0);
+			c = true;
+		} 
+		
+		acceleration = accel;
+		
 		cursorPosition = Input.mousePosition;
 		
 		isButtonDown = Input.GetMouseButtonDown(0);
@@ -91,6 +124,12 @@ public class InputManager : MonoBehaviour {
 		return acceleration;
 	}
 	
+	//returns true if mouse left button is hold, or touch is hold
+	public bool IsCursorButtonDown() {
+		return isButtonDown;
+	}
+	
+	//TODO Depricated, does not do what it says, rename it, and use smth else
 	public bool IsButtonDown() {
 		//TODO fix so that more that one can use this, it resets!
         if (isButtonDown) {

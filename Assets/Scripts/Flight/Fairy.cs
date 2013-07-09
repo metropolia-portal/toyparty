@@ -15,7 +15,7 @@ public class Fairy : MonoBehaviour {
 	
 	
 	void OnTriggerEnter(Collider other) {
-		Debug.Log(other.tag);
+		//Debug.Log(other.tag);
 		if (other.CompareTag("PlayerBullet")) {
 			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();
@@ -29,6 +29,7 @@ public class Fairy : MonoBehaviour {
 	}
 	
 	void Damage(int d) {
+		gameManager.OnFairyDeath(1);
 		life -= d;
 		if (life<=0) {
 			Death();
@@ -40,6 +41,7 @@ public class Fairy : MonoBehaviour {
 	}
 	
 	void Death() {
+		gameManager.OnFairyDeath(5);
 		if (Random.Range(0f,1f)<powerupChance) {
 			Instantiate(powerups[Random.Range(0, powerups.Length)], transform.position, Quaternion.identity);
 		}
