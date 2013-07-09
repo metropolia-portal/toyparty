@@ -168,13 +168,7 @@ public class InputManager : MonoBehaviour {
 	
 	//TODO merge with GetCursorPosition, which does not work correctly
 	public Vector2 GetCurrentCursorPosition() {
-#if UNITY_ANDROID || UNITY_IOS
-		//position
-		if (Input.touchCount==1) {
-			cursorPosition = Input.GetTouch(0).position;
-		}
-#endif
-		return cursorPosition;
+		return Input.mousePosition;
 	}
 	
 	
