@@ -161,9 +161,23 @@ public class InputManager : MonoBehaviour {
 	public bool IsEscapeButtonDown() {
 		return isEscapeButtonDown;
 	}
+	
 	public Vector2 GetCursorPosition() {
 		return cursorPosition;
 	}
+	
+	//TODO merge with GetCursorPosition, which does not work correctly
+	public Vector2 GetCurrentCursorPosition() {
+#if UNITY_ANDROID || UNITY_IOS
+		//position
+		if (Input.touchCount==1) {
+			cursorPosition = Input.GetTouch(0).position;
+		}
+#endif
+		return cursorPosition;
+	}
+	
+	
 	public void DisableInput() {
 		inputEnabled = false;
 	}

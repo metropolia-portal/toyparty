@@ -71,7 +71,7 @@ public abstract class Brush : MonoBehaviour {
 
 	//get cursor position on gameworld
 	Vector2 GetCursorPosition() {
-		Vector2 screenPos = InputManager.Instance().GetCursorPosition();
+		Vector2 screenPos = InputManager.Instance().GetCurrentCursorPosition();
 		//check what the pos is gonna be at z=0, therefore 3rd argument is cameras z distance to it
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Mathf.Abs (Camera.main.transform.position.z))); 
 		return new Vector2(worldPos.x, worldPos.y);//getting rid of z component
