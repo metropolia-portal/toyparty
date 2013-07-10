@@ -126,7 +126,7 @@ public class InputManager : MonoBehaviour {
 	
 	//returns true if mouse left button is just pressed, or touch is pressed
 	public bool IsCursorButtonDown() {
-		return isButtonDown;
+		return Input.GetMouseButtonDown(0);
 	}
 	
 	public bool IsCursorButtonUp() {
