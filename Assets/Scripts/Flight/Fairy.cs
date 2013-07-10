@@ -6,6 +6,7 @@ public class Fairy : MonoBehaviour {
 	public int life = 10;
 	public GameObject[] powerups;
 	public float powerupChance = 0.01f;
+	public GameObject particlePrefab;
 	
 
 	
@@ -19,6 +20,8 @@ public class Fairy : MonoBehaviour {
 		if (other.CompareTag("PlayerBullet")) {
 			Damage(1);
 			other.GetComponent<FlightPlayerBullet>().Damage();
+			if (particlePrefab)
+			Instantiate(particlePrefab, other.transform.position, Quaternion.identity);
 		} else if (other.CompareTag("Bomb")) {
 			Damage(15);
 		} else if (other.CompareTag("Player")) {
@@ -29,6 +32,7 @@ public class Fairy : MonoBehaviour {
 	}
 	
 	void Damage(int d) {
+		
 		gameManager.OnFairyDeath(1);
 		life -= d;
 		if (life<=0) {
