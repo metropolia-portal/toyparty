@@ -6,11 +6,14 @@ public class Particle : MonoBehaviour {
 	public float life = 3f;
 	public float spin = 0.5f;
 	public float speed = 0.5f;
+	public bool randomRotation = true;
+	Vector3 direction;
 	float rup;
 	float rright;
 
 	// Use this for initialization
 	void Start () {
+		direction =  Quaternion.Euler(0, Random.Range(0,360),0) * Vector3.forward;
 		rup = Random.Range(0.5f,1.5f);
 		rright = Random.Range(0.5f,1.5f);
 		transform.rotation = Quaternion.Euler(0, Random.Range(0, 360),0);
@@ -18,9 +21,11 @@ public class Particle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += (Vector3.right*rup+Vector3.forward*rright)*speed*Time.deltaTime;
+		transform.position += direction*speed*Time.deltaTime;
 		transform.rotation *= Quaternion.Euler(0, spin, 0);
 		speed -= Time.deltaTime*0.5f;
-		if (speed <=0) Destroy(gameObject);
+		life -= Time.deltaTime;
+		if (speed <=0) speed = 0;
+		if (life <=0) Destroy(gameObject);
 	}
 }

@@ -107,7 +107,7 @@ public class FlightGameManager : GameManager {
 	public void OnFairyDeath(int s) {
 		score +=s;
 		GetComponent<ScoreGUI>().SetScore(score);
-		Debug.Log(score);
+		
 	}
 	
 	public void RestoreLife() {
