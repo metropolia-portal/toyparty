@@ -25,6 +25,15 @@ public class FallingItem : MonoBehaviour {
 		startingX = transform.position.x;
 		transform.localScale = transform.localScale*Random.Range(0.8f, 1.2f);
 		rotationSpeed = rotationSpeed * Random.Range(-1f,1f);
+		Vector3 newPosition = transform.position;
+		transform.rotation = Quaternion.Euler(0, phase*rotationSpeed, 0);
+		
+		newPosition += Vector3.back * fallSpeed * Time.deltaTime;
+		if (wave) {
+			newPosition.x = startingX + Mathf.Sin(transform.position.z);
+		}
+		
+		transform.position = newPosition;
 	}
 	
 	// Update is called once per frame
