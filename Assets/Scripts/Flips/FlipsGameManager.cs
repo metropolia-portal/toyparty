@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class FlipsGameManager : GameManager {
 	
 	public float revealTime = 3; // The time, in seconds, for which the cards are revealed at the beginning of the level
@@ -8,10 +9,11 @@ public class FlipsGameManager : GameManager {
 	public InputManager inputManager;
 	public LevelGenerator levelGenerator;
 	public GUIText statusLine;
+	public AudioClip cardFlip;
 	
 	Card firstCard = null; // Handles to the two cards the player is currently flipping
 	Card secondCard = null;
-	
+	AudioSource audioSource;
 	int cardsTotal;
 	int cardsGuessed = 0;
 	int flips = 0;
@@ -28,6 +30,7 @@ public class FlipsGameManager : GameManager {
 		base.Start ();
 		cardsTotal = levelGenerator.CardCount();
 		SetGameState(GameState.Pregame);
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -36,8 +39,6 @@ public class FlipsGameManager : GameManager {
 		if (GetGameState() == GameState.Pregame) {
 			
 			if (inputManager.IsEscapeButtonDown()) PauseGame();
-			
-			
 			revealTime -= Time.deltaTime;
 			if (revealTime <=0) {
 				HideAllCards();
@@ -66,6 +67,7 @@ public class FlipsGameManager : GameManager {
 		
 	        if (inputManager.IsButtonDown() && Physics.Raycast(ray, out hit) && !secondCard){
 				if (hit.collider.CompareTag("Card")) {
+					AudioSource.PlayClipAtPoint(cardFlip,transform.position);
 					Card card = hit.collider.gameObject.transform.parent.GetComponent<Card>();
 					if (card.IsFaceDown()) {
 						flips ++;
@@ -94,6 +96,7 @@ public class FlipsGameManager : GameManager {
 							return;
 						}
 					}else{
+						AudioSource.PlayClipAtPoint(cardFlip,transform.position);
 						firstCard.Rotate();
 						secondCard.Rotate ();
 					}

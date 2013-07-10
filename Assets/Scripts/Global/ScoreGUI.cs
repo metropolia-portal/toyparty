@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ScoreGUI : MonoBehaviour {
 	
+	// test for push
 	public Texture2D bronzeCoinTexture;
 	public Texture2D silverCoinTexture;
 	public Texture2D goldCoinTexture;
