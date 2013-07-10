@@ -17,7 +17,7 @@ public class Candy : MonoBehaviour {
 	
 	void Update() {
 		if(InputManager.Instance().IsCursorButtonDown()) {
-			Vector2 screenPos = InputManager.Instance().GetCursorPosition();
+			Vector2 screenPos = InputManager.Instance().GetCurrentCursorPosition();
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y)), Mathf.Infinity, 1 << gameObject.layer)) {
 				CandyWizardGameManager.Instance().OnCandyClicked();
 			}
