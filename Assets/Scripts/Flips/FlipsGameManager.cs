@@ -9,8 +9,7 @@ public class FlipsGameManager : GameManager {
 	public InputManager inputManager;
 	public LevelGenerator levelGenerator;
 	public GUIText statusLine;
-	
-	
+
 	Card firstCard = null; // Handles to the two cards the player is currently flipping
 	Card secondCard = null;
 	
@@ -67,7 +66,6 @@ public class FlipsGameManager : GameManager {
 		
 	        if (inputManager.IsButtonDown() && Physics.Raycast(ray, out hit) && !secondCard){
 				if (hit.collider.CompareTag("Card")) {
-					
 					Card card = hit.collider.gameObject.transform.parent.GetComponent<Card>();
 					if (card.IsFaceDown()) {
 						flips ++;
@@ -96,7 +94,6 @@ public class FlipsGameManager : GameManager {
 							return;
 						}
 					}else{
-						
 						firstCard.Rotate();
 						secondCard.Rotate ();
 					}
