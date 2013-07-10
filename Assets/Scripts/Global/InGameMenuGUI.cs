@@ -104,6 +104,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	}
 	
 	IEnumerator LoadMainMenu(AudioSource source){
+		if (source != null)
 		while(source.volume > 0){
 			source.volume -= 0.02f;	
 			yield return null;
@@ -112,12 +113,14 @@ public class InGameMenuGUI : MonoBehaviour {
 		Application.LoadLevel("MainMenu");
 	}
 	IEnumerator FadeInMusic(AudioSource source){
+		if (source != null)
 		while(source.volume < 1){
 			source.volume += 0.02f;	
 			yield return null;
 		}
 	}
 	IEnumerator FadeOutMusic(AudioSource source){
+		if (source != null)
 		while(source.volume > 0){
 			print (source+" "+source.volume);
 			source.volume -= 0.02f;	
