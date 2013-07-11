@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FlightPlayerBullet : MonoBehaviour {
 	
-	float speed = 25f;
+	float speed = 10f;
 	FlightGameManager gameManager;
 	
 	
