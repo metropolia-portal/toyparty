@@ -59,16 +59,16 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		if(aspect >= 1.23f && aspect <= 1.25f)// 5/4 aspect ratio
 		{ 
-			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);		
+			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/14, Screen.height/14 + Screen.height/2, Screen.width/7, Screen.width/7);		
 		}
 		else if(aspect >= 1.32f && aspect <= 1.34f)// 4/3 aspect ratio
 		{ 
-			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
+			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/14, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);
 				
 		}
 		else if(aspect >= 1.49f && aspect <= 1.50f)// 3/2 aspect ratio
 		{ 
-			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/12 + Screen.height/2, Screen.width/7, Screen.width/7);		
+			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/14, Screen.height/24 + Screen.height/2, Screen.width/7, Screen.width/7);		
 				
 		}
 		else if(aspect >= 1.6f && aspect <= 1.61f)// web play aspect ratio
@@ -78,7 +78,7 @@ public class MainMenuGUI : MonoBehaviour {
 		}
 		else if(aspect >= 1.77f && aspect <= 1.78f)// 16/9 aspect ratio
 		{ 
-			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/18, Screen.height/6 + Screen.height/3, Screen.width/7, Screen.width/7);		
+			gamePreviewButton = new Rect(Screen.width/2 - Screen.width/12, Screen.height/6 + Screen.height/3, Screen.width/7, Screen.width/7);		
 				
 		}
 		else// all other ratios
@@ -126,13 +126,12 @@ public class MainMenuGUI : MonoBehaviour {
 			rectBig[i].x = rectBig[i].x - diffWidth;
 			rectBig[i].y = rectBig[i].y - diffWidth ;
 		}
-		menuRect[0] = new Rect(Margin,ScreenHeight - ButtonWidth, 
-			widthNormal,widthNormal);
+		
+		menuRect[0] = GetMenuRect(1);
 		menuRectSmall[0] = new Rect(menuRect[0]);
 		menuRectBig[0] = new Rect(menuRect[0].x - diffWidth, menuRect[0].y - diffWidth,widthBig ,widthBig);
 		
-		menuRect[1] = new Rect(Screen.width -Screen.width/6, ScreenHeight - ButtonWidth, 
-			widthNormal,widthNormal);
+		menuRect[1] = GetMenuRect(2);
 		menuRectSmall[1] = new Rect(menuRect[1]);
 		menuRectBig[1] = new Rect(menuRect[1].x - diffWidth, menuRect[1].y - diffWidth,widthBig ,widthBig);
 	}
@@ -166,10 +165,16 @@ public class MainMenuGUI : MonoBehaviour {
 			
 			if(aspect >= 1.77 && aspect <= 1.78){// 16/9 aspect ratio
 				
-				GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/3 ), previewTextures[selectedGame]);	 
+				GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/90 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/3 , Screen.width/3 ), previewTextures[selectedGame]);	 
 			}
+			else if(aspect >= 1.49f && aspect <= 1.50f)// 3/2 aspect ratio
+			{ 
+				GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/90 + Screen.width/3) , Screen.height/4 + Screen.width/70, Screen.width - Screen.width/3 , Screen.height/2 + Screen.height/10), previewTextures[selectedGame]);	 
+					
+			}
+			
 			else
-				GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/30 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/4 , Screen.width/2 ), previewTextures[selectedGame]);	
+				GUI.DrawTexture(new Rect(Screen.width/2 - (Screen.width/80 + Screen.width/3) , Screen.height/4 + Screen.width/45, Screen.width - Screen.width/3 , Screen.width/2 ), previewTextures[selectedGame]);	
 			PlayButton = (Texture)Resources.Load("MenuCommon/play_" + selectedGameName);
 			
 			if (GUI.Button(gamePreviewButton, PlayButton, NoStyle)) 
@@ -183,9 +188,31 @@ public class MainMenuGUI : MonoBehaviour {
 			float ButtonArea = Screen.height/4;
 		#if UNITY_IPONE
 			GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture);
+			
 		#else
 			
-				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			if(aspect >= 1.77 && aspect <= 1.78){// 16/9 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/5 + Margin*4, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture);
+			}
+			
+			else if(aspect >= 1.23f && aspect <= 1.25f){// 5/4 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/6 + Margin*7, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			} 
+			else if(aspect >= 1.32f && aspect <= 1.34f){// 4/3 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/6 + Margin*6, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
+			else if(aspect >= 1.49f && aspect <= 1.50f){// 3/2 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/7 + Margin*6, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
+				
+			else {
+			
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/5 + Margin*4, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
 		#endif
 		}	
 		/*if (GUI.Button(new Rect(Margin,Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), gameExitTexture, NoStyle)) {
@@ -226,5 +253,41 @@ public class MainMenuGUI : MonoBehaviour {
 			} 
 				
 		}
+	}
+	Rect GetMenuRect(int num) {
+		
+		Rect menuRect, menuRect1;
+		
+		if(aspect >= 1.77 && aspect <= 1.78){// 16/9 aspect ratio
+			
+			menuRect = new Rect( Margin, Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);
+			menuRect1 = new Rect(Screen.width - (Screen.width/5 + Margin/30), Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);	
+		}
+			
+		else if(aspect >= 1.23f && aspect <= 1.25f){// 5/4 aspect ratio
+			
+			menuRect = new Rect( Margin, Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);
+			menuRect1 = new Rect(Screen.width - (Screen.width/5 + Margin/30), Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);		
+		} 
+		else if(aspect >= 1.32f && aspect <= 1.34f){// 4/3 aspect ratio
+			
+			menuRect = new Rect( Margin, Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);
+			menuRect1 = new Rect(Screen.width - (Screen.width/5 + Margin/30), Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);			 
+		}
+		else if(aspect >= 1.49f && aspect <= 1.50f){// 3/2 aspect ratio
+			
+			menuRect = new Rect( Margin, Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);
+			menuRect1 = new Rect(Screen.width - (Screen.width/5 + Margin/30), Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);			 
+		}
+				
+		else {
+			
+			menuRect = new Rect( Margin, Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);
+			menuRect1 = new Rect(Screen.width - (Screen.width/5 + Margin/30), Screen.height - (Screen.width/6 + Screen.height/30), Screen.width/6, Screen.width/6);		 
+		}
+		 if(num == 1)
+		 return menuRect;
+		else
+		return menuRect1;
 	}
 }
