@@ -20,3 +20,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+#Take always masters gitignore on merge
+.gitignore merge=ours
