@@ -126,8 +126,11 @@ public class MainMenuGUI : MonoBehaviour {
 			rectBig[i].x = rectBig[i].x - diffWidth;
 			rectBig[i].y = rectBig[i].y - diffWidth ;
 		}
+		/*
 		menuRect[0] = new Rect(Margin,ScreenHeight - ButtonWidth, 
 			widthNormal,widthNormal);
+		*/
+		menuRect[0] = new Rect(Margin,Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7);
 		menuRectSmall[0] = new Rect(menuRect[0]);
 		menuRectBig[0] = new Rect(menuRect[0].x - diffWidth, menuRect[0].y - diffWidth,widthBig ,widthBig);
 		
@@ -183,9 +186,31 @@ public class MainMenuGUI : MonoBehaviour {
 			float ButtonArea = Screen.height/4;
 		#if UNITY_IPONE
 			GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture);
+			
 		#else
 			
-				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/4 + Margin*2, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			if(aspect >= 1.77 && aspect <= 1.78){// 16/9 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/5 + Margin*4, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture);
+			}
+			
+			else if(aspect >= 1.23f && aspect <= 1.25f){// 5/4 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/6 + Margin*7, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			} 
+			else if(aspect >= 1.32f && aspect <= 1.34f){// 4/3 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/6 + Margin*6, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
+			else if(aspect >= 1.49f && aspect <= 1.50f){// 3/2 aspect ratio
+				
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/7 + Margin*6, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
+				
+			else {
+			
+				GUI.DrawTexture(new Rect(Screen.width/3 -Screen.width/16 , Screen.height/5 + Margin*4, Screen.width/2, Screen.height/2 + Screen.height/6 ), gameTitleTexture); 
+			}
 		#endif
 		}	
 		/*if (GUI.Button(new Rect(Margin,Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), gameExitTexture, NoStyle)) {
