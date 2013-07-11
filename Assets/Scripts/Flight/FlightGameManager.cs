@@ -26,7 +26,7 @@ public class FlightGameManager : GameManager {
 	float superAttackDuration = 3;
 	float superAttackTimeLeft = 0;
 	
-	float fireballCooldown = 0.06f;
+	float fireballCooldown = 0.3f;
 	float fireballCooldownRemaining = 0;
 	
 	
