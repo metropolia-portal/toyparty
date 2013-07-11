@@ -24,3 +24,4 @@
 #Take always masters gitignore on merge
 #.gitignore merge=ours
 #README.md merge=theirs
+ProjectSettings/EditorBuildSettings.asset merge=ours
