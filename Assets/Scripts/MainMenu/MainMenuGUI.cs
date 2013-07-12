@@ -56,14 +56,15 @@ public class MainMenuGUI : MonoBehaviour {
 		rect = new Rect[gamesNumber];
 
 
-		buttonWidth = (Screen.width - Margin*(gamesNumber+1)) /(gamesNumber);
+		buttonWidth = (Screen.width - Margin*(gamesNumber+1)) / gamesNumber;
 		
 		for (int i = 0; i < gamesNumber; i++) {
-			rect[i] = new Rect(i * (buttonWidth) + (i+1) * Margin, centerPosition(buttonWidth, buttonBarHeight ), buttonWidth, buttonWidth);
-			
 			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/" + gameList[i]);
 			playButtons[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
+			
+			float buttonHeight = buttonWidth * playButtons[i].height / playButtons[i].width;
+			rect[i] = new Rect(i * (buttonWidth) + (i+1) * Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
 		}
 		
 		float titleHeight = Screen.height - buttonBarHeight - Margin;
