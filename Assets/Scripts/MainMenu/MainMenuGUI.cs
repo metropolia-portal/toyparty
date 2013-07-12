@@ -138,11 +138,9 @@ public class MainMenuGUI : MonoBehaviour {
 		Rect rect = pos;
 		if(pos.Contains(InputManager.MouseScreenToGUI())) {
 			float hoverW = buttonWidth * hoverButtonSizeIncrease;
-			float halfWidthDiff = (hoverW - buttonWidth) / 2f;
 			rect = new Rect(pos.x - pos.width * (hoverButtonSizeIncrease - 1) / 2f, pos.y - pos.height * (hoverButtonSizeIncrease - 1) / 2f, pos.width * hoverButtonSizeIncrease , pos.height * hoverButtonSizeIncrease);
 		}
 		
-			
 		return GUI.Button(rect, image, NoStyle);
 	}
 }
