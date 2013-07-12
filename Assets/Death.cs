@@ -1,0 +1,46 @@
+using UnityEngine;
+using System.Collections;
+
+public class Death : MonoBehaviour {
+	
+	public int life = 1;
+	public int score = 1;
+	public GameObject fallingObject;
+	FlightGameManager gameManager;
+	
+	// Use this for initialization
+	void Start () {
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
+		transform.position = new Vector3(transform.position.x*gameManager.camera.aspect,transform.position.y,transform.position.z);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+	
+	void Die() {
+		
+		Destroy(gameObject);
+		Instantiate(fallingObject, transform.position, Quaternion.identity);
+	}
+	
+	void FixedUpdate() {
+		if (gameManager.IsOutside(transform.position*0.3f)) Destroy(gameObject);		
+	}
+	
+	void OnTriggerEnter(Collider other) {
+		if (other.CompareTag("PlayerBullet")) {
+			other.GetComponent<FlightPlayerBullet>().Damage();
+			life --;
+			if (life<=0) {
+				gameManager.OnFairyDeath(score*2);
+				Die();
+			}
+		} else if (other.CompareTag("Player")) {
+			gameManager.PlayerDamage(1);
+			gameManager.OnFairyDeath(score);
+			Die();
+		} 
+	}
+}
