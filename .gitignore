@@ -10,6 +10,9 @@ ToyParty.userprefs
 *.unityproj
 *.sln
 
+#ignore Osx system files
+.DS_Store
+
 #!!ONLY FOR CandyWizard BRANCH!!
 #**/[mM]aze
 #[mM]aze
