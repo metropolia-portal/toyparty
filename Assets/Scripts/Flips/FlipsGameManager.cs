@@ -59,7 +59,7 @@ public class FlipsGameManager : GameManager {
 			
 			if (inputManager.IsEscapeButtonDown()) PauseGame();
 
-			Camera cam = (Camera)FindObjectOfType(typeof(Camera));
+			Camera cam = Camera.main;
 			
 			Ray ray = cam.ScreenPointToRay(inputManager.GetCursorPosition());
 	   		RaycastHit hit;
