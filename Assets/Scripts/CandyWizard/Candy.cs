@@ -4,6 +4,7 @@ using System.Collections;
 public class Candy : MonoBehaviour {
 	//drops the candy
 	public void Drop() {
+		droppped = true;
 		rigidbody.isKinematic = false;
 		rigidbody.useGravity = true;
 	}
@@ -24,9 +25,21 @@ public class Candy : MonoBehaviour {
 		}
 	}
 	
+	void FixedUpdate() {
+		if(droppped) {
+			//if candy has 0 velocity for two frames in row - it is stuck
+			if(stopped && rigidbody.velocity.magnitude == 0) CandyWizardGameManager.Instance().OnCandyStuck();	
+			stopped = rigidbody.velocity.magnitude == 0;
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
 	
 	}
+	
+	bool droppped = false;
+	
+	bool stopped = false;
 
 }

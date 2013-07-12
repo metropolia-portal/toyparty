@@ -20,3 +20,8 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+#Take always masters gitignore on merge
+#.gitignore merge=ours
+#README.md merge=theirs
+ProjectSettings/EditorBuildSettings.asset merge=ours

@@ -32,9 +32,12 @@ public class CandyWizardGameManager : GameManager {
 				medal = Medal.Gold;
 				break;
 		}
-		SetMedal(medal);
-		
-		SetGameState(GameState.Over);
+		FinishGame(medal);
+
+	}
+	
+	public void OnCandyStuck() {
+		FinishGame(Medal.None);	
 	}
 
 	public void OnCandyClicked() {
@@ -49,6 +52,11 @@ public class CandyWizardGameManager : GameManager {
 			return false;
 		else
 			return true;
+	}
+	
+	void FinishGame(Medal medal) {
+		SetMedal(medal);
+		SetGameState(GameState.Over);
 	}
 	
 	// Use this for initialization
