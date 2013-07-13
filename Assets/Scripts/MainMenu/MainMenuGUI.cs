@@ -28,13 +28,13 @@ public class MainMenuGUI : MonoBehaviour {
 	int gamesNumber;	
 
 	public string[] gameList;
-	Texture[] menuOptionTextures;
+	Texture[] gameSelectionTextures;
 	Texture[] previewTextures;
-	Texture[] playButtons;
+	Texture[] playButtonsTextures;
 		
 	Rect gamePreviewButtonRect;
 	Rect gamePreviewRect;	
-	Rect[] rect;
+	Rect[] gameSelectionRects;
 	Rect quitRect;
 	Rect creditsRect;
 	Rect gameTitleRect;
@@ -50,21 +50,21 @@ public class MainMenuGUI : MonoBehaviour {
 		gamesNumber = gameList.Length;
 		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
 		
-		menuOptionTextures = new Texture[gamesNumber];
+		gameSelectionTextures = new Texture[gamesNumber];
 		previewTextures = new Texture[gamesNumber];
-		playButtons = new Texture[gamesNumber];
-		rect = new Rect[gamesNumber];
+		playButtonsTextures = new Texture[gamesNumber];
+		gameSelectionRects = new Rect[gamesNumber];
 
 
 		buttonWidth = (Screen.width - Margin*(gamesNumber+1)) / gamesNumber;
 		
 		for (int i = 0; i < gamesNumber; i++) {
-			menuOptionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
+			gameSelectionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/" + gameList[i]);
-			playButtons[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
+			playButtonsTextures[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
 			
-			float buttonHeight = buttonWidth * playButtons[i].height / playButtons[i].width;
-			rect[i] = new Rect(i * (buttonWidth) + (i+1) * Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
+			float buttonHeight = buttonWidth * gameSelectionTextures[i].height / gameSelectionTextures[i].width;
+			gameSelectionRects[i] = new Rect(i * (buttonWidth) + (i+1) * Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
 		}
 		
 		float titleHeight = Screen.height - buttonBarHeight - Margin;
@@ -100,7 +100,7 @@ public class MainMenuGUI : MonoBehaviour {
 	void OnGUI() {
 		for (int i=0; i< gamesNumber; i++) 
 		{
-			if (ButtonWithHover(rect[i], menuOptionTextures[i])) 
+			if (ButtonWithHover(gameSelectionRects[i], gameSelectionTextures[i])) 
 			{
 				SelectGame(i);
 			}
@@ -110,7 +110,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 			GUI.DrawTexture(gamePreviewRect,  previewTextures[selectedGame]);		
 				
-			if (ButtonWithHover(gamePreviewButtonRect, playButtons[selectedGame])) 
+			if (ButtonWithHover(gamePreviewButtonRect, playButtonsTextures[selectedGame])) 
 			{
 				Application.LoadLevel("TutorialScene");
 			}
@@ -138,7 +138,6 @@ public class MainMenuGUI : MonoBehaviour {
 	public bool ButtonWithHover(Rect pos, Texture image) {
 		Rect rect = pos;
 		if(pos.Contains(InputManager.MouseScreenToGUI())) {
-			float hoverW = buttonWidth * hoverButtonSizeIncrease;
 			rect = new Rect(pos.x - pos.width * (hoverButtonSizeIncrease - 1) / 2f, pos.y - pos.height * (hoverButtonSizeIncrease - 1) / 2f, pos.width * hoverButtonSizeIncrease , pos.height * hoverButtonSizeIncrease);
 		}
 		
