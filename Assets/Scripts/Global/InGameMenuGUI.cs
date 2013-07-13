@@ -8,10 +8,6 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	GameManager gameManager;
 	Texture Restart, PlayButton, MainMenuButton, PauseButton, medalTexture, pauseTexture;
-	GUIStyle NoStyle = new GUIStyle();
-	
-	float Margin = Screen.width/45;
-	float aspect = 0.0f;
 	
 	int count = 0;
 	bool isPrinting = false;
@@ -32,9 +28,8 @@ public class InGameMenuGUI : MonoBehaviour {
 		audio.volume = 0;
 		audio.loop = true;
 		audio.playOnAwake = false;
-		aspect = (float)Screen.width / Screen.height;
+		//aspect = (float)Screen.width / Screen.height;
 		audioSource = Camera.main.GetComponent<AudioSource>();
-		
 	}
 	
 	void OnGUI() {		
@@ -42,7 +37,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		
 		// While the game is in progress, only display the pause button
 		if ((gameManager.GetGameState() == GameManager.GameState.Running)||(gameManager.GetGameState() == GameManager.GameState.Pregame)) {
-			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, (Screen.width/10), (Screen.width/10)), PauseButton, NoStyle)) {	
+			if (GUI.Button(new Rect(Screen.width - screenUnitW*10, 0, (Screen.width/10), (Screen.width/10)), PauseButton, MGUI.NoStyle)) {	
 				gameManager.PauseGame();
 				isPrinting = true;
 			}
@@ -137,7 +132,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	}
 	void ShowBottomMenu(){
 		// Left button
-		if (GUI.Button(new Rect(Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
+		if (MGUI.HoveredButton(new Rect(MGUI.Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton)) {
 			switch(gameManager.GetGameState()){
 				case GameManager.GameState.Paused: 
 					StartCoroutine(LoadMainMenu(audioSource));
@@ -149,7 +144,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		}
 		
 		// Middle button
-		if (GUI.Button(new Rect(Screen.width -(Screen.width/2 + Screen.width/14),Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), Restart, NoStyle)) {
+		if (MGUI.HoveredButton(new Rect(Screen.width -(Screen.width/2 + Screen.width/14),Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), Restart)) {
 			gameManager.RestartGame();
 		}
 		
@@ -159,7 +154,7 @@ public class InGameMenuGUI : MonoBehaviour {
 			(gameManager.GetMedal() == GameManager.Medal.None)
 			) GUI.enabled = false; // Resume button is grayed out on the loss screen
 		
-		if (GUI.Button (new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
+		if (MGUI.HoveredButton(new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton)) {
 			if (gameManager.GetGameState()== GameManager.GameState.Paused){
 				gameManager.UnpauseGame();
 				isPrinting = false;
