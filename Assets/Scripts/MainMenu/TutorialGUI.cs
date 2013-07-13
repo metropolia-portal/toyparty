@@ -5,7 +5,6 @@ public class TutorialGUI : MonoBehaviour {
 	
 	GUIStyle NoStyle = new GUIStyle();
 	Texture Background, PlayButton, MainMenuButton;
-	float Margin = Screen.width/45;
 	AudioScript audioSource;
 
 	// Use this for initialization
@@ -19,10 +18,10 @@ public class TutorialGUI : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), Background);
-		if (GUI.Button (new Rect(Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton, NoStyle)) {
+		if (MGUI.HoveredButton (new Rect(MGUI.Margin, Screen.height - MGUI.menuButtonWidth - MGUI.Margin, MGUI.menuButtonWidth, MGUI.menuButtonWidth), MainMenuButton)) {
 			Application.LoadLevel("MainMenu");
 		}
-		if (GUI.Button (new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton, NoStyle)) {
+		if (MGUI.HoveredButton (new Rect(Screen.width - MGUI.menuButtonWidth - MGUI.Margin, Screen.height - MGUI.menuButtonWidth - MGUI.Margin, MGUI.menuButtonWidth, MGUI.menuButtonWidth), PlayButton)) {
 			StartCoroutine(WaitForEndOfMusic());
 			
 		}
