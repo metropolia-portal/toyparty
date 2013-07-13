@@ -15,16 +15,10 @@ public class MainMenuGUI : MonoBehaviour {
 	public float gamePreviewWidthToScreenWidthRatio = 0.75f;
 	public float gamePreviewArrowHeightRation = 0.2f;// height ration of the white speach arrow pointing to character to total height of preview screen
 	
-	public float hoverButtonSizeIncrease = 1.2f;
-	
 	//float ScreenHeight = Screen.height;
 	//float ScreenWidth = Screen.width;
 	
-	float buttonWidth;
 	float buttonBarHeight;
-	
-	float Margin = Screen.width/45;
-		
 	int gamesNumber;	
 
 	public string[] gameList;
@@ -38,8 +32,6 @@ public class MainMenuGUI : MonoBehaviour {
 	Rect quitRect;
 	Rect creditsRect;
 	Rect gameTitleRect;
-	
-	GUIStyle NoStyle = new GUIStyle();
 		
 	int selectedGame = -1;
 	
@@ -56,7 +48,7 @@ public class MainMenuGUI : MonoBehaviour {
 		gameSelectionRects = new Rect[gamesNumber];
 
 
-		buttonWidth = (Screen.width - Margin*(gamesNumber+1)) / gamesNumber;
+		float buttonWidth = (Screen.width - MGUI.Margin*(gamesNumber+1)) / gamesNumber;
 		
 		for (int i = 0; i < gamesNumber; i++) {
 			gameSelectionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
@@ -64,28 +56,23 @@ public class MainMenuGUI : MonoBehaviour {
 			playButtonsTextures[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
 			
 			float buttonHeight = buttonWidth * gameSelectionTextures[i].height / gameSelectionTextures[i].width;
-			gameSelectionRects[i] = new Rect(i * (buttonWidth) + (i+1) * Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
+			gameSelectionRects[i] = new Rect(i * (buttonWidth) + (i+1) * MGUI.Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
 		}
 		
-		float titleHeight = Screen.height - buttonBarHeight - Margin;
+		float titleHeight = Screen.height - buttonBarHeight - MGUI.Margin;
 		float titleWidth = titleHeight * gameTitleTexture.width / gameTitleTexture.width;
 		gameTitleRect = new Rect(centerPosition(titleWidth, Screen.width), Screen.height - titleHeight, titleWidth, titleHeight);
 		
-		quitRect = new Rect(Margin, Screen.height - Margin - buttonWidth, buttonWidth, buttonWidth);
+		quitRect = new Rect(MGUI.Margin, Screen.height - MGUI.Margin - MGUI.menuButtonWidth, MGUI.menuButtonWidth, MGUI.menuButtonWidth);
 		
-		creditsRect = new Rect(Screen.width - Margin - buttonWidth, Screen.height - Margin - buttonWidth, buttonWidth, buttonWidth);
+		creditsRect = new Rect(Screen.width - MGUI.Margin - MGUI.menuButtonWidth, Screen.height - MGUI.Margin - MGUI.menuButtonWidth, MGUI.menuButtonWidth, MGUI.menuButtonWidth);
 					
 		float previewRatio = (float) previewTextures[0].width / previewTextures[0].height;	
 		float previewWidth = Screen.width * gamePreviewWidthToScreenWidthRatio;
-		float previewHeight = Mathf.Min ( previewWidth / previewRatio, Screen.height - buttonBarHeight - 2 * Margin);	
-		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width), buttonBarHeight + Margin , previewWidth, previewHeight);
+		float previewHeight = Mathf.Min ( previewWidth / previewRatio, Screen.height - buttonBarHeight - 2 * MGUI.Margin);	
+		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width), buttonBarHeight + MGUI.Margin , previewWidth, previewHeight);
 		//TODO make centerRect method
-		gamePreviewButtonRect = centerInRect(new Rect(0, gamePreviewArrowHeightRation * gamePreviewRect.height, buttonWidth, buttonWidth), gamePreviewRect);// new Rect(centerPosition(), centerPosition(), Screen.width/7, Screen.width/7);			
-	}
-	
-	//inner.x and y are used for offset
-	static Rect centerInRect(Rect inner, Rect outer) {
-		return new Rect(outer.x + centerPosition(inner.width, outer.width)+ inner.x, outer.y + centerPosition(inner.height, outer.height) +  inner.y,inner.width, inner.height);
+		gamePreviewButtonRect = MGUI.centerInRect(new Rect(0, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);// new Rect(centerPosition(), centerPosition(), Screen.width/7, Screen.width/7);			
 	}
 	
 	static float centerPosition(float itemLength, float totalLength) {
@@ -100,7 +87,7 @@ public class MainMenuGUI : MonoBehaviour {
 	void OnGUI() {
 		for (int i=0; i< gamesNumber; i++) 
 		{
-			if (ButtonWithHover(gameSelectionRects[i], gameSelectionTextures[i])) 
+			if (MGUI.HoveredButton(gameSelectionRects[i], gameSelectionTextures[i])) 
 			{
 				SelectGame(i);
 			}
@@ -110,7 +97,7 @@ public class MainMenuGUI : MonoBehaviour {
 
 			GUI.DrawTexture(gamePreviewRect,  previewTextures[selectedGame]);		
 				
-			if (ButtonWithHover(gamePreviewButtonRect, playButtonsTextures[selectedGame])) 
+			if (MGUI.HoveredButton(gamePreviewButtonRect, playButtonsTextures[selectedGame])) 
 			{
 				Application.LoadLevel("TutorialScene");
 			}
@@ -120,12 +107,12 @@ public class MainMenuGUI : MonoBehaviour {
 			GUI.DrawTexture(gameTitleRect, gameTitleTexture); 
 		}	
 		
-		if (ButtonWithHover( quitRect, gameExitTexture)) 
+		if (MGUI.HoveredButton( quitRect, gameExitTexture)) 
 		{
 			Application.Quit();
 		}
 		
-		if (ButtonWithHover(creditsRect, gameCreditsTexture)) 
+		if (MGUI.HoveredButton(creditsRect, gameCreditsTexture)) 
 		{
 			if(AudioListener.volume == 0){
 				AudioListener.volume = 1;
@@ -135,12 +122,5 @@ public class MainMenuGUI : MonoBehaviour {
 		}
 	}
 	
-	public bool ButtonWithHover(Rect pos, Texture image) {
-		Rect rect = pos;
-		if(pos.Contains(InputManager.MouseScreenToGUI())) {
-			rect = new Rect(pos.x - pos.width * (hoverButtonSizeIncrease - 1) / 2f, pos.y - pos.height * (hoverButtonSizeIncrease - 1) / 2f, pos.width * hoverButtonSizeIncrease , pos.height * hoverButtonSizeIncrease);
-		}
-		
-		return GUI.Button(rect, image, NoStyle);
-	}
+
 }
