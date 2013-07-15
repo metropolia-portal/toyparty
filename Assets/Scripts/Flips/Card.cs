@@ -10,6 +10,8 @@ public class Card : MonoBehaviour {
 	Quaternion nextRotation;
 	Quaternion buf;
 	AudioClip flipClick;
+	AudioClip allRotateSound;
+	bool firstFlip = true;
 	
 	float timer = 0; // The timer used for the flipping animation
 	
@@ -21,13 +23,14 @@ public class Card : MonoBehaviour {
 		currentRotation = transform.rotation;
 		nextRotation = Quaternion.Euler (0, 180, 0)*transform.rotation;
 		flipClick = (AudioClip)Resources.Load("SoundFx/shuffle-01");
+		allRotateSound = (AudioClip)Resources.Load("SoundFx/shuffle-01");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		if (state == CardState.RotatingLeft || state == CardState.RotatingRight) { // This rotates the card 180 degrees around the vertical axis
-			timer += Time.deltaTime*2;
+			timer += Time.deltaTime;
 			transform.rotation = Quaternion.Lerp (transform.rotation, nextRotation, timer);	
 			if (timer >= 1) {
 				if (state == CardState.RotatingLeft) state = CardState.FaceUp;
@@ -57,7 +60,16 @@ public class Card : MonoBehaviour {
 			state = CardState.RotatingLeft;
 		}
 		if (state == CardState.FaceUp) {
-			Camera.main.audio.PlayOneShot(flipClick, 0.5f);
+			if(!firstFlip){
+				
+				Camera.main.audio.PlayOneShot(flipClick, 0.5f);
+				
+			}
+			else{
+				//Camera.main.audio.PlayOneShot(allRotateSound, 0.5f);
+				firstFlip = false;
+			}
+			
 			state = CardState.RotatingRight;
 		}
 	}
