@@ -7,16 +7,12 @@ public abstract class Brush : MonoBehaviour {
 	public float minSegmentLength = 0.05f;
 	
 	
-	public void Enable() {
-		enabled = true;
-	}
-	
-	public void Disable() {
-		enabled = false;
+	public void SetEnable(bool enable) {
+		enabled = enable;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {	
 		//started drawing
 		if(InputManager.Instance().IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
