@@ -11,6 +11,7 @@ public class Card : MonoBehaviour {
 	Quaternion buf;
 	AudioClip flipClick;
 	AudioClip allRotateSound;
+	AudioClip cardGoing;
 	bool firstFlip = true;
 	
 	float timer = 0; // The timer used for the flipping animation
@@ -23,7 +24,8 @@ public class Card : MonoBehaviour {
 		currentRotation = transform.rotation;
 		nextRotation = Quaternion.Euler (0, 180, 0)*transform.rotation;
 		flipClick = (AudioClip)Resources.Load("SoundFx/shuffle-01");
-		allRotateSound = (AudioClip)Resources.Load("SoundFx/shuffle-01");
+		allRotateSound = (AudioClip)Resources.Load("SoundFx/FlipTurn",(typeof(AudioClip)));
+		cardGoing = (AudioClip)Resources.Load ("SoundFx/FlipSwift",(typeof(AudioClip)));
 	}
 	
 	// Update is called once per frame
@@ -66,7 +68,7 @@ public class Card : MonoBehaviour {
 				
 			}
 			else{
-				//Camera.main.audio.PlayOneShot(allRotateSound, 0.5f);
+				Camera.main.audio.PlayOneShot(allRotateSound, 0.3f);
 				firstFlip = false;
 			}
 			
@@ -92,6 +94,7 @@ public class Card : MonoBehaviour {
 	
 	public void Disappear() {
 		state = CardState.Disappearing;
+		Camera.main.audio.PlayOneShot(cardGoing, 0.5f);
 	}
 	
 }

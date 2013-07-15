@@ -33,8 +33,13 @@ public class InputManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		instance = this;
-		
+		if(instance == null)
+		{
+			instance = this;
+		}
+		else{
+			Destroy (this);
+		}
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		cursorPosition = new Vector2(0,0);
 	}
