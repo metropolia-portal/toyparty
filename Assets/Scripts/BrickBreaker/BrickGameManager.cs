@@ -231,6 +231,10 @@ public class BrickGameManager : GameManager
 		
 		SetMedal(medal);
 		
+		//stop all spheres exisiting
+		foreach(GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
+			sphere.GetComponent<Sphere>().setDirection(Vector2.zero);
+		
 		//do effects unless game is lost by loosing all spheres
 		if(spheres > 0) {
 			Invoke("DestroyAllPickups", 0.01f); //wait for the last pickup to be generated, then destroy all
@@ -243,8 +247,6 @@ public class BrickGameManager : GameManager
 	}
 	
 	void PlaySpheresFinishEffect() {
-		foreach(GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
-			sphere.GetComponent<Sphere>().setDirection(Vector2.zero);
 			
 		Invoke ("ExplodeSpheres", gameFinishedDelay - sphereExplosionTime );
 	}
