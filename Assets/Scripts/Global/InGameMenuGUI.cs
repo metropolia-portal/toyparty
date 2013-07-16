@@ -7,7 +7,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	public Texture gameTitleTexture;
 	
 	GameManager gameManager;
-	Texture Restart, PlayButton, MainMenuButton, PauseButton, medalTexture, pauseTexture;
+	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, pauseTexture;
 	
 	int count = 0;
 	bool isPrinting = false;
@@ -23,7 +23,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
 		Restart = (Texture)Resources.Load("PauseMenu/replay_" + MainMenuGUI.selectedGameName);
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
-		pauseTexture = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
+		pauseTexture = (Texture)Resources.Load("PauseMenu/" + MainMenuGUI.selectedGameName);
 		audio.clip = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		audio.volume = 0;
 		audio.loop = true;
@@ -47,6 +47,7 @@ public class InGameMenuGUI : MonoBehaviour {
 				string medalWon = null;
 				switch (gameManager.GetGameState()) {
 					case GameManager.GameState.Paused: 
+						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
 						ShowBottomMenu();
 						break;
 					case GameManager.GameState.Over:
@@ -58,15 +59,30 @@ public class InGameMenuGUI : MonoBehaviour {
 						}
 						if(showMedal)
 						{
-							Texture medal = DisplayMedal(GetMedal());
-							GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+							string medal = GetMedal();
+							SetPodium();
+							SetCharacter();
+							SetBackground();
+					
+							GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), podiumTexture);
+							//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+							if(medal == "gold"){
+						
+								GUI.DrawTexture(new Rect(Screen.width/2 - Screen.width/6 , Screen.height/4 -Screen.height/15, Screen.width/4, Screen.height/3), characterTexture);
+							}
+							else if(medal == "silver"){
+						
+								GUI.DrawTexture(new Rect(Screen.width/6, 100, Screen.width/4, Screen.height/3), characterTexture);
+							}
+							else{
+							
+								GUI.DrawTexture(new Rect(Screen.width -Screen.width/6, 100, Screen.width/4, Screen.height/3), characterTexture);
+							}
 							ShowBottomMenu();
+							
 						}
 					break;
 			}
-		
-			if (isPrinting)
-				printTexture();
 		}			
 	}
 	
@@ -89,13 +105,17 @@ public class InGameMenuGUI : MonoBehaviour {
 		return medalWon;
 	}
 	
-	Texture DisplayMedal(string medalWon){
-		if(count < 1){
-			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
-			count++;
-			return medalTexture;
-		}
-		return medalTexture;
+	void SetPodium(){
+		
+			podiumTexture = (Texture)Resources.Load("MedalMenu/podium");
+	}
+	void SetBackground(){
+			
+			backgroundTexture = (Texture)Resources.Load("MedalMenu/backgrounds/" + MainMenuGUI.selectedGameName);
+	}
+	void SetCharacter(){
+		
+			characterTexture = (Texture)Resources.Load("MedalMenu/characters/" + MainMenuGUI.selectedGameName);
 	}
 	
 	IEnumerator LoadMainMenu(AudioSource source){
@@ -127,9 +147,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		yield return StartCoroutine(FadeOutMusic(audio));
 		gameManager.GoToNextLevel();
 	}
-	void printTexture(){
-		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture); 
-	}
+	
 	void ShowBottomMenu(){
 		// Left button
 		if (MGUI.HoveredButton(new Rect(MGUI.Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton)) {

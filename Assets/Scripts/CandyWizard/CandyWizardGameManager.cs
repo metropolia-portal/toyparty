@@ -3,7 +3,10 @@ using System.Collections;
 
 public class CandyWizardGameManager : GameManager {
 	public float minVelocity = 0.01f;
+	
 	public Brush lineBrush;
+	public Brush speedupBrush;
+	
 	public Candy candy;
 	
 	public LayerMask forbidDrawLineLayerMask;
@@ -54,6 +57,11 @@ public class CandyWizardGameManager : GameManager {
 			return true;
 	}
 	
+	public void SetSpeedUpBrushActive(bool active) {
+		speedupBrush.SetEnable(active);
+		lineBrush.SetEnable(!active);
+	}
+	
 	void FinishGame(Medal medal) {
 		SetMedal(medal);
 		SetGameState(GameState.Over);
@@ -63,7 +71,9 @@ public class CandyWizardGameManager : GameManager {
 	void Start () {
 		instance = this;
 		SetGameState(GameState.Pregame);
-		lineBrush.Enable();
+		
+		lineBrush.SetEnable(true);
+		speedupBrush.SetEnable(false);
 	}
 	
 	// Update is called once per frame
@@ -78,7 +88,10 @@ public class CandyWizardGameManager : GameManager {
 	
 	void StartGame() {
 		SetGameState(GameState.Running);
-		lineBrush.Disable();
+		
+		lineBrush.SetEnable(false);
+		speedupBrush.SetEnable(false);
+		
 		candy.Drop ();	
 	}
 	

@@ -17,7 +17,8 @@ public class TutorialGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), Background);
+		//GUI.Box(new Rect(0, 0, Screen.width, Screen.height), Background);
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Background);
 		if (MGUI.HoveredButton (new Rect(MGUI.Margin, Screen.height - MGUI.menuButtonWidth - MGUI.Margin, MGUI.menuButtonWidth, MGUI.menuButtonWidth), MainMenuButton)) {
 			Application.LoadLevel("MainMenu");
 		}
