@@ -7,7 +7,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	public Texture gameTitleTexture;
 	
 	GameManager gameManager;
-	Texture Restart, PlayButton, MainMenuButton, PauseButton, medalTexture, pauseTexture;
+	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, pauseTexture;
 	
 	int count = 0;
 	bool isPrinting = false;
@@ -59,8 +59,25 @@ public class InGameMenuGUI : MonoBehaviour {
 						}
 						if(showMedal)
 						{
-							Texture medal = DisplayMedal(GetMedal());
-							GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), medal);
+							string medal = GetMedal();
+							SetPodium();
+							SetCharacter();
+							SetBackground();
+					
+							GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), podiumTexture);
+							//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+							if(medal == "gold"){
+						
+								GUI.DrawTexture(new Rect(Screen.width/2 - Screen.width/6 , Screen.height/4 -Screen.height/15, Screen.width/4, Screen.height/3), characterTexture);
+							}
+							else if(medal == "silver"){
+						
+								GUI.DrawTexture(new Rect(Screen.width/6, 100, Screen.width/4, Screen.height/3), characterTexture);
+							}
+							else{
+							
+								GUI.DrawTexture(new Rect(Screen.width -Screen.width/6, 100, Screen.width/4, Screen.height/3), characterTexture);
+							}
 							ShowBottomMenu();
 							
 						}
@@ -88,13 +105,17 @@ public class InGameMenuGUI : MonoBehaviour {
 		return medalWon;
 	}
 	
-	Texture DisplayMedal(string medalWon){
-		if(count < 1){
-			medalTexture = (Texture)Resources.Load("MedalMenu/" + medalWon);
-			count++;
-			return medalTexture;
-		}
-		return medalTexture;
+	void SetPodium(){
+		
+			podiumTexture = (Texture)Resources.Load("MedalMenu/podium");
+	}
+	void SetBackground(){
+			
+			backgroundTexture = (Texture)Resources.Load("MedalMenu/backgrounds/" + MainMenuGUI.selectedGameName);
+	}
+	void SetCharacter(){
+		
+			characterTexture = (Texture)Resources.Load("MedalMenu/characters/" + MainMenuGUI.selectedGameName);
 	}
 	
 	IEnumerator LoadMainMenu(AudioSource source){
