@@ -3,11 +3,7 @@ using System.Collections;
 
 public class BrickGameManager : GameManager 
 {
-	//public string NextLevelId = "BrickGameLevelOneTutorial";
-	//public string MenuLevelId = "BrickGameMenu";
-	public int levelId = 1;
-	//public int shinyBricksGoal = 3;
-	
+
 //	int maxScore = 3000;
 //	int goldScore = 2000;
 //	int silverScore = 1000;
