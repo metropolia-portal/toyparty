@@ -116,7 +116,6 @@ public class InGameMenuGUI : MonoBehaviour {
 	IEnumerator FadeOutMusic(AudioSource source){
 		if (source != null)
 		while(source.volume > 0){
-			print (source+" "+source.volume);
 			source.volume -= 0.02f;	
 			yield return null;
 		}
