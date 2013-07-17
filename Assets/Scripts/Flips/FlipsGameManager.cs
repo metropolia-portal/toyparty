@@ -105,7 +105,24 @@ public class FlipsGameManager : GameManager {
 					
 				}
 			}
-		}	
+		}
+		
+		EnableCheats();
+	}
+	
+	void EnableCheats() {
+		if(Input.GetKey(KeyCode.B)) {
+			SetMedal(Medal.Bronze);
+			EndGame();
+		}
+		if(Input.GetKey(KeyCode.S)) {
+			SetMedal(Medal.Silver);
+			EndGame();
+		}
+		if(Input.GetKey(KeyCode.G)) {
+			SetMedal(Medal.Gold);
+			EndGame();
+		}
 	}
 	
 	public float GetSuccessRatio() {
