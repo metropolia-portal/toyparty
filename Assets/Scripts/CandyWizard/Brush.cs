@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class Brush : MonoBehaviour {
 	
 	public float smoothingSpeed = 0.01f;
-	public float minSegmentLength = 0.05f;
+	public float segmentLength = 0.05f;
 	
 	
 	public void SetEnable(bool enable) {
@@ -47,12 +47,13 @@ public abstract class Brush : MonoBehaviour {
 	//continue drawing the line to the point given, called every frame
 	virtual protected void DrawTo(Vector2 pos) {
 		//print ((brushPosition - pos).magnitude);
-		if( (brushPosition - pos).magnitude > minSegmentLength) {
-			Debug.Log("Drawing...");
-			DrawSegment(brushPosition, pos);
+			while((brushPosition - pos).magnitude > segmentLength) {
 			
-			brushPosition = pos;
-		}
+				Vector2 to = brushPosition + (pos-brushPosition).normalized * segmentLength;
+				DrawSegment(brushPosition, to);
+				
+				brushPosition = to;
+			}
 	}
 	
 	Vector2 brushPosition;
