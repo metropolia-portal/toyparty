@@ -6,7 +6,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	public Texture gameTitleTexture;
 	GameManager gameManager;
-	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, loseTexture, pauseTexture;
+	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, loseTexture, loseCharacterTexture, pauseTexture;
 	
 	int count = 0;
 	
@@ -26,6 +26,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		podiumTexture = (Texture)Resources.Load("MedalMenu/podium");
 		backgroundTexture = (Texture)Resources.Load("MedalMenu/backgrounds/" + MainMenuGUI.selectedGameName);
 		characterTexture = (Texture)Resources.Load("MedalMenu/characters/" + MainMenuGUI.selectedGameName);
+		loseCharacterTexture = (Texture)Resources.Load("MedalMenu/characters/" + MainMenuGUI.selectedGameName + "Lose");
 		loseTexture = (Texture)Resources.Load("MedalMenu/losescreen");
 		
 		audio.clip = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
@@ -71,26 +72,28 @@ public class InGameMenuGUI : MonoBehaviour {
 						
 								GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), loseTexture);
 
-								GUI.DrawTexture(new Rect(Screen.width/5 - Screen.width/18, Screen.height/2 -Screen.height/21, Screen.width/4, Screen.height/3), characterTexture);
+								GUI.DrawTexture(new Rect(Screen.width/5 - Screen.width/18, Screen.height/2 -Screen.height/5, Screen.width/3, Screen.height/2), loseCharacterTexture);
 			
 							}
 							else{
-						
-								GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), podiumTexture);
-								
+												
 								if(medal == "gold"){
 							
-									GUI.DrawTexture(new Rect(Screen.width/2 - Screen.width/6 , Screen.height/4 -Screen.height/15, Screen.width/4, Screen.height/3), characterTexture);
+									GUI.DrawTexture(new Rect(Screen.width/2 - Screen.width/11 , Screen.height/4 -Screen.height/16, Screen.width/6, Screen.height/3), characterTexture);
 								}
 								else if(medal == "silver"){
 							
-									GUI.DrawTexture(new Rect(Screen.width/5 - Screen.width/6, Screen.height/2 -Screen.height/5, Screen.width/4, Screen.height/3), characterTexture);
+									GUI.DrawTexture(new Rect(Screen.width/5 - Screen.width/45, Screen.height/2 -Screen.height/5, Screen.width/6, Screen.height/3), characterTexture);
 								}
 								else{
 								
-									GUI.DrawTexture(new Rect(Screen.width - Screen.width/3 + 15, Screen.height/2 -Screen.height/7, Screen.width/4, Screen.height/3), characterTexture);
+									GUI.DrawTexture(new Rect(Screen.width - Screen.width/3 - 20, Screen.height/2 -Screen.height/7, Screen.width/6, Screen.height/3), characterTexture);
 								}
+						
+								GUI.DrawTexture(new Rect(Screen.width/6, 0, Screen.width- Screen.width/3, Screen.height), podiumTexture);
 							}
+					
+							
 							ShowBottomMenu();
 							
 						}
@@ -149,7 +152,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	
 	void ShowBottomMenu(){
 		// Left button
-		if (MGUI.HoveredButton(new Rect(MGUI.Margin, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton)) {
+		if (MGUI.HoveredButton(new Rect(MGUI.Margin*3, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton)) {
 			switch(gameManager.GetGameState()){
 				case GameManager.GameState.Paused: 
 					StartCoroutine(LoadMainMenu(audioSource));
@@ -171,7 +174,7 @@ public class InGameMenuGUI : MonoBehaviour {
 			(gameManager.GetMedal() == GameManager.Medal.None)
 			) GUI.enabled = false; // Resume button is grayed out on the loss screen
 		
-		if (MGUI.HoveredButton(new Rect(Screen.width -Screen.width/6, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton)) {
+		if (MGUI.HoveredButton(new Rect(Screen.width - (Screen.width/3 - Screen.width/7), Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton)) {
 			if (gameManager.GetGameState()== GameManager.GameState.Paused){
 				gameManager.UnpauseGame();
 				
