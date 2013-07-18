@@ -12,6 +12,8 @@ ToyParty.userprefs
 
 #ignore Osx system files
 .DS_Store
+#ignore Windows files
+Thumbs.db*
 
 #!!ONLY FOR CandyWizard BRANCH!!
 #**/[mM]aze

@@ -89,6 +89,7 @@ public class CandyWizardGameManager : GameManager {
 	void StartGame() {
 		SetGameState(GameState.Running);
 		
+		GetComponent<GameGUI>().enableSpeedup = false;
 		lineBrush.SetEnable(false);
 		speedupBrush.SetEnable(false);
 		

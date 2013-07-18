@@ -48,10 +48,10 @@ public class LineBrush : Brush {
 		//creating two-sided plane mesh
 		Mesh newMesh = new Mesh ();
 		
-		Vector3 fromPosFront = fromPos;
-		Vector3 toPosFront = toPos;
-		Vector3 fromPosBack = fromPos;
-		Vector3 toPosBack = toPos;
+		Vector3 fromPosFront = Vector3.zero;
+		Vector3 toPosFront = toPos - fromPos;
+		Vector3 fromPosBack = Vector3.zero;
+		Vector3 toPosBack = toPos - fromPos;
 		
 		toPosFront.z = 0.5f;
 		fromPosFront.z = 0.5f;
@@ -78,6 +78,7 @@ public class LineBrush : Brush {
 		//setting meshcollider mesh to be the same as our generated mesh
 		newSegment.GetComponent<MeshCollider> ().sharedMesh = newMesh;
 		
+		newSegment.transform.position = fromPos;
 		newSegment.transform.parent = lineContainer.transform;
 	}
 	
