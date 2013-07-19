@@ -79,8 +79,8 @@ public class MainMenuGUI : MonoBehaviour {
 		float previewWidth = Screen.width * gamePreviewWidthToScreenWidthRatio;
 		float previewHeight = Mathf.Min ( previewWidth / previewRatio, Screen.height - buttonBarHeight - 2 * MGUI.Margin);	
 		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width), buttonBarHeight + MGUI.Margin , previewWidth, previewHeight);
-		soundButtonRect = MGUI.centerInRect(new Rect(80, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
-		creditsButtonRect = MGUI.centerInRect(new Rect(-70, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
+		soundButtonRect = MGUI.centerInRect(new Rect(Screen.width/7, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
+		creditsButtonRect = MGUI.centerInRect(new Rect(Screen.width/9 - Screen.width/4, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
 		//TODO make centerRect method
 		gamePreviewButtonRect = MGUI.centerInRect(new Rect(0, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);// new Rect(centerPosition(), centerPosition(), Screen.width/7, Screen.width/7);			
 	}
