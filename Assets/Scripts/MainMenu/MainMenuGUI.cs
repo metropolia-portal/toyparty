@@ -58,14 +58,16 @@ public class MainMenuGUI : MonoBehaviour {
 			gameSelectionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/" + gameList[i]);
 			playButtonsTextures[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
-			soundON =(Texture)Resources.Load("MainMenu/Buttons/soundon");
-			soundOff =(Texture)Resources.Load("MainMenu/Buttons/soundoff");
-			options =(Texture)Resources.Load("MainMenu/Buttons/brick_credits_btn");
-			credits =(Texture)Resources.Load("MainMenu/Buttons/roll_credits_btn");
+			
 			
 			float buttonHeight = buttonWidth * gameSelectionTextures[i].height / gameSelectionTextures[i].width;
 			gameSelectionRects[i] = new Rect(i * (buttonWidth) + (i+1) * MGUI.Margin, centerPosition(buttonHeight, buttonBarHeight ), buttonWidth, buttonHeight);
 		}
+		
+		soundON =(Texture)Resources.Load("MainMenu/Buttons/soundon");
+		soundOff =(Texture)Resources.Load("MainMenu/Buttons/soundoff");
+		options =(Texture)Resources.Load("MainMenu/Buttons/brick_credits_btn");
+		credits =(Texture)Resources.Load("MainMenu/Buttons/roll_credits_btn");
 		
 		float titleHeight = Screen.height - buttonBarHeight - MGUI.Margin;
 		float titleWidth = titleHeight * gameTitleTexture.width / gameTitleTexture.width;
