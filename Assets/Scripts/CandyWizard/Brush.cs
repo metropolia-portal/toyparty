@@ -4,11 +4,14 @@ using System.Collections;
 public abstract class Brush : MonoBehaviour {
 	
 	public float segmentLength = 0.05f;
-	public GameObject drawingSparks;
+	public GameObject brushEffectPrefub; //appers at the drawwing position
 	
 	
 	public void SetEnable(bool enable) {
 		enabled = enable;
+		
+		if(!enable && brushEffect)
+			Destroy(brushEffect);
 	}
 	
 	// Update is called once per frame
@@ -29,12 +32,17 @@ public abstract class Brush : MonoBehaviour {
 		else if(InputManager.Instance().IsCursorButtonUp() && brushDown) {
 			DrawTo(drawingPosition);
 			FinishDraw();
-		}
+		}		
 		
+		if(brushDown && ! brushEffect)
+			brushEffect = (GameObject) Instantiate(brushEffectPrefub);
+		if(!brushDown && brushEffect)
+			Destroy(brushEffect);
+		
+		if(brushEffect) brushEffect.transform.position = drawingPosition;
 		
 		//update smoothed user input
 		MoveDrawingPosition(ref drawingPosition);
-		//print ("smooth pos = "+ smoothedCursorPosition);
 	}
 	
 	//override it to add smoothing, etc.
@@ -52,14 +60,15 @@ public abstract class Brush : MonoBehaviour {
 	
 	//continue drawing the line to the point given, called every frame
 	virtual protected void DrawTo(Vector2 pos) {
-		//print ((brushPosition - pos).magnitude);
-			while((brushPosition - pos).magnitude > segmentLength) {
+		if(brushEffect) brushEffect.transform.position = new Vector3(pos.x, pos.y);
+		
+		while((brushPosition - pos).magnitude > segmentLength) {
+		
+			Vector2 to = brushPosition + (pos-brushPosition).normalized * segmentLength;
+			DrawSegment(brushPosition, to);
 			
-				Vector2 to = brushPosition + (pos-brushPosition).normalized * segmentLength;
-				DrawSegment(brushPosition, to);
-				
-				brushPosition = to;
-			}
+			brushPosition = to;
+		}
 	}
 	
 	Vector2 brushPosition;
@@ -80,7 +89,12 @@ public abstract class Brush : MonoBehaviour {
 		return new Vector2(worldPos.x, worldPos.y);//getting rid of z component
 	}
 	
+	void Start() {
+
+	}
+	
 	
 	bool brushDown = false;
 	private Vector2 drawingPosition;
+	private GameObject brushEffect;
 }
