@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class LineBrush : Brush {	
+	public float smoothingSpeed = 0.01f;
 	
 	public GameObject segmentPlanePrefub;
 	
@@ -9,6 +10,9 @@ public class LineBrush : Brush {
 	
 	public GameObject linesContainer;
 	
+	override protected void MoveDrawingPosition(ref Vector2 refDrawPosition) {
+		refDrawPosition = Vector2.Lerp(refDrawPosition, GetCursorPosition(), smoothingSpeed);
+	}
 	
 	override protected void StartDraw(Vector2 pos) {
 		if(CandyWizardGameManager.Instance().CanDrawLineAt(toVector3(pos))) {
