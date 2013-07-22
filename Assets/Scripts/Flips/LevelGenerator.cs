@@ -83,7 +83,7 @@ public class LevelGenerator : MonoBehaviour {
 		
 		GameObject.Find("Background").transform.localScale = // Resize the background image to fit behind the cards
 			new Vector3(colCount*ratio*cardW/10, rowCount*ratio*cardH/10, 1);
-		Debug.Log(new Vector3(colCount*ratio*cardW/10, rowCount*ratio*cardH/10, 1));
+		//Debug.Log(new Vector3(colCount*ratio*cardW/10, rowCount*ratio*cardH/10, 1));
 		
 		
 		for (j = -shiftH; j <= shiftH; j++)

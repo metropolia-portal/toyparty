@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	public int silverMedalScore = 60;
 	public int goldMedalScore = 90;
 	
+	
 	public void Awake() {		
 		MainMenuGUI.selectedGameName = gameName;
 		MainMenuGUI.currentLevel = currentLevel;
@@ -91,7 +92,5 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 0;
 	}
 	
-
-
-
+	
 }
