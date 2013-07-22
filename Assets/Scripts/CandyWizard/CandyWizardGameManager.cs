@@ -74,22 +74,42 @@ public class CandyWizardGameManager : GameManager {
 		
 		lineBrush.SetEnable(true);
 		speedupBrush.SetEnable(false);
+		
+		//TODO only debug
+		candySpawn = candy.transform.position;	
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(Input.GetKeyUp(KeyCode.Space)) {
-			StartGame();
-		}
-		
+	void Update () {	
 #if UNITY_EDITOR
 		EnableCheats();		
 #endif
 	}
 	
+	
+	Vector3 candySpawn;
 	void EnableCheats() {
-		if(Input.GetKey(KeyCode.R))
+		if(Input.GetKeyUp(KeyCode.R))
 			RestartGame();	
+		
+		if(Input.GetKeyUp(KeyCode.Space))
+			StartGame();
+		
+		if(Input.GetKeyUp(KeyCode.C)) {
+			Candy oldScript = candy;
+			candy = candy.gameObject.AddComponent<Candy>();
+			Destroy(oldScript);
+			candy.transform.position = candySpawn;
+			candy.rigidbody.velocity = Vector3.zero;
+			candy.rigidbody.angularVelocity = Vector3.zero;
+			candy.rigidbody.Sleep();
+			
+			StartGame();
+			
+		}
+		
+		if(Input.GetKeyUp(KeyCode.RightArrow))
+			Time.timeScale *= 2;
 	}
 	
 	void StartGame() {
