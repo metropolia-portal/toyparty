@@ -82,13 +82,20 @@ public class CandyWizardGameManager : GameManager {
 			StartGame();
 		}
 		
-		//TODO velocity 0 check
-		//if(candy.gameObject.velocity)
+#if UNITY_EDITOR
+		EnableCheats();		
+#endif
+	}
+	
+	void EnableCheats() {
+		if(Input.GetKey(KeyCode.R))
+			RestartGame();	
 	}
 	
 	void StartGame() {
 		SetGameState(GameState.Running);
 		
+		GetComponent<GameGUI>().enableSpeedup = false;
 		lineBrush.SetEnable(false);
 		speedupBrush.SetEnable(false);
 		

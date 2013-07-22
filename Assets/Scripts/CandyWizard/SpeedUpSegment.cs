@@ -36,12 +36,11 @@ public class SpeedUpSegment : MonoBehaviour {
 //					
 //			//extraVelocity.y -= Mathf.Abs(extraVelocity.y)* 0.3f;
 //			col.rigidbody.velocity += extraVelocity;
-//			Debug.DrawRay(col.transform.position,extraVelocity*5f,Color.blue, 0.5f);
 			
-			col.rigidbody.velocity = (-vert[0] + vert[1]).normalized * (col.rigidbody.velocity.magnitude + acceleration * Time.deltaTime);
+			//projecting speed on the direction of the segment, candy will speedup in any direction
+			col.rigidbody.velocity = Vector3.Project(col.rigidbody.velocity, vert[1] - vert[0]).normalized * (col.rigidbody.velocity.magnitude + acceleration * Time.deltaTime);
 			
 			//col.rigidbody.AddTorque(Vector2.right * 5f * Time.deltaTime);
-			
 			
 //			Debug.DrawRay(col.transform.position,collision.frictionForceSum*20f,Color.red, 0.5f);
 //			Debug.DrawRay(col.transform.position,collision.impactForceSum*10f,Color.blue, 0.5f);

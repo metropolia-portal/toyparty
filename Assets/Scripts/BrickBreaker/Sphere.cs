@@ -23,8 +23,9 @@ public abstract class Sphere : MonoBehaviour {
 	// Modify the direction of the sphere without of changing the speed
 	//TODO put this method inside Launch, as it is used only there
 	public void setDirection(Vector2 direction) {
-		direction.Normalize();
 		transform.rigidbody.isKinematic = false; // "Unfreeze" the sphere
+		
+		direction.Normalize();
 		transform.rigidbody.velocity =  new Vector3(direction.x * speed, 0,  direction.y * speed);
 	}
 	
@@ -35,6 +36,7 @@ public abstract class Sphere : MonoBehaviour {
 	// Freeze the sphere by disabling physics for it
 	public void Freeze() {
 		transform.rigidbody.isKinematic = true;
+		transform.localRotation = Quaternion.identity; //to reset marble rotation
 	}
 	
 	//explodes spheres at the end of the game
@@ -99,7 +101,7 @@ public abstract class Sphere : MonoBehaviour {
 	float rotationCoeff = Mathf.PI;
 
 	void AnimateRotate() {
-		transform.Rotate(new Vector3(rigidbody.velocity.z, 0, -rigidbody.velocity.x) * rotationCoeff,  Space.World);
+		if(rigidbody.velocity.magnitude > 0) transform.Rotate(new Vector3(rigidbody.velocity.z, 0, -rigidbody.velocity.x) * rotationCoeff,  Space.World);
 	}
 
 	//releases accumulated combo score to score manager when combo is lost

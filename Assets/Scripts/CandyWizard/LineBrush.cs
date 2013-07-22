@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class LineBrush : Brush {	
+	public float smoothingSpeed = 0.01f;
 	
 	public GameObject segmentPlanePrefub;
 	
@@ -9,6 +10,9 @@ public class LineBrush : Brush {
 	
 	public GameObject linesContainer;
 	
+	override protected void MoveDrawingPosition(ref Vector2 refDrawPosition) {
+		refDrawPosition = Vector2.Lerp(refDrawPosition, GetCursorPosition(), smoothingSpeed);
+	}
 	
 	override protected void StartDraw(Vector2 pos) {
 		if(CandyWizardGameManager.Instance().CanDrawLineAt(toVector3(pos))) {
@@ -48,10 +52,10 @@ public class LineBrush : Brush {
 		//creating two-sided plane mesh
 		Mesh newMesh = new Mesh ();
 		
-		Vector3 fromPosFront = fromPos;
-		Vector3 toPosFront = toPos;
-		Vector3 fromPosBack = fromPos;
-		Vector3 toPosBack = toPos;
+		Vector3 fromPosFront = Vector3.zero;
+		Vector3 toPosFront = toPos - fromPos;
+		Vector3 fromPosBack = Vector3.zero;
+		Vector3 toPosBack = toPos - fromPos;
 		
 		toPosFront.z = 0.5f;
 		fromPosFront.z = 0.5f;
@@ -78,6 +82,7 @@ public class LineBrush : Brush {
 		//setting meshcollider mesh to be the same as our generated mesh
 		newSegment.GetComponent<MeshCollider> ().sharedMesh = newMesh;
 		
+		newSegment.transform.position = fromPos;
 		newSegment.transform.parent = lineContainer.transform;
 	}
 	
