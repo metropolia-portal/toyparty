@@ -8,17 +8,42 @@ public class Animator2D : MonoBehaviour {
 	
 	Animation2D currentAnimation;
 	
-	public void PlayAnimation(string name) {
+	public void PauseAnimation() {
 		if (currentAnimation)
 			currentAnimation.Stop();
+	}
+	
+	public void ResumeAnimation() {
+		if (currentAnimation)
+			currentAnimation.Play();
+	}
+	
+	public void RestartAnimation() {
+		if (currentAnimation) 
+			currentAnimation.Restart();
+	}
+	
+	public void SetLooping(bool looping) {
+		if (currentAnimation)
+			currentAnimation.looping = looping;
+	}
+	
+	
+	
+	public void SwitchAnimation(string name) {
 		foreach (Animation2D anim in gameObject.GetComponents<Animation2D>()) {
 			if (anim.GetName()==name) {
 				currentAnimation = anim;
 				break;
 			}
-		}
-		currentAnimation.Restart();
-		currentAnimation.Play();
+		}	
+	}
+	
+	public void PlayAnimation(string name) {
+		PauseAnimation();
+		SwitchAnimation(name);
+		RestartAnimation();
+		ResumeAnimation();
 	}
 	
 	public Animator2D Child(string name) {
