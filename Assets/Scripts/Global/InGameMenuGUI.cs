@@ -8,10 +8,13 @@ public class InGameMenuGUI : MonoBehaviour {
 	public float gamePreviewWidthToScreenWidthRatio = 0.75f;
 	public float barHeightToScreenHeightRatio = 0.25f;
 	public float gamePreviewArrowHeightRation = 0.2f;// height ration of the white speach arrow pointing to character to total height of preview screen
+	public static int currentLevel = 1;
+	public static string selectedGameName;
+	public string[] gameList;
+	
 	GameManager gameManager;
 	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, loseTexture, loseCharacterTexture, pauseTexture;
 	Texture soundON, soundOff, credits, options;
-	
 	
 	int count = 0;
 	int gamesNumber;
@@ -19,8 +22,10 @@ public class InGameMenuGUI : MonoBehaviour {
 	AudioSource audioSource;
 	bool callOnce = true;
 	bool showMedal = false;
+	string medalWon = null;
 	
-	bool isSounON = true, callOptions = false;
+	bool callOptions = false;
+	string isSounON;
 	float buttonBarHeight;
 	Texture[] previewTextures;
 	Rect gamePreviewRect;	
@@ -28,9 +33,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	Rect creditsButtonRect;
 	Rect creditsRect;
 	
-	public static int currentLevel = 1;
-	public static string selectedGameName;
-	public string[] gameList;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -52,7 +55,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		options =(Texture)Resources.Load("MainMenu/Buttons/brick_credits_btn");
 		credits =(Texture)Resources.Load("MainMenu/Buttons/roll_credits_btn");
 		
-		
 		previewTextures = new Texture[1];
 		previewTextures[0] = (Texture)Resources.Load("MainMenu/Previews/brick");
 			
@@ -65,14 +67,14 @@ public class InGameMenuGUI : MonoBehaviour {
 		audioSource = Camera.main.GetComponent<AudioSource>();
 		
 		currentLevel = 1;
-		creditsRect = new Rect(Screen.width - (Screen.width/3 - Screen.width/7), 15, MGUI.menuButtonWidth, MGUI.menuButtonWidth);
+		creditsRect = new Rect(Screen.width - (Screen.width/3 - Screen.width/6), 10, MGUI.menuButtonWidth, MGUI.menuButtonWidth);
 		
 		float previewRatio = (float) previewTextures[0].width / previewTextures[0].height;	
 		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
 		float previewWidth = Screen.width * gamePreviewWidthToScreenWidthRatio;
 		float previewHeight = Mathf.Min ( previewWidth / previewRatio, Screen.height - buttonBarHeight - 2 * MGUI.Margin);	
-		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width - 5), MGUI.Margin - Screen.height/8 , previewWidth, previewHeight);
-		soundButtonRect = MGUI.centerInRect(new Rect(Screen.width/7, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
+		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width/3 + Screen.width/2), MGUI.Margin - Screen.height/24 , previewWidth, previewHeight);
+		soundButtonRect = MGUI.centerInRect(new Rect(Screen.width/7, gamePreviewArrowHeightRation * gamePreviewRect.height + Screen.height/10, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
 		creditsButtonRect = MGUI.centerInRect(new Rect(Screen.width/7 - Screen.width/4, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
 	}
 	
@@ -144,36 +146,11 @@ public class InGameMenuGUI : MonoBehaviour {
 						}
 					break;
 			}
-		}
-		
-		if(callOptions == true)
-		{
-			GUI.DrawTexture(gamePreviewRect,  previewTextures[0]);
-			if(isSounON){
-				
-				if (MGUI.HoveredButton(soundButtonRect, soundON)){
-					
-					EnableSound();
-				}
-			}
-			else{
-				
-				if (MGUI.HoveredButton(soundButtonRect, soundOff)){
-					
-					EnableSound();
-				}
-				
-			}
-			if (MGUI.HoveredButton(creditsButtonRect, credits)) {
-				
-				Application.LoadLevel("CreditsScreen");	
-			}
-		}
-		
+		}	
 	}
 	
 	string GetMedal(){
-		string medalWon = null;
+		
 		switch (gameManager.GetMedal()) {
 			case GameManager.Medal.None: 
 				medalWon = "lose";
@@ -259,12 +236,29 @@ public class InGameMenuGUI : MonoBehaviour {
 		}
 		GUI.enabled = true;
 		
-		if (MGUI.HoveredButton(creditsRect, options)) 
-		{
-			callOptions = true;
+		if(gameManager.GetGameState() == GameManager.GameState.Paused){
+			if(isSounON == "true"){
+				
+				if (MGUI.HoveredButton(creditsRect, soundON)){
+					
+					PlayerPrefs.SetString("sound", "false");
+					isSounON = "false";
+					EnableSound();
+					
+				}
+			}
+			else{
+				
+				if (MGUI.HoveredButton(creditsRect, soundOff)){
+					
+					PlayerPrefs.SetString("sound", "true");
+					isSounON = "true";
+					EnableSound();
+				}
+			}
 		}
+		
 	}
-	
 	void EnableSound(){
 		
 		if(AudioListener.volume == 0){
@@ -275,12 +269,8 @@ public class InGameMenuGUI : MonoBehaviour {
 		else{
 				AudioListener.volume = 0;
 		} 
-		if(isSounON){
-				isSounON = false;	
-		}	
-		else{
-				isSounON = true;
-		}
+		
+					
 	}
 
 }

@@ -20,7 +20,9 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	float buttonBarHeight;
 	int gamesNumber;
-	bool isSounON = true, callOptions = false;
+	bool callOptions = false;
+	
+	bool Sound= true;
 
 	public string[] gameList;
 	Texture[] gameSelectionTextures;
@@ -36,6 +38,8 @@ public class MainMenuGUI : MonoBehaviour {
 	Rect quitRect;
 	Rect creditsRect;
 	Rect gameTitleRect;
+	
+	
 		
 	int selectedGame = -1;
 	
@@ -45,13 +49,11 @@ public class MainMenuGUI : MonoBehaviour {
 		currentLevel = 1;
 		gamesNumber = gameList.Length;
 		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
-		
 		gameSelectionTextures = new Texture[gamesNumber];
 		previewTextures = new Texture[gamesNumber];
 		playButtonsTextures = new Texture[gamesNumber];
 		gameSelectionRects = new Rect[gamesNumber];
-
-
+		
 		float buttonWidth = (Screen.width - MGUI.Margin*(gamesNumber+1)) / gamesNumber;
 		
 		for (int i = 0; i < gamesNumber; i++) {
@@ -118,10 +120,12 @@ public class MainMenuGUI : MonoBehaviour {
 		else if(callOptions == true)
 		{
 			GUI.DrawTexture(gamePreviewRect,  previewTextures[1]);
-			if(isSounON){
+			if(Sound == true){
 				
 				if (MGUI.HoveredButton(soundButtonRect, soundON)){
 					
+					PlayerPrefs.SetString("sound", "false");
+					Sound = false;
 					EnableSound();
 				}
 			}
@@ -129,7 +133,10 @@ public class MainMenuGUI : MonoBehaviour {
 				
 				if (MGUI.HoveredButton(soundButtonRect, soundOff)){
 					
+					PlayerPrefs.SetString("sound", "true");
+					Sound = true;
 					EnableSound();
+					
 				}
 				
 			}
@@ -164,14 +171,9 @@ public class MainMenuGUI : MonoBehaviour {
 		else{
 				AudioListener.volume = 0;
 		} 
-		if(isSounON){
-				isSounON = false;	
-		}	
-		else{
-				isSounON = true;
-		}
 		
+					
 	}
-	
+
 
 }
