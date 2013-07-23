@@ -13,6 +13,10 @@ public class Animator2D : MonoBehaviour {
 			currentAnimation.Stop();
 	}
 	
+	public Animation2D GetCurrentAnimation() {
+		return currentAnimation;
+	}
+	
 	public void ResumeAnimation() {
 		if (currentAnimation)
 			currentAnimation.Play();
@@ -28,6 +32,21 @@ public class Animator2D : MonoBehaviour {
 			currentAnimation.looping = looping;
 	}
 	
+	
+	public void SetAnimationFrame(string name, int frame) {
+		PauseAnimation();
+		SwitchAnimation(name);
+		if (currentAnimation) {
+			currentAnimation.InitMaterial();
+			currentAnimation.SetFrame(frame);
+		}
+	}
+	
+	public void SetFrame(int frame) {
+		if (currentAnimation) {
+			currentAnimation.SetFrame(frame);
+		}
+	}
 	
 	
 	public void SwitchAnimation(string name) {
@@ -52,6 +71,7 @@ public class Animator2D : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		SwitchAnimation(defaultAnimation);
 		if (autoStart)
 			PlayAnimation(defaultAnimation);
 	}

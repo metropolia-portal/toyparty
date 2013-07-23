@@ -12,20 +12,27 @@ public class Bucket : MonoBehaviour {
 	float idleTime;
 
 
-	
+	float currentPosition = 0;
+	float turnDetection = 1;
 	float previousPosition = 0;
 	float timeDelta = 0.5f;
 	float tapSpeed = 0.2f;
-	float untapDelay = 0.5f;
+	float untapDelay = 0.2f;
 	float untapDelayLeft = 0;
 	float speed;
 	float maxSpeed = 0;
 	float maxSpeedDisp = 0;
+	float maxNoiseSpeed = 0.01f;
 	int speedCount = 0;
+	Animation2D dollSprite;
 	
 	// Use this for initialization
 	void Start () {
 		inputManager = GetComponent<InputManager>();
+		//GetComponent<Animator2D>().Child("Plane").SwitchAnimation("doll");
+		dollSprite = GetComponent<Animator2D>().Child("Plane").GetCurrentAnimation();
+		dollSprite.InitMaterial();
+		dollSprite.SetFrame(1);
 	}
 	
 	// Update is called once per frame
@@ -40,8 +47,7 @@ public class Bucket : MonoBehaviour {
 					, 1, -4);
 			}
 			
-	
-			
+
 			
 			if (idleTime > timeDelta) {
 				idleTime = 0;
@@ -51,16 +57,6 @@ public class Bucket : MonoBehaviour {
 			
 			float movement = transform.position.x - previousPosition;
 			speed = Mathf.Abs(movement);
-			if (speed > maxSpeed) {
-				maxSpeed = speed;
-			}
-			speedCount += 1;
-			
-			if (speedCount > 100) {
-				maxSpeedDisp = maxSpeed;
-				maxSpeed = 0;
-				speedCount = 0;
-			}
 			
 			if (speed > tapSpeed) {
 				untapDelayLeft = untapDelay;
@@ -73,17 +69,32 @@ public class Bucket : MonoBehaviour {
 					direction = 0;
 				} else untapDelayLeft -= Time.deltaTime;
 			}
+			if (speed < maxNoiseSpeed) {
+					
+				if (untapDelayLeft < 0) {
+					direction = 0;
+				} else untapDelayLeft -= 2*Time.deltaTime;
+			}
+			
+			float deltaX = transform.position.x - currentPosition;
+			
+			if ((int)Mathf.Sign(deltaX) == direction) {
+				currentPosition = transform.position.x;
+			} else {
+				if (Mathf.Abs(deltaX) > turnDetection) {
+					previousPosition = currentPosition;
+					currentPosition = transform.position.x;
+					direction  = -direction;
+				}
+			}
 			
 			string doll_asc = "";
 			if (direction > 0)
-					doll_asc = ("/o/");
+					dollSprite.SetFrame(2);
 				else if (direction < 0)
-					doll_asc = ("\\o\\");
+					dollSprite.SetFrame(3);
 				else
-					doll_asc = ("|o|");
-			
-			Debug.Log(doll_asc +" "+ speed.ToString() + " " + maxSpeedDisp.ToString());
-
+					dollSprite.SetFrame(1);
 		}
 	}
 	
