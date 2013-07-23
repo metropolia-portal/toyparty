@@ -7,9 +7,32 @@ public class Bucket : MonoBehaviour {
 	public Camera cam;
 	public DropsGameManager gameManager;
 	
+
+	int direction = 0;
+	float idleTime;
+
+
+	float currentPosition = 0;
+	float turnDetection = 1;
+	float previousPosition = 0;
+	float timeDelta = 0.5f;
+	float tapSpeed = 0.2f;
+	float untapDelay = 0.2f;
+	float untapDelayLeft = 0;
+	float speed;
+	float maxSpeed = 0;
+	float maxSpeedDisp = 0;
+	float maxNoiseSpeed = 0.01f;
+	int speedCount = 0;
+	Animation2D dollSprite;
+	
 	// Use this for initialization
 	void Start () {
 		inputManager = GetComponent<InputManager>();
+		//GetComponent<Animator2D>().Child("Plane").SwitchAnimation("doll");
+		dollSprite = GetComponent<Animator2D>().Child("Plane").GetCurrentAnimation();
+		dollSprite.InitMaterial();
+		dollSprite.SetFrame(1);
 	}
 	
 	// Update is called once per frame
@@ -23,6 +46,55 @@ public class Bucket : MonoBehaviour {
 					Mathf.Clamp(hit.point.x, -gameManager.maxDistanceFromCenter, gameManager.maxDistanceFromCenter)
 					, 1, -4);
 			}
+			
+
+			
+			if (idleTime > timeDelta) {
+				idleTime = 0;
+				
+				previousPosition = transform.position.x;
+			} else idleTime += Time.deltaTime;
+			
+			float movement = transform.position.x - previousPosition;
+			speed = Mathf.Abs(movement);
+			
+			if (speed > tapSpeed) {
+				untapDelayLeft = untapDelay;
+				direction = (int)Mathf.Sign(movement);
+			}
+			
+			if (speed < tapSpeed) {
+					
+				if (untapDelayLeft < 0) {
+					direction = 0;
+				} else untapDelayLeft -= Time.deltaTime;
+			}
+			if (speed < maxNoiseSpeed) {
+					
+				if (untapDelayLeft < 0) {
+					direction = 0;
+				} else untapDelayLeft -= 2*Time.deltaTime;
+			}
+			
+			float deltaX = transform.position.x - currentPosition;
+			
+			if ((int)Mathf.Sign(deltaX) == direction) {
+				currentPosition = transform.position.x;
+			} else {
+				if (Mathf.Abs(deltaX) > turnDetection) {
+					previousPosition = currentPosition;
+					currentPosition = transform.position.x;
+					direction  = -direction;
+				}
+			}
+			
+			string doll_asc = "";
+			if (direction > 0)
+					dollSprite.SetFrame(2);
+				else if (direction < 0)
+					dollSprite.SetFrame(3);
+				else
+					dollSprite.SetFrame(1);
 		}
 	}
 	

@@ -24,7 +24,7 @@ public class Animation2D : MonoBehaviour {
 	
 	public void Play() {
 		playing = true;
-		renderer.material.SetTexture("_MainTex", frames);
+		InitMaterial();
 	}
 	
 	public string GetName() {
@@ -39,6 +39,16 @@ public class Animation2D : MonoBehaviour {
 	void Start () {
 		currentFrame = startFrame;
 		frameWidth = frames.width / frameCount; 
+	}
+	
+	public void InitMaterial() {
+		renderer.material.SetTexture("_MainTex", frames);
+	}
+	
+	public void SetFrame(int frame) {
+		float frameRelativeWidth = frameWidth / renderer.material.GetTexture("_MainTex").width;
+		renderer.material.SetTextureOffset("_MainTex", new Vector2(frameRelativeWidth*currentFrame, 0));
+		currentFrame = frame;
 	}
 	
 	// Update is called once per frame
@@ -57,9 +67,7 @@ public class Animation2D : MonoBehaviour {
 					}
 				}
 			}
-			float frameRelativeWidth = frameWidth / renderer.material.GetTexture("_MainTex").width;
-			renderer.material.SetTextureOffset("_MainTex", new Vector2(frameRelativeWidth*currentFrame, 0));
-			//Debug.Log(renderer.material.GetTexture("_MainTex").width/ frameWidth);
+			SetFrame(currentFrame);
 		}
 	}
 }
