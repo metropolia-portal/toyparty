@@ -7,10 +7,14 @@ public class SpeedUpBrush : Brush {
 
 	public GameObject speedupEffectElementPrefub;
 	public LineBrush lineBrush;
+	
+	public GameGUI gui;
 	//public Material speededUpElementMaterial;
 	
+	float initialPaintLength;
+	
 	public void Start() {
-		
+		initialPaintLength = paintLength;
 	}
 
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
@@ -29,6 +33,13 @@ public class SpeedUpBrush : Brush {
 			 				
 			paintLength = Mathf.Max(0,paintLength);
 		}
+	}
+	
+	override protected void Update() {
+		base.Update();
+		 
+		//TODO use C# Event system
+		gui.SetSpeedupLeft(paintLength / initialPaintLength);
 	}
 
 }

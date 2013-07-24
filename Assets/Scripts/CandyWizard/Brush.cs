@@ -15,7 +15,7 @@ public abstract class Brush : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {	
+	virtual protected void Update () {	
 		//started drawing
 		if(InputManager.Instance().IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
