@@ -67,7 +67,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		audioSource = Camera.main.GetComponent<AudioSource>();
 		
 		currentLevel = 1;
-		creditsRect = new Rect(Screen.width - (Screen.width/3 - Screen.width/6), 10, MGUI.menuButtonWidth, MGUI.menuButtonWidth);
+		creditsRect = new Rect(Screen.width - MGUI.menuButtonWidth, MGUI.menuButtonWidth*1/3, MGUI.menuButtonWidth*2/3, MGUI.menuButtonWidth*2/3);
 		
 		float previewRatio = (float) previewTextures[0].width / previewTextures[0].height;	
 		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
