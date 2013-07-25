@@ -27,6 +27,9 @@ public class BrickGameManager : GameManager
 	public int powerUpSpawnRangeMin = 1; // These values define how often powerups will spawn from destroyed bricks
 	public int powerUpSpawnRangeMax = 2; // in this case, every 1-2 bricks will result in a pickup
 	
+	public Rect pauseButtonRelativePosRect = new Rect(0.9f, 0, 0.1f, 0.1f); //X and Y are fraction of screen width
+	
+	
 	int maxSpheres = 3;
 	int spheres = 3; // The number of spheres you can lose before you lose the game
 	
@@ -58,7 +61,10 @@ public class BrickGameManager : GameManager
 		base.Start ();//do some stuff common to all games
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+		
 		gameInput = GameObject.Find ("GameInput").GetComponent<InputManager>();
+		gameInput.IgnoreButtonEventsAt(new Rect(pauseButtonRelativePosRect.x * Screen.width , pauseButtonRelativePosRect.y * Screen.width, pauseButtonRelativePosRect.width *  Screen.width , pauseButtonRelativePosRect.height * Screen.width));
+		
 		
 		scoreGUI = GetComponent<ScoreGUI>();
 		scoreGUI.setMaxTimer((int)timeToComplete);

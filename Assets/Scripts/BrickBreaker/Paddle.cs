@@ -25,11 +25,9 @@ public class Paddle : MonoBehaviour {
 	bool sphereAttached = true;
 	
 	bool paddleMoved = false;
-	Rect noActionRect = new Rect(Screen.width - Screen.width/10, 0, (Screen.width/10), (Screen.width/10));
+	
 	// Update is called once per frame
 	void Update () {
-		var mousePos = InputManager.MouseScreenToGUI();
-		if(noActionRect.Contains(mousePos))return;
 		if(inputManager.GetCursorPosition() != new Vector2(0,0)) paddleMoved = true; //at game start don't move paddle until user touches the screen, as the GetCursorPosition() gives 0,0
 		
 		if (!gameManager.IsGameRunning() || !paddleMoved) return;

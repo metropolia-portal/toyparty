@@ -26,6 +26,8 @@ public class InputManager : MonoBehaviour {
 	
 	bool tapDown = false;
 	
+	Rect ignoreButtonsRect;
+	
 	//we have only one instance each game
 	static public InputManager Instance() {
 		return instance;
@@ -56,31 +58,36 @@ public class InputManager : MonoBehaviour {
 #if UNITY_ANDROID || UNITY_IOS
 		acceleration = Input.acceleration;
 		
-		//button 1
-		if(Input.touchCount == 0) {
-			isButtonUp = true; 
-			isButtonDown = 	false;
-		}
-		
-		if(Input.touchCount == 1) {
-			if(isButtonUp) isButtonDown = true;
-			isButtonUp = false;
-		}
-		
-		//button 2
-		
-		if(Input.touchCount == 2) {
-			if(isSecondButtonUp) isSecondButtonDown = true;
-			isSecondButtonUp = false;
-		} else if(Input.touchCount < 2) {
-			isSecondButtonUp = true;
-			isSecondButtonDown = false;
-		}
-		
 		//position
 		if (Input.touchCount==1) {
 			cursorPosition = Input.GetTouch(0).position;
 		}
+		
+		//ignore clicks on marked rect (for GUI)
+		if(!ignoreButtonsRect.Contains(cursorPosition)) {
+			//button 1
+			if(Input.touchCount == 0) {
+				isButtonUp = true; 
+				isButtonDown = 	false;
+			}
+			
+			if(Input.touchCount == 1) {
+				if(isButtonUp) isButtonDown = true;
+				isButtonUp = false;
+			}
+			
+			//button 2
+			
+			if(Input.touchCount == 2) {
+				if(isSecondButtonUp) isSecondButtonDown = true;
+				isSecondButtonUp = false;
+			} else if(Input.touchCount < 2) {
+				isSecondButtonUp = true;
+				isSecondButtonDown = false;
+			}
+		}
+		
+
 		
 #else
 		
@@ -108,8 +115,11 @@ public class InputManager : MonoBehaviour {
 		
 		cursorPosition = Input.mousePosition;
 		
-		isButtonDown = Input.GetMouseButtonDown(0);
-		isSecondButtonDown = isButtonDown;
+		if(!ignoreButtonsRect.Contains(cursorPosition)) {
+			isButtonDown = Input.GetMouseButtonDown(0);
+			isSecondButtonDown = isButtonDown;
+		}
+		else print ("in rect");
 #endif
 		
 		acceleration.x = Mathf.Clamp(acceleration.x, -0.5f, 0.5f) * sensitivity;
@@ -119,6 +129,11 @@ public class InputManager : MonoBehaviour {
 	
 	void  OnApplicationPause(bool pauseStatus) {
 		isApplicationPaused = pauseStatus;
+	}
+	
+	public void IgnoreButtonEventsAt(Rect rect) {
+		//converting GUI to Input reference system
+		ignoreButtonsRect = new Rect(rect.x, Screen.height - rect.y - rect.height, rect.width, rect.height);
 	}
 	
 	public bool IsApplicationPaused() {
