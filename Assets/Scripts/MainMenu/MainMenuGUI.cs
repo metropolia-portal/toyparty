@@ -45,6 +45,7 @@ public class MainMenuGUI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		selectedGameName = "";
 		
 		currentLevel = 1;
 		gamesNumber = gameList.Length;

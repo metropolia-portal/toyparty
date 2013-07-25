@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour {
 		if (!isLastLevel)
 			Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 		else
-			Application.LoadLevel("MainMenu");
+			Application.LoadLevel("CreditsScreen");	
+
 	}
 	
 	public void EndGame() {
