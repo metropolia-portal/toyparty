@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	public void Start () {
+		SetGameState(GameState.Pregame); //reset the game state set by previous game, TODO  why do we need static gameState?
 		Time.timeScale = 1;
 	}
 	
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void RestartGame() {
-		ResumeGame();
+		//Reset global time scale
+		Time.timeScale = 1;
 		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
 		Debug.Log(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
 	}
@@ -79,7 +81,8 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void GoToNextLevel() {
-		ResumeGame();
+		//Reset global time scale
+		Time.timeScale = 1;
 		if (!isLastLevel)
 			Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 		else

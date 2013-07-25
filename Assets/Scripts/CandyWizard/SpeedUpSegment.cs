@@ -5,6 +5,7 @@ public class SpeedUpSegment : MonoBehaviour {
 	
 	public float acceleration = 5f;
 	// Use this for initialization
+	
 	void Start () {
 	
 	}
