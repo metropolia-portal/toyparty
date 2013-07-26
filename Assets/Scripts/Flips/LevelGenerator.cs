@@ -9,11 +9,8 @@ public class LevelGenerator : MonoBehaviour {
 	public float cardDist = 0;
 	public Material[] textures; // List of materials for each available card suit
 	
-	float cardW = 2.5f; // The default dimensions of a single card, used for calculations
-	float cardH = 3.9f;
-	float ratioAddition = 1; // this addition places the cards to the left side of the screen. Its needed due to the different row sizes. Its set by SetRatios
-	float cardScaleW = 0;
-	float cardScaleH = 0;
+	const float cardW = 2.5f; // The default dimensions of a single card, used for calculations
+	const float cardH = 3.5f;
 	
 	const float defaultRowCount = 3f;
 	const float defaultColCount = 2f;
@@ -91,11 +88,10 @@ public class LevelGenerator : MonoBehaviour {
 		
 		for (j = -shiftH; j <= shiftH; j++)
 			for (i = -shiftW; i <= shiftW; i++) {
-				
-				SetRatios();
-				cardPosition =  new Vector3(((cardW)*i*ratio) - ratioAddition, (cardH)*j*ratio, 0f); // Calculate the card's position
+			
+				cardPosition =  new Vector3((cardW+cardDist)*i*ratio, (cardH+cardDist)*j*ratio, 0f); // Calculate the card's position
 				card = (GameObject)Instantiate(cardPrefab, cardPosition, Quaternion.identity); // Place the card prefab onto the stage
-				card.transform.localScale = new Vector3(ratio + cardScaleW, ratio + cardScaleH, 1); // Resize the card according to the calculated ratio
+				card.transform.localScale = new Vector3(ratio, ratio, 1); // Resize the card according to the calculated ratio
 			
 				cardBack = card.transform.Find("Face"); 
 				cardBack.renderer.material = new Material(Shader.Find("Diffuse"));
@@ -105,35 +101,5 @@ public class LevelGenerator : MonoBehaviour {
 			
 				count ++;
 			}
-	}
-	void SetRatios(){ 				// this is used to set the card to the left side of the screen depending on how many columns there are.
-		if(colCount == 3){
-			ratioAddition = 1.3f;	// adjusting this changes the cards postion from the left of the screen
-			cardW = 2.9f; 			// adjusting this adds more room to the sides of the cards
-			cardH = 3.8f; 			// adjusting this adds more room to the top and bottom of the cards
-			cardScaleH =0.05f;		// adjusting this makes the card taller or shorter
-			cardScaleW = 0.09f;		// adjusting this makes the card wider or thinner
-		}
-		if(colCount == 4){
-			ratioAddition = 1.4f;
-			cardW = 2.7f;
-			cardH = 4.2f;
-			cardScaleH =0.1f;
-			cardScaleW = 0.02f;
-		}
-		if(colCount == 4 && rowCount == 3){
-			ratioAddition = 1.2f;
-			cardW = 2.8f;
-			cardH = 3.6f;
-			cardScaleH =0.02f;
-			cardScaleW = 0.08f;
-		}
-		if(colCount == 4 && rowCount == 4){
-			ratioAddition = 1.2f;
-			cardW = 3.5f;
-			cardH = 3.6f;
-			cardScaleH =0.02f;
-			cardScaleW = 0.18f;
-		}
 	}
 }
