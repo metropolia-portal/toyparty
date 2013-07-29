@@ -71,8 +71,9 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		soundON =(Texture)Resources.Load("MainMenu/Buttons/soundon");
 		soundOff =(Texture)Resources.Load("MainMenu/Buttons/soundoff");
-		options =(Texture)Resources.Load("MainMenu/Buttons/brick_credits_btn");
+		options =(Texture)Resources.Load("MainMenu/Buttons/options_credits_btn");
 		credits =(Texture)Resources.Load("MainMenu/Buttons/roll_credits_btn");
+		gameExitTexture =(Texture)Resources.Load("MainMenu/Buttons/button_exit");
 		
 		float titleHeight = Screen.height - buttonBarHeight - MGUI.Margin;
 		float titleWidth = titleHeight * gameTitleTexture.width / gameTitleTexture.width;
