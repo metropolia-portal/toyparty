@@ -15,8 +15,8 @@ public class ExtraSphere : Sphere {
 	}
 	
 	// The extra sphere is launched right as it is created
-	override protected void Start () {
-		base.Start ();
+	override protected void Awake () {
+		base.Awake ();
 		isActive = true;
 		Launch();
 	}

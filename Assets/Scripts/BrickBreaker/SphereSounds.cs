@@ -8,20 +8,14 @@ public class SphereSounds : MonoBehaviour {
 	public AudioClip deathZoneSound;
 	public AudioClip brickHitSound;
 	
-	// Use this for initialization
-	void Start () {
-	
+	void OnTriggerEnter(Collider other) {		
+    	if(other.CompareTag("DeathZone"))
+			audio.PlayOneShot(deathZoneSound);			
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	void OnCollisionEnter(Collision col) {
+	public void PlaySound(string collider){
 		AudioClip sound = null;
 		
-		switch(col.collider.tag) {
+		switch(collider) {
 			case "Brick" :
 				sound = brickHitSound;
 				break;
@@ -33,11 +27,6 @@ public class SphereSounds : MonoBehaviour {
 				break;
 		}
 		
-		audio.PlayOneShot(sound);	
-	}
-	
-	void OnTriggerEnter(Collider other) {		
-    	if(other.CompareTag("DeathZone"))
-			audio.PlayOneShot(deathZoneSound);			
+		audio.PlayOneShot(sound);
 	}
 }

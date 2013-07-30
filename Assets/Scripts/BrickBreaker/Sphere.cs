@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public abstract class Sphere : MonoBehaviour {
-
 	// The sphere moves in 2d space at a constant speed
 	public float speed = 3;
 #if UNITY_EDITOR
@@ -20,13 +19,15 @@ public abstract class Sphere : MonoBehaviour {
 	// This method is called when the sphere leaves the level bounds and collides with the KillZone object
 	protected abstract void OnSphereLost();
 	
+	Transform tr;
+	Rigidbody rig;
+	SphereSounds soundScript;
 	// Modify the direction of the sphere without of changing the speed
 	//TODO put this method inside Launch, as it is used only there
 	public void setDirection(Vector2 direction) {
-		transform.rigidbody.isKinematic = false; // "Unfreeze" the sphere
-		
+		rig.isKinematic = false; // "Unfreeze" the sphere
 		direction.Normalize();
-		transform.rigidbody.velocity =  new Vector3(direction.x * speed, 0,  direction.y * speed);
+		rig.velocity =  new Vector3(direction.x * speed, 0,  direction.y * speed);
 	}
 	
 	public void Launch() { // launches the sphere forward from its current position
@@ -35,17 +36,28 @@ public abstract class Sphere : MonoBehaviour {
 	
 	// Freeze the sphere by disabling physics for it
 	public void Freeze() {
-		transform.rigidbody.isKinematic = true;
-		transform.localRotation = Quaternion.identity; //to reset marble rotation
+		rig.isKinematic = true;
+		tr.localRotation = Quaternion.identity; //to reset marble rotation
 	}
 	
 	//explodes spheres at the end of the game
 	public void Explode() {
 		gameObject.SetActive(false);
-		Instantiate(explodeEffect, transform.position, Quaternion.identity);
+		Instantiate(explodeEffect, tr.position, Quaternion.identity);
 	}
 	
-	protected virtual void Start() {
+	protected virtual void Awake() {
+		tr = GetComponent<Transform>();
+		rig = GetComponent<Rigidbody>();
+		if(rig == null)
+		{
+			rig = gameObject.AddComponent<Rigidbody>();
+		}
+		soundScript = GetComponent<SphereSounds>();
+		if(soundScript == null)
+		{
+			soundScript = gameObject.AddComponent<SphereSounds>();
+		}
 #if UNITY_EDITOR
 		if(testingEnabled) speed = testingSpeed;
 #endif		
@@ -54,34 +66,41 @@ public abstract class Sphere : MonoBehaviour {
 	
 
 	protected virtual void FixedUpdate () {
-		if (transform.rigidbody.isKinematic) return;
+		if (rig.isKinematic) return;
 			
-		transform.rigidbody.velocity = transform.rigidbody.velocity.normalized * speed; // This preserves the sphere's speed
+		rig.velocity = rig.velocity.normalized * speed; // This preserves the sphere's speed
 	
 		RaycastHit hit;
 		//TODO check that  speed * Time.fixedDeltaTime is reliable check on a phone
-		if (rigidbody.SweepTest (rigidbody.velocity, out hit, speed * Time.fixedDeltaTime)) { // SweepTest searches for objects in front of the sphere
-			//on each collision we will add sort of gravity force, so that there will be no endless reflection situation and ball will return back faster
-			rigidbody.velocity = new Vector3(rigidbody.velocity.x,rigidbody.velocity.y, rigidbody.velocity.z - velocityFixZRation * speed);
-			rigidbody.velocity  = rigidbody.velocity.normalized * speed; //fix the speed
+		if (rig.SweepTest (rig.velocity, out hit, speed * Time.fixedDeltaTime)) { // SweepTest searches for objects in front of the sphere
+			rig.velocity  = rig.velocity.normalized * speed; //fix the speed
 			
-			//Debug.DrawRay(transform.position, rigidbody.velocity * 5, Color.blue,1);	
 			// We want to detect and freeze bricks right before the sphere collides with them
 			// By doing so, we ensure that bricks don't get pushed away by the sphere, but can still abide by the laws of physics (fall down) when the sphere is away
-            SphereCollision(hit); 		
+            SphereCollision(hit); 
+			
         }
+		// if the velocity of the ball is too close to horizontal we apply a little push down
+		float angle = Mathf.Abs(Vector3.Dot(rig.velocity.normalized,Vector3.right));
+		if(angle > 0.95){
+			Vector3 vel = rig.velocity;
+			vel.z -= velocityFixZRation * speed;
+			rig.velocity = vel;
+		}
 	}	
 	
 	virtual protected void SphereCollision(RaycastHit hit) {
-		// However, the only case we actually want to handle is the Brick collision
-		// In all other situations, Unity's built-in physics engine is sufficient
 		if(hit.collider.CompareTag("Brick")) { 
-			//print ("brick hit!");
 			Brick brick =  hit.collider.GetComponent<Brick>();
 	       	brick.OnHit();	
-//			gameScore.OnSphereScore(brick.GetScore());
+			
     	}
-		
+		else{
+			Vector3 velocity = rig.velocity;
+			velocity = velocity - 2 * hit.normal * Vector3.Dot(velocity, hit.normal);
+			rig.velocity = velocity;
+		}
+		soundScript.PlaySound(hit.collider.tag);
 //		if(hit.collider.CompareTag("Paddle"))
 //			ReleaseComboScore();	
 	}
@@ -101,7 +120,7 @@ public abstract class Sphere : MonoBehaviour {
 	float rotationCoeff = Mathf.PI;
 
 	void AnimateRotate() {
-		if(rigidbody.velocity.magnitude > 0) transform.Rotate(new Vector3(rigidbody.velocity.z, 0, -rigidbody.velocity.x) * rotationCoeff,  Space.World);
+		if(rig.velocity.magnitude > 0) tr.Rotate(new Vector3(rig.velocity.z, 0, -rig.velocity.x) * rotationCoeff,  Space.World);
 	}
 
 	//releases accumulated combo score to score manager when combo is lost
