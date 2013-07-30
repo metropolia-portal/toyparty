@@ -9,6 +9,8 @@ public class FlipsGameManager : GameManager {
 	public InputManager inputManager;
 	public LevelGenerator levelGenerator;
 	public GUIText statusLine;
+	
+	float goTimer;
 
 	Card firstCard = null; // Handles to the two cards the player is currently flipping
 	Card secondCard = null;
@@ -29,6 +31,7 @@ public class FlipsGameManager : GameManager {
 		base.Start ();
 		cardsTotal = levelGenerator.CardCount();
 		SetGameState(GameState.Pregame);
+		statusLine.pixelOffset = new Vector2(Screen.width/2, -Screen.height /2 );
 		
 	}
 	
@@ -40,6 +43,7 @@ public class FlipsGameManager : GameManager {
 			if (inputManager.IsEscapeButtonDown()) PauseGame();
 			revealTime -= Time.deltaTime;
 			if (revealTime <=0) {
+				goTimer = 1;
 				HideAllCards();
 				base.SetGameState(GameState.Running);
 				UpdateStatus();
@@ -49,6 +53,7 @@ public class FlipsGameManager : GameManager {
 		}
 		
 		if (GetGameState() == GameState.Running) {
+			UpdateStatus();
 			
 			if (doEndGame) {
 				endGameTimer -= Time.deltaTime;
@@ -151,18 +156,25 @@ public class FlipsGameManager : GameManager {
 		
 		switch (GetGameState()) {
 			case GameState.Pregame:
-				statusLine.text = "Look at the cards... "+(Mathf.Ceil(revealTime)).ToString();
+				
+				statusLine.guiText.material.color = new Color(1f,1f,1f,1.5f - (Mathf.Ceil(revealTime) - revealTime));
+				statusLine.text = (Mathf.Ceil(revealTime)).ToString();
+				//statusLine.transform.localScale = new Vector3(10.5f,10.5f,10.5f);
+				statusLine.fontSize = (int)(80 + 100*(Mathf.Ceil(revealTime) - revealTime));
 			break;			
 				
 			case GameState.Running:
-				statusLine.text = "Accuracy so far: ";
-				if (flips > 1)
-					GetComponent<ScoreGUI>().SetScore((int)Mathf.Ceil(GetSuccessRatio()*100));
-				else
-					GetComponent<ScoreGUI>().SetScore(0);
-			break;
-			case GameState.Over:
-				statusLine.text = ("Victory! "+Mathf.Ceil(GetSuccessRatio()*100)).ToString()+"% Accuracy";
+				if (goTimer > 0) {
+					
+				
+					revealTime = goTimer;
+					statusLine.text = "Go!";
+					statusLine.guiText.material.color = new Color(1f,1f,1f,1.5f - (Mathf.Ceil(revealTime) - revealTime));
+					statusLine.fontSize = (int)(80 + 100*(Mathf.Ceil(revealTime) - revealTime));
+				goTimer -= Time.deltaTime;
+				}else {
+				statusLine.text=  "";
+			}
 			break;
 		}
 		
