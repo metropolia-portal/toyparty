@@ -18,6 +18,8 @@ public class LevelGenerator : MonoBehaviour {
 	Material[] cardTextures;
 	
 	void Awake() {
+		
+		
 		ShuffleMaterials();
 		PlaceCards();		
 	}
@@ -38,10 +40,13 @@ public class LevelGenerator : MonoBehaviour {
 	
 	void ShuffleMaterials() {
 		AssignMaterials ();
-		int i;
+		for (int i=0; i < cardTextures.Length; i++) 
+			Debug.Log(cardTextures[i]);
+		Debug.Log(cardTextures.Length);
+		//int i;
 		Material buf;
 		
-		for (i=0; i < cardTextures.Length; i++) { // This "shuffles" the texture array by swapping each element with another one at random
+		for (int i=0; i < cardTextures.Length; i++) { // This "shuffles" the texture array by swapping each element with another one at random
 			int newPos = Random.Range (0, cardTextures.Length - 1);
 			buf = cardTextures[newPos];
 			cardTextures[newPos] = cardTextures[i];
@@ -53,6 +58,14 @@ public class LevelGenerator : MonoBehaviour {
 		int count = CardCount ();
 		cardTextures = new Material[count];
 		int i;
+		Material buf;
+		for (i=0; i < textures.Length; i++) {
+			int newPos = Random.Range (0, textures.Length - 1);
+			buf = textures[newPos];
+			textures[newPos] = textures[i];
+			textures[i] = buf; 
+		}
+		
 		for (i=0; i < count; i++) {
 			cardTextures[i] = 
 				textures[(i/2) % textures.Length]; 
