@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MazeTrap : MonoBehaviour {
 	
-	bool active = true;
+	bool activeMouse = true;
 	
 	float holdTime = 3;
 
@@ -14,7 +14,7 @@ public class MazeTrap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!active) {
+		if (!activeMouse) {
 			holdTime -= Time.deltaTime;
 			if (holdTime <= 0){
 				GameObject.Find("Mouse").GetComponent<Mouse>().SetSpeedModifier(1);
@@ -25,13 +25,13 @@ public class MazeTrap : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (!active) return;
+		if (!activeMouse) return;
 		if (other.gameObject.tag == "Player") {
 			GameObject.Find("GameManager").GetComponent<MazeGameManager>().OnTrap();
 			GameObject.Find("Mouse").GetComponent<Mouse>().SetSpeedModifier(0);
 			//GameObject.Find("Mouse").GetComponent<Mouse>().DisableControls();
 			
-			active = false;
+			activeMouse = false;
 		}
 	}	
 	

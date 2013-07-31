@@ -5,23 +5,7 @@ public class GameMenu : MonoBehaviour {
 
 	public string GameName = "";
 	public string GameLevel = "";
-	
-	
-	string MainMenuLevelId = "";
-	string LevelId = "";
-	string StringBuilder = "";
-	
 
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 	
 	void OnGUI() {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), GameName);

@@ -7,7 +7,7 @@ public class DropsGameManager : GameManager {
 	public GUIText GUITimer;
 	public GameObject greenBox;
 	public GameObject redBox;
-	public Camera camera;
+	public Camera cam;
 	public GameObject background;
 	public float maxDistanceFromCenter;
 
@@ -20,10 +20,10 @@ public class DropsGameManager : GameManager {
 	ScoreGUI scoreGUI;
 	
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
 		
-		maxDistanceFromCenter *= camera.aspect;
-		background.transform.localScale = new Vector3(camera.aspect, 1, 1);
+		maxDistanceFromCenter *= cam.aspect;
+		background.transform.localScale = new Vector3(cam.aspect, 1, 1);
 		base.Start();
 
 		scoreGUI = GetComponent<ScoreGUI>();

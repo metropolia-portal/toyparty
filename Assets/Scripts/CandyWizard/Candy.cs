@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Candy : MonoBehaviour {
+	CandyWizardGameManager candyScript;
+	void Start(){
+		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
+	}
 	//drops the candy
 	public void Drop() {
 		droppped = true;
@@ -12,7 +16,7 @@ public class Candy : MonoBehaviour {
 	void OnTriggerEnter(Collider collider) {
 		if(collider.CompareTag("Star")) {
 			collider.gameObject.SetActive(false);
-			CandyWizardGameManager.Instance().OnStarCollected();
+			candyScript.OnStarCollected();
 		}
 	}
 	
@@ -20,7 +24,7 @@ public class Candy : MonoBehaviour {
 		if(InputManager.Instance().IsCursorButtonDown()) {
 			Vector2 screenPos = InputManager.Instance().GetCurrentCursorPosition();
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y)), Mathf.Infinity, 1 << gameObject.layer)) {
-				CandyWizardGameManager.Instance().OnCandyClicked();
+				candyScript.OnCandyClicked();
 			}
 		}
 	}
@@ -28,16 +32,10 @@ public class Candy : MonoBehaviour {
 	void FixedUpdate() {
 		if(droppped) {
 			//if candy has 0 velocity for two frames in row - it is stuck
-			if(stopped && rigidbody.velocity.magnitude == 0) CandyWizardGameManager.Instance().OnCandyStuck();	
+			if(stopped && rigidbody.velocity.magnitude == 0) candyScript.OnCandyStuck();	
 			stopped = rigidbody.velocity.magnitude == 0;
 		}
 	}
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	bool droppped = false;
 	
 	bool stopped = false;

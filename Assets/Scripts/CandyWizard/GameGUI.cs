@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class GameGUI : MonoBehaviour {
-	
+	CandyWizardGameManager candyScript;
 	public bool enableSpeedup = true;
 	public Texture speedupSpriteSheet;
 	public int sprites = 7;
@@ -14,6 +14,9 @@ public class GameGUI : MonoBehaviour {
 	bool speedupOn = false;
 	float speedupLeft = 1f;
 	
+	void Start(){
+		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
+	}
 	// from 0 to 1;
 	public void SetSpeedupLeft(float val) {
 		speedupLeft = val;
@@ -35,7 +38,7 @@ public class GameGUI : MonoBehaviour {
 			print(( (int)( (1 - speedupLeft) * sprites)));
 			if (GUI.Button(new Rect( - ( (int)( (1 - speedupLeft) * (sprites - 1))) * flaskWidth, 0, buttonWidth,  buttonWidth), speedupSpriteSheet, MGUI.NoStyle)) {
 				speedupOn = !speedupOn;
-				CandyWizardGameManager.Instance().SetSpeedUpBrushActive(speedupOn);
+				candyScript.SetSpeedUpBrushActive(speedupOn);
 			}
 		
 			GUI.EndGroup();

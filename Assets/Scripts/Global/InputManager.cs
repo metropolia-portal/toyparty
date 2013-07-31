@@ -22,9 +22,6 @@ public class InputManager : MonoBehaviour {
 
 	
 	public float sensitivity = 40;
-	bool inputEnabled = true;
-	
-	bool tapDown = false;
 	
 	Rect ignoreButtonsRect;
 	
@@ -90,25 +87,18 @@ public class InputManager : MonoBehaviour {
 
 		
 #else
-		
-		bool c = false;
+
 		accel = new Vector3(0,0,0);
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			accel += new Vector3(0,0.5f,0);
-			
-			c = true;
 		} else if (Input.GetKey(KeyCode.DownArrow)) {
 			accel -= new Vector3(0,0.5f,0);
-			
-			c = true;
 		}
 		
 		if (Input.GetKey(KeyCode.LeftArrow)) {
 			accel -= new Vector3(0.5f,0,0);
-			c = true;
 		} else if (Input.GetKey(KeyCode.RightArrow)) {
 			accel += new Vector3(0.5f,0,0);
-			c = true;
 		} 
 		
 		acceleration = accel;
@@ -174,7 +164,7 @@ public class InputManager : MonoBehaviour {
             isSecondButtonDown = false;
             return true;
         } else {
-            return false;
+            return false; 
         }
 	}
 	
@@ -191,14 +181,6 @@ public class InputManager : MonoBehaviour {
 		return Input.mousePosition;
 	}
 	
-	
-	public void DisableInput() {
-		inputEnabled = false;
-	}
-	
-	public void EnableInput() {
-		inputEnabled = true;
-	}
 	public static Vector3 MouseScreenToGUI(){
 		var mousePos = new Vector3(Input.mousePosition.x, Screen.height - Input.mousePosition.y,0);
 		return mousePos;

@@ -8,14 +8,10 @@ public class Particle : MonoBehaviour {
 	public float speed = 0.5f;
 	public bool randomRotation = true;
 	Vector3 direction;
-	float rup;
-	float rright;
 
 	// Use this for initialization
 	void Start () {
 		direction =  Quaternion.Euler(0, Random.Range(0,360),0) * Vector3.forward;
-		rup = Random.Range(0.5f,1.5f);
-		rright = Random.Range(0.5f,1.5f);
 		transform.rotation = Quaternion.Euler(0, Random.Range(0, 360),0);
 	}
 	

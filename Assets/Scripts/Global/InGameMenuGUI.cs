@@ -24,13 +24,8 @@ public class InGameMenuGUI : MonoBehaviour {
 	bool showMedal = false;
 	string medalWon = null;
 	
-	bool callOptions = false;
 	string isSounON;
-	float buttonBarHeight;
-	Texture[] previewTextures;
-	Rect gamePreviewRect;	
-	Rect soundButtonRect;
-	Rect creditsButtonRect;
+	Texture[] previewTextures;	
 	Rect creditsRect;
 	
 	
@@ -69,13 +64,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		currentLevel = 1;
 		creditsRect = new Rect(Screen.width - MGUI.menuButtonWidth, MGUI.menuButtonWidth*1/3, MGUI.menuButtonWidth*2/3, MGUI.menuButtonWidth*2/3);
 		
-		float previewRatio = (float) previewTextures[0].width / previewTextures[0].height;	
-		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
-		float previewWidth = Screen.width * gamePreviewWidthToScreenWidthRatio;
-		float previewHeight = Mathf.Min ( previewWidth / previewRatio, Screen.height - buttonBarHeight - 2 * MGUI.Margin);	
-		gamePreviewRect = new Rect(centerPosition(previewWidth, Screen.width/3 + Screen.width/2), MGUI.Margin - Screen.height/24 , previewWidth, previewHeight);
-		soundButtonRect = MGUI.centerInRect(new Rect(Screen.width/7, gamePreviewArrowHeightRation * gamePreviewRect.height + Screen.height/10, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
-		creditsButtonRect = MGUI.centerInRect(new Rect(Screen.width/7 - Screen.width/4, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);
+
 	}
 	
 	static float centerPosition(float itemLength, float totalLength) {
@@ -96,7 +85,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		
 		else {
 				// define the medal and show the corresponding texture
-				string medalWon = null;
 				switch (gameManager.GetGameState()) {
 					case GameManager.GameState.Paused: 
 						GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pauseTexture);
@@ -202,11 +190,9 @@ public class InGameMenuGUI : MonoBehaviour {
 		if (MGUI.HoveredButton(new Rect(MGUI.Margin*3, Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), MainMenuButton)) {
 			switch(gameManager.GetGameState()){
 				case GameManager.GameState.Paused: 
-					callOptions = false;
 					StartCoroutine(LoadMainMenu(audioSource));
 					break;
 				case GameManager.GameState.Over:
-					callOptions = false;
 					StartCoroutine(LoadMainMenu(audio));
 					break;
 			}
@@ -214,7 +200,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		
 		// Middle button
 		if (MGUI.HoveredButton(new Rect(Screen.width -(Screen.width/2 + Screen.width/14),Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), Restart)) {
-			callOptions = false;
 			gameManager.RestartGame();
 		}
 		
@@ -226,7 +211,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		
 		if (MGUI.HoveredButton(new Rect(Screen.width - (Screen.width/3 - Screen.width/7), Screen.height - (Screen.width/6), Screen.width/7, Screen.width/7), PlayButton)) {
 			if (gameManager.GetGameState()== GameManager.GameState.Paused){
-				callOptions = false;
 				gameManager.UnpauseGame();
 				
 			}

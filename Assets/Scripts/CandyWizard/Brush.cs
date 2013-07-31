@@ -78,7 +78,7 @@ public abstract class Brush : MonoBehaviour {
 	//finish drawing the line at last position
 	virtual protected void FinishDraw() {
 		Debug.Log("Finished drawing");
-		brushDown = false;
+		brushDown = false; 
 	}
 
 	//get cursor position on gameworld
@@ -89,9 +89,6 @@ public abstract class Brush : MonoBehaviour {
 		return new Vector2(worldPos.x, worldPos.y);//getting rid of z component
 	}
 	
-	void Start() {
-
-	}
 	
 	
 	bool brushDown = false;

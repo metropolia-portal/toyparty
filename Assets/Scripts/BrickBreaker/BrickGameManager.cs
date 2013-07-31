@@ -48,7 +48,7 @@ public class BrickGameManager : GameManager
 	bool gameOver = false;
 	//bool gamePaused = false;
 	//GameState gameState = GameState.Running;
-	Medal medal = Medal.None;
+	//Medal medal = Medal.None;
 	
 
 	ScoreManager gameScore;
@@ -57,7 +57,7 @@ public class BrickGameManager : GameManager
 	
 	
 
-	void Start() {	
+	public override void Start() {	
 		base.Start ();//do some stuff common to all games
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();

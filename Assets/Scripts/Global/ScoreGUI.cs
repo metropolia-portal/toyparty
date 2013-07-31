@@ -19,8 +19,6 @@ public class ScoreGUI : MonoBehaviour {
 	float timer = 0;
 	int maxTimer = 30;
 	
-	float scale = 1;
-	
 	int bronzeScore = 30;
 	int silverScore = 60;
 	int goldScore = 90;

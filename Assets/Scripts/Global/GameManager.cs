@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
 	
 	
 	// Use this for initialization
-	public void Start () {
+	public virtual void Start () {
 		SetGameState(GameState.Pregame); //reset the game state set by previous game, TODO  why do we need static gameState?
 		Time.timeScale = 1;
 	}

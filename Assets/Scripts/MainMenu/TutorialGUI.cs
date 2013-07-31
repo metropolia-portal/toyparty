@@ -3,7 +3,6 @@ using System.Collections;
 
 public class TutorialGUI : MonoBehaviour {
 	
-	GUIStyle NoStyle = new GUIStyle();
 	Texture Background, PlayButton, MainMenuButton;
 	AudioScript audioSource;
 

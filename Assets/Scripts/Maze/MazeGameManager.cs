@@ -26,7 +26,8 @@ public class MazeGameManager : GameManager {
 	}
 	
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start ();
 		GetComponent<ScoreGUI>().SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 		pickupManager = GetComponent<PickupManager>();
 		ResumeGame();

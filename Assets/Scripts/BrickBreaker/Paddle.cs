@@ -26,6 +26,9 @@ public class Paddle : MonoBehaviour {
 	
 	bool paddleMoved = false;
 	
+	//Cached variables
+	Transform tr;
+	
 	// Update is called once per frame
 	void Update () {
 		if(inputManager.GetCursorPosition() != new Vector2(0,0)) paddleMoved = true; //at game start don't move paddle until user touches the screen, as the GetCursorPosition() gives 0,0
@@ -36,14 +39,19 @@ public class Paddle : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast(Camera.main.ScreenPointToRay(inputManager.GetCursorPosition()), out hit)) {
 		 	//changing x position of the paddle
-			transform.position = new Vector3(Mathf.Clamp(hit.point.x, leftBound, rightBound), transform.position.y, transform.position.z);
+			Vector3 pos = tr.position;
+			pos.x = Mathf.Clamp(hit.point.x, leftBound, rightBound);
+			tr.position = pos;
 		}
 		
 		// Launching sphere
-		if(sphereAttached) //separating condition because we can only check inputManager.IsSecondButtonDown() once per frame, and lazer conflicts with it! 
+		if(sphereAttached){ //separating condition because we can only check inputManager.IsSecondButtonDown() once per frame, and lazer conflicts with it! 
 			if(inputManager.IsSecondButtonDown())
+			{
 				LaunchSphere();
 		
+			}
+		}	
 		// For debugging
 		if(Input.GetKeyUp(KeyCode.Space)) {
 			AttachSphere();
@@ -52,6 +60,7 @@ public class Paddle : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		tr = GetComponent<Transform>();
 		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
 		//movementBounds = GameObject.Find("PaddleMovementBounds");
 		//mainSphere = GameObject.Find("Sphere").GetComponent<MainSphere>();
@@ -86,10 +95,8 @@ public class Paddle : MonoBehaviour {
 		currentPaddleModel.transform.parent = transform;
 		
 		UpdateMovementBounds();
-		
-		//print ("--- animating enable");
+	
 		yield return StartCoroutine(currentPaddleModel.GetComponent<PaddleAnimation>().AnimateEnable());
-		//print ("--- animating enable end");
 	}
 	
 	//resets the paddle model to normal one
@@ -130,8 +137,8 @@ public class Paddle : MonoBehaviour {
 	public void AttachSphere() {
 		sphereAttached = true;
 		
-		mainSphere.gameObject.transform.position = stuckTransform.position;
-	    mainSphere.gameObject.transform.parent = transform;
+		mainSphere.transform.position = stuckTransform.position;
+	    mainSphere.transform.parent = tr;
 		
 		// Disable sphere movement
 		mainSphere.Freeze();
@@ -142,7 +149,7 @@ public class Paddle : MonoBehaviour {
 		if(sphereAttached) {
 			sphereAttached = false;
 			
-			mainSphere.gameObject.transform.parent = null;
+			mainSphere.transform.parent = null;
 	    	mainSphere.Launch();
 	
 			audio.PlayOneShot(shootsound);

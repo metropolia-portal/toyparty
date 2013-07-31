@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Wizard : MonoBehaviour {
-
+	CandyWizardGameManager candyScript;
 	// Use this for initialization
 	void Start () {
-	
+		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 	}
 	
 	// Update is called once per frame
@@ -17,7 +17,7 @@ public class Wizard : MonoBehaviour {
 		if(collision.collider.CompareTag("Candy")) {
 			//collision.collider.enabled = false;
 			collision.collider.gameObject.SetActive(false);
-			CandyWizardGameManager.Instance().OnCandyEaten();	
+			candyScript.OnCandyEaten();	
 		}
 	}
 }

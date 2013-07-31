@@ -10,12 +10,6 @@ public class CandyWizardGameManager : GameManager {
 	public Candy candy;
 	
 	public LayerMask forbidDrawLineLayerMask;
-	
-	//we have only one instance each game
-	static public CandyWizardGameManager Instance() {
-		return instance;
-	}
-	
 	public void OnStarCollected() {
 		collectedStars ++;
 	}
@@ -68,8 +62,7 @@ public class CandyWizardGameManager : GameManager {
 	}
 	
 	// Use this for initialization
-	void Start () {
-		instance = this;
+	public override void Start () {
 		SetGameState(GameState.Pregame);
 		
 		lineBrush.SetEnable(true);
@@ -124,5 +117,4 @@ public class CandyWizardGameManager : GameManager {
 	
 	//TODO check if that's reset if going to main menu then back here
 	int collectedStars = 0;
-	static CandyWizardGameManager instance = null;
 }
