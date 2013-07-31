@@ -10,10 +10,8 @@ public class MainSphere : Sphere {
 	protected override void SphereCollision (RaycastHit hit) {
 		if(hit.collider.CompareTag("Brick")) {
 			Brick brick = hit.collider.GetComponent<Brick>();
-			//print ("hit brick!");
 			
 			if(brick.IsActive()) { 
-				//print ("combo hit!");
 				gameScore.OnSphereScore(brick.GetScore()); //if sphere hasn't hit it already
 			}
 		}
