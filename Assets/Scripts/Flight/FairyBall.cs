@@ -10,7 +10,6 @@ public class FairyBall : MonoBehaviour {
 	int movementState = 0;
 	float distance = 0;
 	float speed = 1;
-	float maxDistance = 1;
 	public float angle = 0;
 	float spinSpeed = 60;
 	FlightGameManager gameManager;

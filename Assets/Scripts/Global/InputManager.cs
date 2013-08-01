@@ -12,7 +12,7 @@ public class InputManager : MonoBehaviour {
 	
 	bool isButtonDown = false;
 	bool isButtonUp = true;
-	
+
 	bool isSecondButtonDown = false;
 	bool isSecondButtonUp = true;
 	

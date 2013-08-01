@@ -13,7 +13,6 @@ public class FlightBoss1 : MonoBehaviour {
 	int jumpDirection = 1;
 	int jumpsLeft = 3;
 	float idleTime;
-	float movementTime = 5;
 	float speed = 3;
 	float initialSpeed;
 	float deceleration = 2f;

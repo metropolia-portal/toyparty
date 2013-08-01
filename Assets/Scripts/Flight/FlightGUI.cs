@@ -13,28 +13,35 @@ public class FlightGUI : MonoBehaviour {
 	bool showBossLife = false;
 	
 	GameManager gameManager;
-	
+#if UNITY_ANDROID || UNITY_IOS	
 	float padHandleRadius;
 	
 	float padTriggerRadius = Screen.height/5;
-	float padReleaseRadius = Screen.height/2.5f;
+
 	float padMargin = Screen.height / 30;
-	
-	float buttonARadius = Screen.height / 10;
-	float buttonBRadius = Screen.height / 15;
-	
-	
 	
 	Vector2 buttonACenter;
 	Vector2 buttonBCenter;
 	
-	Vector2 padCenter;
+	Vector2 padCenter;	
+	
+	bool drag = false;
+	
+	float buttonARadius = Screen.height / 10;
+	float buttonBRadius = Screen.height / 15;
+	
+	float padReleaseRadius = Screen.height/2.5f;		
+#endif
+	
+
+	
+
 	
 	Vector2 padDirection;
 	
 	Vector2 pcPadDir;
 	
-	bool drag = false;
+
 	
 	bool buttonADown = false;
 	bool buttonBDown = false;
@@ -61,12 +68,13 @@ public class FlightGUI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+#if UNITY_ANDROID || UNITY_IOS			
 		buttonACenter = new Vector2(Screen.width - (padMargin + buttonARadius*3), Screen.height - (padMargin + buttonARadius));
 		buttonBCenter = new Vector2(Screen.width - (padMargin + buttonBRadius*2), Screen.height - (padMargin + buttonARadius*2 + buttonBRadius));
 		
 		padCenter = new Vector2(padMargin + padTriggerRadius, Screen.height - padTriggerRadius - padMargin);
 		padHandleRadius = padTriggerRadius / 5;
-		
+#endif		
 		gameManager = GetComponent<GameManager>();
 	}
 	

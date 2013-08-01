@@ -41,7 +41,6 @@ public class TeleportHole : MonoBehaviour {
 		if (state == 2) {
 			delay -= Time.deltaTime;
 			if (delay > 0.1f) {
-				Debug.Log(delay);
 				mouse.model.localScale = new Vector3(1* delay,1,1* delay) ;
 				mouse.model.rotation *= Quaternion.Euler(0,delay*180,0);
 			}
