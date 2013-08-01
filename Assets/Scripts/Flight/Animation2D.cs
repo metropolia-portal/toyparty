@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Animation2D : MonoBehaviour {
 	
-	public string name;
+	public string animName;
 	public Texture2D frames;
 	public int frameCount;
 	public int startFrame = 1;
@@ -14,7 +14,6 @@ public class Animation2D : MonoBehaviour {
 	float frameWidth;
 	int currentFrame = 0;
 	
-	byte frameDirection = 1;
 	bool playing = false;
 	float phase = 0;
 	
@@ -28,7 +27,7 @@ public class Animation2D : MonoBehaviour {
 	}
 	
 	public string GetName() {
-		return name;
+		return animName;
 	}
 	
 	public void Stop() {

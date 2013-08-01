@@ -7,7 +7,7 @@ public class DelayedSpawner : MonoBehaviour {
 	public float delayDefault = 0;
 	public float delayRandom = 0;
 	public int charges = 1;
-	public bool active = true;
+	public bool activeScript = true;
 	
 	float delay;
 
@@ -18,12 +18,12 @@ public class DelayedSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!active) return;
+		if (!activeScript) return;
 		delay -= Time.deltaTime;
 		if (delay <=0) {
 			charges --;
 			((GameObject)Instantiate(item, transform.position, transform.rotation)).transform.parent = transform;
-			if (charges == 0) active = false;
+			if (charges == 0) activeScript = false;
 			delay = delayDefault + Random.Range(0f, delayRandom);
 		}
 	

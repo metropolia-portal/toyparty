@@ -18,7 +18,6 @@ public class MazeTrap : MonoBehaviour {
 			holdTime -= Time.deltaTime;
 			if (holdTime <= 0){
 				GameObject.Find("Mouse").GetComponent<Mouse>().SetSpeedModifier(1);
-				//GameObject.Find("Mouse").GetComponent<Mouse>().EnableControls();
 				Destroy(gameObject);
 			}
 		}
@@ -28,9 +27,7 @@ public class MazeTrap : MonoBehaviour {
 		if (!activeMouse) return;
 		if (other.gameObject.tag == "Player") {
 			GameObject.Find("GameManager").GetComponent<MazeGameManager>().OnTrap();
-			GameObject.Find("Mouse").GetComponent<Mouse>().SetSpeedModifier(0);
-			//GameObject.Find("Mouse").GetComponent<Mouse>().DisableControls();
-			
+			GameObject.Find("Mouse").GetComponent<Mouse>().SetSpeedModifier(0);		
 			activeMouse = false;
 		}
 	}	

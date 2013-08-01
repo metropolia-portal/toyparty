@@ -11,12 +11,7 @@ public class Death : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
-		transform.position = new Vector3(transform.position.x*gameManager.camera.aspect,transform.position.y,transform.position.z);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		transform.position = new Vector3(transform.position.x*gameManager.cam.aspect,transform.position.y,transform.position.z);
 	}
 	
 	void Die() {

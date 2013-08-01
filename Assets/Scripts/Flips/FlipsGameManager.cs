@@ -24,10 +24,8 @@ public class FlipsGameManager : GameManager {
 	
 	public Texture2D catTextureNormal;	
 	
-	
-	
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
 		base.Start ();
 		cardsTotal = levelGenerator.CardCount();
 		SetGameState(GameState.Pregame);
@@ -159,7 +157,6 @@ public class FlipsGameManager : GameManager {
 				
 				statusLine.guiText.material.color = new Color(1f,1f,1f,1.5f - (Mathf.Ceil(revealTime) - revealTime));
 				statusLine.text = (Mathf.Ceil(revealTime)).ToString();
-				//statusLine.transform.localScale = new Vector3(10.5f,10.5f,10.5f);
 				statusLine.fontSize = (int)(80 + 100*(Mathf.Ceil(revealTime) - revealTime));
 			break;			
 				

@@ -145,7 +145,7 @@ public class FlightBoss1 : MonoBehaviour {
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
 		gameManager.SetBossLife(100);
 		gameManager.ShowBossLife();
-		transform.position = new Vector3(transform.position.x*gameManager.camera.aspect,transform.position.y,transform.position.z);
+		transform.position = new Vector3(transform.position.x*gameManager.cam.aspect,transform.position.y,transform.position.z);
 	}
 
 }

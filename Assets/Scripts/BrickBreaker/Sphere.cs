@@ -16,22 +16,18 @@ public abstract class Sphere : MonoBehaviour {
 	//TODO move it to Main Sphere
 	protected ScoreManager gameScore;
 	
-	// This method is called when the sphere leaves the level bounds and collides with the KillZone object
-	protected abstract void OnSphereLost();
-	
 	Transform tr;
 	Rigidbody rig;
 	SphereSounds soundScript;
-	// Modify the direction of the sphere without of changing the speed
-	//TODO put this method inside Launch, as it is used only there
-	public void setDirection(Vector2 direction) {
+	
+	// This method is called when the sphere leaves the level bounds and collides with the KillZone object
+	protected abstract void OnSphereLost();
+
+	// launches the sphere forward from its current position
+	public void Launch(Vector2 direction) { 
 		rig.isKinematic = false; // "Unfreeze" the sphere
 		direction.Normalize();
 		rig.velocity =  new Vector3(direction.x * speed, 0,  direction.y * speed);
-	}
-	
-	public void Launch() { // launches the sphere forward from its current position
-		setDirection(Vector2.up);
 	}
 	
 	// Freeze the sphere by disabling physics for it
@@ -101,13 +97,10 @@ public abstract class Sphere : MonoBehaviour {
 			rig.velocity = velocity;
 		}
 		soundScript.PlaySound(hit.collider.tag);
-//		if(hit.collider.CompareTag("Paddle"))
-//			ReleaseComboScore();	
 	}
 
 	protected virtual void OnTriggerEnter(Collider other) {		
     	if(other.CompareTag("DeathZone")) {
-//			ReleaseComboScore(); 
 			OnSphereLost();
 		}
 	}
@@ -115,8 +108,6 @@ public abstract class Sphere : MonoBehaviour {
 	void Update() {
 		AnimateRotate();
 	}  
-	
-	Vector3 eulerAngleVelocity = -Vector3.right * 100;
 	float rotationCoeff = Mathf.PI;
 
 	void AnimateRotate() {
@@ -125,5 +116,4 @@ public abstract class Sphere : MonoBehaviour {
 
 	//releases accumulated combo score to score manager when combo is lost
 	//100, 400, 1000, (x + box) * 2 
-
 }

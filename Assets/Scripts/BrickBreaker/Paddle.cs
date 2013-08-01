@@ -62,9 +62,6 @@ public class Paddle : MonoBehaviour {
 	void Start () {
 		tr = GetComponent<Transform>();
 		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
-		//movementBounds = GameObject.Find("PaddleMovementBounds");
-		//mainSphere = GameObject.Find("Sphere").GetComponent<MainSphere>();
-		//stuckTransform = GameObject.Find ("StuckPosition").transform;
 		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
 			
 		ResetPaddleModel();
@@ -75,18 +72,13 @@ public class Paddle : MonoBehaviour {
 	// Changes the paddle model to the clone of the given argument
 	// This allows a Powerup to change the model of the paddle, e.g. to a wider one
 	
-	
-	
 	public void SetPaddleModel(GameObject newModel) {
 		StartCoroutine(AnimateAndSetPaddleModel(newModel));
 	}
 	
 	IEnumerator AnimateAndSetPaddleModel(GameObject newModel) {
 		if(currentPaddleModel) {
-			//print ("--- animating disable");
-			//wait for disable animation
 			yield return StartCoroutine(currentPaddleModel.GetComponent<PaddleAnimation>().AnimateDisable());
-			//print ("---destroying");
 			Destroy (currentPaddleModel);		
 		}
 
@@ -122,7 +114,6 @@ public class Paddle : MonoBehaviour {
 		var colliders = currentPaddleModel.GetComponentsInChildren<Collider>();
 		
 		foreach (Collider col in colliders) {
-			//print (col);
 			totalBounds.Encapsulate(col.bounds);
 		}
 		
@@ -150,7 +141,7 @@ public class Paddle : MonoBehaviour {
 			sphereAttached = false;
 			
 			mainSphere.transform.parent = null;
-	    	mainSphere.Launch();
+	    	mainSphere.Launch(Vector2.up);
 	
 			audio.PlayOneShot(shootsound);
 		}

@@ -9,7 +9,7 @@ public class FlightGameManager : GameManager {
 	public GUIText statusLine;
 	public Bounds worldBounds;
 	public GameObject backgroundPlane;
-	public Camera camera;
+	public Camera cam;
 	public float fairyDelayMin = 1;
 	public float fairyDelayMax = 5;
 	public int life = 5;
@@ -53,15 +53,15 @@ public class FlightGameManager : GameManager {
 	}
 	
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
 		base.Start();
 		SetGameState(GameState.Running);
-		GameObject dragonObject = (GameObject) Instantiate(dragonPrefab, new Vector3(-2*camera.aspect,0,0), Quaternion.identity);
+		GameObject dragonObject = (GameObject) Instantiate(dragonPrefab, new Vector3(-2*cam.aspect,0,0), Quaternion.identity);
 		GetComponent<ScoreGUI>().SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
 		flightGUI = GetComponent<FlightGUI>();
 		dragon = dragonObject.GetComponent<Dragon>();
-		worldBounds.extents = new Vector3(worldBounds.extents.x * camera.aspect, 1, worldBounds.extents.z);
-		backgroundPlane.transform.localScale = new Vector3(camera.aspect, 1,1);
+		worldBounds.extents = new Vector3(worldBounds.extents.x * cam.aspect, 1, worldBounds.extents.z);
+		backgroundPlane.transform.localScale = new Vector3(cam.aspect, 1,1);
 		
 		fairyDelay = Random.Range(fairyDelayMin, fairyDelayMax);
 	}
@@ -92,7 +92,6 @@ public class FlightGameManager : GameManager {
 	}
 	
 	void GenerateEnemies() {
-		return;
 		fairyDelay -= Time.fixedDeltaTime;
 		if (fairyDelay < 0) {
 			fairyDelay = Random.Range(fairyDelayMin, fairyDelayMax);

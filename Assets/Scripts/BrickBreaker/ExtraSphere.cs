@@ -18,6 +18,6 @@ public class ExtraSphere : Sphere {
 	override protected void Awake () {
 		base.Awake ();
 		isActive = true;
-		Launch();
+		Launch(Vector2.up);
 	}
 }

@@ -110,8 +110,6 @@ public class BrickGameManager : GameManager
 			return timeToComplete;
 	}
 		
-
-	
 	void EnableCheats() {
 		if(Input.GetKeyUp(KeyCode.LeftControl) || Input.touchCount == 3) {
 			powerupActive = true;
@@ -146,18 +144,14 @@ public class BrickGameManager : GameManager
 		
 		if(Input.GetKeyUp(KeyCode.P)) {
 			OnPickup();
-		}
-			
+		}	
 	}
 	
 	public void OnShinyBrickDestroyed(Vector3 position) {
 		OnBrickDestroyed(position);
-		//shinyBricksGoal --;
 	}
-	
-	
+		
 	public void OnBrickDestroyed(Vector3 position) {	
-	
 		bricksDestroyed ++;
 		bricksLeft --;
 #if UNITY_EDITOR
@@ -239,7 +233,7 @@ public class BrickGameManager : GameManager
 		
 		//stop all spheres exisiting
 		foreach(GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
-			sphere.GetComponent<Sphere>().setDirection(Vector2.zero);
+			sphere.GetComponent<Sphere>().Launch(Vector2.zero);
 		
 		//do effects unless game is lost by loosing all spheres
 		if(spheres > 0) {
@@ -280,38 +274,5 @@ public class BrickGameManager : GameManager
 	public void AddSphere() {
 		if(spheres < maxSpheres) spheres++;
 		scoreGUI.SetMaxMedals(spheres);
-	}
-
-	
-//	void RestartGame() {
-//		ResumeGame();
-//		Application.LoadLevel(CurrentLevelId);
-//	}
-	
-//	public bool IsGameRunning() {
-//		return gameState == GameState.Running;
-//	}
-	
-//	void GoToNextLevel() {
-//		ResumeGame();
-//		Application.LoadLevel(NextLevelId);
-//	}
-	
-//	void OnGUI() {
-//		float screenUnitW = Screen.width/100;
-//		float screenUnitH = Screen.height/100;
-//		string message = "";
-//		
-//	
-//		// While the game is in progress, only display the pause button and HUD
-//		if (gameState == GameState.Running) {
-//			//HUD			
-//			GUI.Label(new Rect(0, screenUnitH*12 , screenUnitW*30, screenUnitH*5), "Score: " + gameScore.GetScore());
-//			
-//			if(gameScore.GetCurrentComboScore() > 0) GUI.Label(new Rect(0, screenUnitH*18 , screenUnitW*20, screenUnitH*5), "X" + gameScore.GetCurrentComboCount() + " Combo Score! " + gameScore.GetCurrentComboScore());
-//			
-//		}
-//	}
-		
-	
+	}	
 }

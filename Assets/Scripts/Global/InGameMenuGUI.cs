@@ -7,16 +7,15 @@ public class InGameMenuGUI : MonoBehaviour {
 	public Texture gameTitleTexture;
 	public float gamePreviewWidthToScreenWidthRatio = 0.75f;
 	public float barHeightToScreenHeightRatio = 0.25f;
-	public float gamePreviewArrowHeightRation = 0.2f;// height ration of the white speach arrow pointing to character to total height of preview screen
+	public float gamePreviewArrowHeightRation = 0.2f;//  height ration of the white speach arrow pointing to character to total height of preview screen
 	public static int currentLevel = 1;
 	public static string selectedGameName;
 	public string[] gameList;
 	
 	GameManager gameManager;
 	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, loseTexture, loseCharacterTexture, pauseTexture;
-	Texture soundON, soundOff, credits, options;
+	Texture soundON, soundOff;
 	
-	int count = 0;
 	int gamesNumber;
 	
 	AudioSource audioSource;
@@ -47,8 +46,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		loseTexture = (Texture)Resources.Load("MedalMenu/losescreen");
 		soundON =(Texture)Resources.Load("MainMenu/Buttons/soundon");
 		soundOff =(Texture)Resources.Load("MainMenu/Buttons/soundoff");
-		options =(Texture)Resources.Load("MainMenu/Buttons/brick_credits_btn");
-		credits =(Texture)Resources.Load("MainMenu/Buttons/roll_credits_btn");
 		
 		previewTextures = new Texture[1];
 		previewTextures[0] = (Texture)Resources.Load("MainMenu/Previews/brick");
@@ -58,7 +55,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		audio.volume = 0;
 		audio.loop = true;
 		audio.playOnAwake = false;
-		//aspect = (float)Screen.width / Screen.height;
 		audioSource = Camera.main.GetComponent<AudioSource>();
 		
 		currentLevel = 1;
@@ -127,10 +123,7 @@ public class InGameMenuGUI : MonoBehaviour {
 						
 								GUI.DrawTexture(new Rect(Screen.width/6, 0, Screen.width- Screen.width/3, Screen.height), podiumTexture);
 							}
-					
-							
 							ShowBottomMenu();
-							
 						}
 					break;
 			}
@@ -243,8 +236,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		}
 		
 	}
-	void EnableSound(){
-		
+	void EnableSound(){	
 		if(AudioListener.volume == 0){
 			
 			AudioListener.volume = 1;
@@ -252,9 +244,6 @@ public class InGameMenuGUI : MonoBehaviour {
 			
 		else{
 				AudioListener.volume = 0;
-		} 
-		
-					
+		} 			
 	}
-
 }

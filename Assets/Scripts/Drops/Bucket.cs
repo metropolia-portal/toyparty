@@ -7,11 +7,8 @@ public class Bucket : MonoBehaviour {
 	public Camera cam;
 	public DropsGameManager gameManager;
 	
-
 	int direction = 0;
 	float idleTime;
-
-
 	float currentPosition = 0;
 	float turnDetection = 1;
 	float previousPosition = 0;
@@ -20,10 +17,7 @@ public class Bucket : MonoBehaviour {
 	float untapDelay = 0.2f;
 	float untapDelayLeft = 0;
 	float speed;
-	float maxSpeed = 0;
-	float maxSpeedDisp = 0;
 	float maxNoiseSpeed = 0.01f;
-	int speedCount = 0;
 	Animation2D dollSprite;
 	
 	// Use this for initialization
@@ -88,7 +82,6 @@ public class Bucket : MonoBehaviour {
 				}
 			}
 			
-			string doll_asc = "";
 			if (direction > 0)
 					dollSprite.SetFrame(2);
 				else if (direction < 0)
