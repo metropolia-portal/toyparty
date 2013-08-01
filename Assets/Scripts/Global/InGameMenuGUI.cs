@@ -13,7 +13,8 @@ public class InGameMenuGUI : MonoBehaviour {
 	public string[] gameList;
 	
 	GameManager gameManager;
-	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, characterTexture, loseTexture, loseCharacterTexture, pauseTexture;
+	Texture Restart, PlayButton, MainMenuButton, PauseButton, podiumTexture, backgroundTexture, 
+	characterTexture, loseTexture, loseCharacterTexture, pauseTexture;
 	Texture soundON, soundOff;
 	
 	int gamesNumber;
@@ -61,10 +62,6 @@ public class InGameMenuGUI : MonoBehaviour {
 		creditsRect = new Rect(Screen.width - MGUI.menuButtonWidth, MGUI.menuButtonWidth*1/3, MGUI.menuButtonWidth*2/3, MGUI.menuButtonWidth*2/3);
 		
 
-	}
-	
-	static float centerPosition(float itemLength, float totalLength) {
-		return (totalLength - itemLength)/2;
 	}
 	
 	void OnGUI() {		

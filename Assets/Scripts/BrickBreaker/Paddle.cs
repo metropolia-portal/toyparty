@@ -29,6 +29,18 @@ public class Paddle : MonoBehaviour {
 	//Cached variables
 	Transform tr;
 	
+	// Use this for initialization
+	void Start () {
+		tr = GetComponent<Transform>();
+		Vector3 vec = tr.position;
+		vec.z = -16;
+		tr.position = vec;
+		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
+		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
+			
+		ResetPaddleModel();
+		AttachSphere();
+	}
 	// Update is called once per frame
 	void Update () {
 		if(inputManager.GetCursorPosition() != new Vector2(0,0)) paddleMoved = true; //at game start don't move paddle until user touches the screen, as the GetCursorPosition() gives 0,0
@@ -56,16 +68,6 @@ public class Paddle : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.Space)) {
 			AttachSphere();
 		}
-	}
-	
-	// Use this for initialization
-	void Start () {
-		tr = GetComponent<Transform>();
-		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
-		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
-			
-		ResetPaddleModel();
-		AttachSphere();
 	}
 	
 #region Interface

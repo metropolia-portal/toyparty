@@ -27,6 +27,11 @@ public class ScoreGUI : MonoBehaviour {
 	
 	float coinSize = Screen.width / 26;
 	
+	// Use this for initialization
+	void Start () {
+		gameManager = GetComponent<GameManager>();
+	}
+
 	public void SetMedalRequirements(int bronze, int silver, int gold) {
 		bronzeScore = bronze;
 		silverScore = silver;
@@ -68,11 +73,6 @@ public class ScoreGUI : MonoBehaviour {
 		} else {
 			return 0.99f;
 		}
-	}
-	
-	// Use this for initialization
-	void Start () {
-		gameManager = GetComponent<GameManager>();
 	}
 	
 	public void EnableTimer(bool enable = true) {

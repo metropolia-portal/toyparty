@@ -9,13 +9,12 @@ public class InputManager : MonoBehaviour {
 	
 
 	Vector3 accel = new Vector3(0,0,0);
-	
 	bool isButtonDown = false;
-	bool isButtonUp = true;
-
 	bool isSecondButtonDown = false;
+#if UNITY_ANDROID || UNITY_IOS
+	bool isButtonUp = true;
 	bool isSecondButtonUp = true;
-	
+#endif
 	bool isEscapeButtonDown = false;
 	bool isApplicationPaused = false;
 	
