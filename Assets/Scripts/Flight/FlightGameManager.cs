@@ -139,7 +139,6 @@ public class FlightGameManager : GameManager {
 		if (!IsGameRunning()) return;
 		UpdateDragonPosition();
 		UpdateBullets();
-		GenerateEnemies();
 	}
 	
 	// Update is called once per frame
