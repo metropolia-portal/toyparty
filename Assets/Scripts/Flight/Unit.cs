@@ -35,7 +35,6 @@ public class Unit : MonoBehaviour {
 	}
 	
 	IEnumerator MoveTo(float x, float y) {
-		Debug.Log(gameManager.worldBounds.extents.x);
 		x = x*gameManager.worldBounds.extents.x*2 - gameManager.worldBounds.extents.x;
 		y = y*gameManager.worldBounds.extents.z*2 - gameManager.worldBounds.extents.z;
 		animator.PlayAnimation("walk");

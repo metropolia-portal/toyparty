@@ -49,18 +49,19 @@ public class Animator2D : MonoBehaviour {
 	}
 	
 	
-	public void SwitchAnimation(string name) {
+	public bool SwitchAnimation(string name) {
 		foreach (Animation2D anim in gameObject.GetComponents<Animation2D>()) {
 			if (anim.GetName()==name) {
 				currentAnimation = anim;
-				break;
+				return true;
 			}
 		}	
+		return false;
 	}
 	
 	public void PlayAnimation(string name) {
 		PauseAnimation();
-		SwitchAnimation(name);
+		if (SwitchAnimation(name))
 		RestartAnimation();
 		ResumeAnimation();
 	}

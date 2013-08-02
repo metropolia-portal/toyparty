@@ -47,6 +47,7 @@ public class Animation2D : MonoBehaviour {
 	public void SetFrame(int frame) {
 		float frameRelativeWidth = frameWidth / renderer.material.GetTexture("_MainTex").width;
 		renderer.material.SetTextureOffset("_MainTex", new Vector2(frameRelativeWidth*currentFrame, 0));
+		renderer.material.SetTextureScale("_MainTex", new Vector2(frameRelativeWidth, 1));
 		currentFrame = frame;
 	}
 	
