@@ -33,7 +33,7 @@ public class Paddle : MonoBehaviour {
 	void Start () {
 		tr = GetComponent<Transform>();
 		Vector3 vec = tr.position;
-		vec.z = -16;
+		vec.z = -18;
 		tr.position = vec;
 		gameManager = GameObject.Find("GameManager").GetComponent<BrickGameManager>();
 		inputManager = GameObject.Find("GameInput").GetComponent<InputManager>();
