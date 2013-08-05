@@ -19,12 +19,11 @@ public class Bucket : MonoBehaviour {
 	float speed;
 	float maxNoiseSpeed = 0.01f;
 	
-	Animation2D dollSprite;
+	public Animation2D dollSprite;
 	
 	// Use this for initialization
 	void Start () {
 		inputManager = GetComponent<InputManager>();
-		dollSprite = GetComponent<Animator2D>().Child("Plane").GetCurrentAnimation();
 		dollSprite.InitMaterial();
 		dollSprite.SetFrame(1);
 	}

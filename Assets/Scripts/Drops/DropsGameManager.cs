@@ -4,7 +4,6 @@ using System.Collections;
 public class DropsGameManager : GameManager {
 	
 	public float timeLeft = 60;
-	public GUIText GUITimer;
 	public GameObject greenBox;
 	public GameObject redBox;
 	public Camera cam;
@@ -43,7 +42,6 @@ public class DropsGameManager : GameManager {
 			float newScale;
 			timeLeft -= Time.deltaTime;
 			scoreGUI.setTimer(Mathf.Floor(timeLeft));
-			GUITimer.text = Mathf.Floor(timeLeft).ToString();
 			if (timeLeft <= 0) {
 				int result = 0;
 				if (score > bronzeMedalScore) result = 1;
