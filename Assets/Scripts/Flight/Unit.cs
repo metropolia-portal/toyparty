@@ -16,7 +16,9 @@ public class Unit : MonoBehaviour {
 	public float invulnurabilityTime = 1.5f;
 	FlightGameManager gameManager;
 	float invulTimeLeft = 0;
-	public GameObject fallingObject;	
+	public GameObject fallingObject;
+	bool interruptOnDamage = true;
+	bool interrupt = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +28,21 @@ public class Unit : MonoBehaviour {
 	}
 	
 	IEnumerator MainScript() {
+		SetMovementSpeed(2);
+		interruptOnDamage = false;
 		yield return MoveTo(0.5f,0.5f);
+		interruptOnDamage = true;
 		yield return Idle(2,"attack");
-		Shoot (bullet);
-		yield return Idle(2);
+		if (!interrupt) {
+			Shoot (bullet);
+			yield return Idle(2);
+		}
+		interruptOnDamage = false;
 		yield return MoveTo(1,1);
+	}
+	
+	void SetMovementSpeed (float speed) {
+		moveSpeed = speed;
 	}
 	
 	Coroutine Idle(float time, string animation="idle") {
@@ -51,15 +63,21 @@ public class Unit : MonoBehaviour {
 		
 	
 	IEnumerator CoroutineIdle(float time, string animation="idle") {
+		Debug.Log("Playing animation "+animation);
+		interrupt = false;
 		animator.PlayAnimation(animation);
 		timer = time;
 		while (timer > 0) {
 			timer -= Time.deltaTime;
 			yield return null;
+			if (interrupt) {
+				break;
+			}
 		}
 	}
 	
 	IEnumerator CoroutineMoveTo(float x, float y) {
+		interrupt = false;
 		x = x*gameManager.worldBounds.extents.x*2 - gameManager.worldBounds.extents.x;
 		y = y*gameManager.worldBounds.extents.z*2 - gameManager.worldBounds.extents.z;
 		animator.PlayAnimation("walk");
@@ -69,8 +87,11 @@ public class Unit : MonoBehaviour {
 			Vector2 shift = direction * moveSpeed * Time.deltaTime;
 			transform.position += new Vector3 (shift.x, 0, shift.y);
 			yield return null;
+			if (interrupt) {
+				break;
+			}
 		}
-		if (teleportAtDetectionRange) {
+		if (teleportAtDetectionRange && !interrupt) {
 			transform.position = new Vector3 (x, 0, y);
 		}
 		animator.PlayAnimation("idle");
@@ -104,6 +125,10 @@ public class Unit : MonoBehaviour {
 	void Damage() {
 		if (invulTimeLeft > 0) return;
 		invulTimeLeft = invulnurabilityTime;
+		if (interruptOnDamage) { 
+			Debug.Log("interrupt!");
+			interrupt = true;
+		}
 		life --;
 		if (life<=0) {
 			gameManager.OnFairyDeath(score*2);
