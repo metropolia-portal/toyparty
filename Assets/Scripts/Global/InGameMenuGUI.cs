@@ -39,7 +39,7 @@ public class InGameMenuGUI : MonoBehaviour {
 		MainMenuButton = (Texture)Resources.Load("MenuCommon/home_" + MainMenuGUI.selectedGameName);
 		Restart = (Texture)Resources.Load("PauseMenu/replay_" + MainMenuGUI.selectedGameName);
 		PauseButton = (Texture)Resources.Load("PauseMenu/pause_" + MainMenuGUI.selectedGameName);
-		pauseTexture = (Texture)Resources.Load("PauseMenu/" + MainMenuGUI.selectedGameName);
+		pauseTexture = (Texture)Resources.Load("TutorialMenu/Previews/" + MainMenuGUI.selectedGameName);
 		podiumTexture = (Texture)Resources.Load("MedalMenu/podium");
 		backgroundTexture = (Texture)Resources.Load("MedalMenu/backgrounds/" + MainMenuGUI.selectedGameName);
 		characterTexture = (Texture)Resources.Load("MedalMenu/characters/" + MainMenuGUI.selectedGameName);

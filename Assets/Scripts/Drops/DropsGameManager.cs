@@ -10,13 +10,13 @@ public class DropsGameManager : GameManager {
 	public Camera cam;
 	public GameObject background;
 	public float maxDistanceFromCenter;
-
+	public int pointDeflator = 1;
 	
 	int toyScore = 5;
 	int maxScore = 100;
 	int score = 0;
 	int medals = 3;
-	
+
 	ScoreGUI scoreGUI;
 	
 	// Use this for initialization
@@ -73,7 +73,11 @@ public class DropsGameManager : GameManager {
 	public void OnToy() {
 
 		score += toyScore;
+	}
+	
+	public void OnToyDestroy() {
 
+		score -= pointDeflator;
 	}
 	
 	public void OnBomb() {
@@ -83,6 +87,11 @@ public class DropsGameManager : GameManager {
 			SetMedal(Medal.None);
 			EndGame();
 		}
+	}
+	
+	public float GetTimeLeft() {
+
+		return timeLeft;
 	}
 
 	

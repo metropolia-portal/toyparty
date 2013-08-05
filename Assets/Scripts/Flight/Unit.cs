@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Unit : MonoBehaviour {
-	int thatOtherThing = 0;
+	
 	float timer = 5;
 	float moveSpeed = 1;
 	float detectionRange = 0.01f;

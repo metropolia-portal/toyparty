@@ -56,6 +56,7 @@ public class ScoreGUI : MonoBehaviour {
 	public void SetScore(int s) {
 		score = s;
 		if (score>maxScore) score = maxScore;
+		if (score<0) score = 0;
 	}
 	public void SetMaxScore(int s) {
 		maxScore = s;

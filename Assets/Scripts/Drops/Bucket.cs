@@ -18,12 +18,12 @@ public class Bucket : MonoBehaviour {
 	float untapDelayLeft = 0;
 	float speed;
 	float maxNoiseSpeed = 0.01f;
+	
 	Animation2D dollSprite;
 	
 	// Use this for initialization
 	void Start () {
 		inputManager = GetComponent<InputManager>();
-		//GetComponent<Animator2D>().Child("Plane").SwitchAnimation("doll");
 		dollSprite = GetComponent<Animator2D>().Child("Plane").GetCurrentAnimation();
 		dollSprite.InitMaterial();
 		dollSprite.SetFrame(1);
@@ -38,10 +38,8 @@ public class Bucket : MonoBehaviour {
 		    if (Physics.Raycast(ray, out hit)) {
 				transform.position = new Vector3(
 					Mathf.Clamp(hit.point.x, -gameManager.maxDistanceFromCenter, gameManager.maxDistanceFromCenter)
-					, 1, -4);
-			}
-			
-
+					, 1, -3.3f);
+			}			
 			
 			if (idleTime > timeDelta) {
 				idleTime = 0;
@@ -94,6 +92,7 @@ public class Bucket : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (other.CompareTag("Toy")) {
 			gameManager.OnToy();
+			
 		} else
 		if (other.CompareTag("Bomb")) {
 			Debug.Log("Kablam, sir.");

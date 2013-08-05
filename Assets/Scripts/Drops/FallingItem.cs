@@ -4,15 +4,13 @@ using System.Collections;
 public class FallingItem : MonoBehaviour {
 	
 	public bool wave = false;
-	
-	float fallSpeed = 1;
-	
-	float startingX;
-	
-	
 	public float rotationSpeed = 180;
 	
+	float fallSpeed = 1;
+	float startingX;
 	float phase = 0;
+	
+	DropsGameManager gameManager;
 	
 	public void SetFallSpeed(float s) {
 		fallSpeed = s;
@@ -20,7 +18,7 @@ public class FallingItem : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		DropsGameManager gameManager = GameObject.Find("GameManager").GetComponent<DropsGameManager>();
+		gameManager = GameObject.Find("GameManager").GetComponent<DropsGameManager>();
 		transform.position = new Vector3(Random.Range(-gameManager.maxDistanceFromCenter,gameManager.maxDistanceFromCenter), 1, 4.5f);
 		startingX = transform.position.x;
 		transform.localScale = transform.localScale*Random.Range(0.8f, 1.2f);
@@ -48,7 +46,13 @@ public class FallingItem : MonoBehaviour {
 		}
 		
 		transform.position = newPosition;
-		if (transform.position.z<-5.5f) 
+		if (transform.position.z<-5.5f) {
+			
+			if (CompareTag("Toy")) {
+				gameManager.OnToyDestroy(); // if a toy is destroyed player loses half points.
+			} 
+	
 			Destroy(gameObject);
+		}
 	}
 }

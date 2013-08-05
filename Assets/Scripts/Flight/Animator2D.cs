@@ -69,10 +69,14 @@ public class Animator2D : MonoBehaviour {
 	public Animator2D Child(string name) {
 		return transform.FindChild(name).GetComponent<Animator2D>();
 	}
-
+	
+	void Awake() {
+		SwitchAnimation(defaultAnimation);
+	}
+	
 	// Use this for initialization
 	void Start () {
-		SwitchAnimation(defaultAnimation);
+		
 		if (autoStart)
 			PlayAnimation(defaultAnimation);
 	}
