@@ -147,7 +147,6 @@ public class FlightGameManager : GameManager {
 	}
 	
 	public void PlayerDamage(int d) {
-		Debug.Log("I'm hit!");
 		life --;
 		GetComponent<ScoreGUI>().SetMaxMedals(life);
 		if (life<=0) Death();
@@ -174,6 +173,7 @@ public class FlightGameManager : GameManager {
 				EndGame ();
 		
 	}	
+
 	
 	
 }
