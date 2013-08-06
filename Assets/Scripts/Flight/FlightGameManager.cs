@@ -149,7 +149,7 @@ public class FlightGameManager : GameManager {
 	public void PlayerDamage(int d) {
 		life --;
 		GetComponent<ScoreGUI>().SetMaxMedals(life);
-		if (life<=0) Death();
+		//if (life<=0) Death();
 	}
 	
 	void Death() {

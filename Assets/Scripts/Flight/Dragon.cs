@@ -5,6 +5,9 @@ public class Dragon : MonoBehaviour {
 	
 	GameObject superAttackGraphic;
 	FlightGameManager gameManager;
+	float invulTimeLeft = 0;
+	public Animator2D animator;
+	public float invulnurabilityTime = 1.5f;	
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +21,21 @@ public class Dragon : MonoBehaviour {
 	
 	}
 	
+	void FixedUpdate() {
+		if (invulTimeLeft > 0) { 
+			invulTimeLeft -= Time.fixedDeltaTime;
+			Debug.Log(invulTimeLeft);
+			int phase = ((int)((invulTimeLeft*20)%10))%2;
+			if (phase == 0) {
+				animator.gameObject.SetActive(false);
+			} else {
+				animator.gameObject.SetActive(true);
+			}
+		} else {
+			animator.gameObject.SetActive(true);
+		}		
+	}
+	
 	public void ShowSuper() {
 		superAttackGraphic.SetActive(true);
 	}
@@ -27,6 +45,9 @@ public class Dragon : MonoBehaviour {
 	}
 	
 	public void Damage(int d) {
+		Debug.Log("dragon damage");
+		if (invulTimeLeft > 0) return;
+		invulTimeLeft = invulnurabilityTime;
 		gameManager.PlayerDamage(d);
 	}
 	

@@ -4,66 +4,79 @@ using System.Collections;
 public class Unit : MonoBehaviour {
 	
 	
-	public int life = 5;
-	public int score = 1;	
-	int thatOtherThing = 0;
-	float timer = 5;
+	public int life = 9;
+	public int score = 1;
+	
+	public float invulnurabilityTime = 1.5f;
+	
+	public Animator2D animator;
+	public GameObject bullet;
+	public GameObject fallingObject;	
+	
+	
+
 	float moveSpeed = 1;
 	float detectionRange = 0.01f;
 	bool teleportAtDetectionRange = false;
-	public Animator2D animator;
-	public GameObject bullet;
-	public float invulnurabilityTime = 1.5f;
+	
+	protected bool interrupt = false;	
+	
+	protected bool interruptOnDamage = false;
+	protected int interruptWhenHealthEquals = 0;
+	protected int healthAtLastInterrupt = 0;
+	protected int interruptWhenHealthLoweredBy = -1;
+
 	FlightGameManager gameManager;
 	float invulTimeLeft = 0;
-	public GameObject fallingObject;
-	bool interruptOnDamage = true;
-	bool interrupt = false;
+	float timer;	
+
+
+	
 
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find ("GameManager").GetComponent<FlightGameManager>();
 		StartCoroutine(MainScript());	
 		transform.position = new Vector3(transform.position.x*gameManager.cam.aspect,transform.position.y,transform.position.z);
+		healthAtLastInterrupt = life;
 	}
 	
-	IEnumerator MainScript() {
-		SetMovementSpeed(2);
-		interruptOnDamage = false;
-		yield return MoveTo(0.5f,0.5f);
-		interruptOnDamage = true;
-		yield return Idle(2,"attack");
-		if (!interrupt) {
-			Shoot (bullet);
-			yield return Idle(2);
-		}
-		interruptOnDamage = false;
-		yield return MoveTo(1,1);
+	protected Vector2 FindDragonPosition() {
+		return new Vector2 (0.5f + gameManager.GetDragon().transform.position.x / (gameManager.worldBounds.extents.x*2), 0.5f + gameManager.GetDragon().transform.position.z / (gameManager.worldBounds.extents.z*2));
 	}
 	
-	void SetMovementSpeed (float speed) {
+	protected virtual IEnumerator MainScript() {
+		Debug.Log("ha@");
+		return null;
+	}
+	
+	protected void SetInterruptWhenHealthLoweredBy(int treshold) {
+		interruptWhenHealthLoweredBy = treshold;
+		healthAtLastInterrupt = life;
+	}
+	 
+	protected void SetMovementSpeed (float speed) {
 		moveSpeed = speed;
 	}
 	
-	Coroutine Idle(float time, string animation="idle") {
+	protected Coroutine Idle(float time, string animation="idle") {
 		return StartCoroutine(CoroutineIdle(time, animation));
 	}
 	
-	Coroutine MoveTo(float x, float y) {
+	protected Coroutine MoveTo(float x, float y) {
 		return StartCoroutine(CoroutineMoveTo(x, y));
 	}
 	
-	Coroutine MoveTo(Vector2 point) {
+	protected Coroutine MoveTo(Vector2 point) {
 		return StartCoroutine(CoroutineMoveTo(point.x, point.y));
 	}
 	
-	Coroutine MoveTo(Vector3 point) {
+	protected Coroutine MoveTo(Vector3 point) {
 		return StartCoroutine(CoroutineMoveTo(point.x, point.z));
 	}
 		
 	
-	IEnumerator CoroutineIdle(float time, string animation="idle") {
-		Debug.Log("Playing animation "+animation);
+	protected IEnumerator CoroutineIdle(float time, string animation="idle") {
 		interrupt = false;
 		animator.PlayAnimation(animation);
 		timer = time;
@@ -76,7 +89,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 	
-	IEnumerator CoroutineMoveTo(float x, float y) {
+	protected IEnumerator CoroutineMoveTo(float x, float y) {
 		interrupt = false;
 		x = x*gameManager.worldBounds.extents.x*2 - gameManager.worldBounds.extents.x;
 		y = y*gameManager.worldBounds.extents.z*2 - gameManager.worldBounds.extents.z;
@@ -97,7 +110,7 @@ public class Unit : MonoBehaviour {
 		animator.PlayAnimation("idle");
 	}
 	
-	GameObject Shoot(GameObject projectilePrefab) {
+	protected GameObject Shoot(GameObject projectilePrefab) {
 		return (GameObject) Instantiate(projectilePrefab, transform.position, transform.rotation);
 	}
 	
@@ -122,14 +135,15 @@ public class Unit : MonoBehaviour {
 		}
 	}
 	
-	void Damage() {
+	protected void Damage() {
 		if (invulTimeLeft > 0) return;
 		invulTimeLeft = invulnurabilityTime;
-		if (interruptOnDamage) { 
-			Debug.Log("interrupt!");
-			interrupt = true;
-		}
 		life --;
+		if ((interruptOnDamage)||(interruptWhenHealthEquals == life)
+			|| (life == healthAtLastInterrupt - interruptWhenHealthLoweredBy)) { 
+			interrupt = true;
+			healthAtLastInterrupt = life;
+		}		
 		if (life<=0) {
 			gameManager.OnFairyDeath(score*2);
 			Die();
@@ -146,7 +160,7 @@ public class Unit : MonoBehaviour {
 			Damage ();
 
 		} else if (other.CompareTag("Player")) {
-			gameManager.PlayerDamage(1);
+			other.GetComponent<Dragon>().Damage(1);
 		} 
 	}
 	
