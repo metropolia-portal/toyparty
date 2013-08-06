@@ -10,7 +10,8 @@ public class LineBrush : Brush {
 	public GameObject trailRendererPrefub;
 	
 	public GameObject linesContainer;
-	void Start(){
+	protected override void Start(){
+		base.Start ();
 		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 	}
 	override protected void MoveDrawingPosition(ref Vector2 refDrawPosition) {
@@ -67,20 +68,8 @@ public class LineBrush : Brush {
 
 		newMesh.vertices = new Vector3[] {fromPosFront, toPosFront, fromPosBack, toPosBack};
 		
-//enable that if physicals segments need to be rendered		
-//		Vector2[] uvs = new Vector2[newMesh.vertices.Length];	
-//		for (int i = 0; i < uvs.Length; i++) {
-//			uvs [i] = new Vector2 (newMesh.vertices [i].x, newMesh.vertices [i].z);
-//		}		
-//		newMesh.uv = uvs;
-		
 		//two sides, reverse numbering of vertices creates triangles on the opposite side
 		newMesh.triangles = new int[] {1,0,2, 2,3,1, 2,0,1, 1,3,2};
-		
-		
-		//enable that if physicals segments need to be rendered
-		//newMesh.RecalculateNormals ();	
-		//newSegment.GetComponent<MeshFilter> ().mesh = newMesh;
 		
 		//setting meshcollider mesh to be the same as our generated mesh
 		newSegment.GetComponent<MeshCollider> ().sharedMesh = newMesh;

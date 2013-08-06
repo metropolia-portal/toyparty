@@ -13,7 +13,8 @@ public class SpeedUpBrush : Brush {
 	
 	float initialPaintLength;
 	
-	public void Start() {
+	protected override void Start() {
+		base.Start ();
 		initialPaintLength = paintLength;
 	}
 

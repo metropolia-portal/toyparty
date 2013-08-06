@@ -8,15 +8,9 @@ public class Wizard : MonoBehaviour {
 		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
 	void OnCollisionEnter(Collision collision) {
-		if(collision.collider.CompareTag("Candy")) {
-			//collision.collider.enabled = false;
-			collision.collider.gameObject.SetActive(false);
+		if(collision.gameObject.CompareTag("Candy")) {
+			collision.gameObject.SetActive(false);
 			candyScript.OnCandyEaten();	
 		}
 	}

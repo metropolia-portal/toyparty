@@ -20,6 +20,7 @@ public class InGameMenuGUI : MonoBehaviour {
 	int gamesNumber;
 	
 	AudioSource audioSource;
+	AudioClip endClip;
 	bool callOnce = true;
 	bool showMedal = false;
 	string medalWon = null;
@@ -52,12 +53,8 @@ public class InGameMenuGUI : MonoBehaviour {
 		previewTextures[0] = (Texture)Resources.Load("MainMenu/Previews/brick");
 			
 		
-		audio.clip = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
-		audio.volume = 0;
-		audio.loop = true;
-		audio.playOnAwake = false;
+		endClip = (AudioClip)Resources.Load("Music/Medal/MedalScreen");
 		audioSource = Camera.main.GetComponent<AudioSource>();
-		
 		currentLevel = 1;
 		creditsRect = new Rect(Screen.width - MGUI.menuButtonWidth, MGUI.menuButtonWidth*1/3, MGUI.menuButtonWidth*2/3, MGUI.menuButtonWidth*2/3);
 		
@@ -85,8 +82,10 @@ public class InGameMenuGUI : MonoBehaviour {
 						break;
 					case GameManager.GameState.Over:
 						if(callOnce){
+							audio.volume = 0;
 							StartCoroutine(FadeOutMusic(audioSource));
-							audio.Play();
+							audio.clip = endClip;
+							audioSource.Play();
 							StartCoroutine(FadeInMusic(audio));
 							callOnce = false;
 						}

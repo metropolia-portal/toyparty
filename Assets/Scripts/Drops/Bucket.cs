@@ -89,16 +89,14 @@ public class Bucket : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		if (other.CompareTag("Toy")) {
+		if (other.gameObject.CompareTag("Toy")) {
 			gameManager.OnToy();
-			
 		} else
 		if (other.CompareTag("Bomb")) {
-			Debug.Log("Kablam, sir.");
 			gameManager.OnBomb();
 		} else return;
 		
-		Destroy(other.gameObject);
+		Destroy(other.gameObject); 
 		
 	}
 }

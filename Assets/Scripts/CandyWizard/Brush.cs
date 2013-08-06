@@ -4,9 +4,13 @@ using System.Collections;
 public abstract class Brush : MonoBehaviour {
 	
 	public float segmentLength = 0.05f;
-	public GameObject brushEffectPrefub; //appers at the drawwing position
+	public GameObject brushEffectPrefub; //appears at the drawing position
+	InputManager input;
 	
-	
+	protected virtual void Start(){
+		GameObject gm = GameObject.Find("GameManager");
+		input = gm.GetComponent<InputManager>();
+	}
 	public void SetEnable(bool enable) {
 		enabled = enable;
 		
@@ -17,7 +21,7 @@ public abstract class Brush : MonoBehaviour {
 	// Update is called once per frame
 	virtual protected void Update () {	
 		//started drawing
-		if(InputManager.Instance().IsCursorButtonDown() && !brushDown) {
+		if(input.IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
 			//TODO bring smoothing to a separate module
 			drawingPosition = GetCursorPosition(); //start drawing line straight where user points
@@ -25,11 +29,11 @@ public abstract class Brush : MonoBehaviour {
 		}
 		
 		//continue drawing
-		else if(InputManager.Instance().IsCursorButtonHold() && brushDown) {
+		else if(input.IsCursorButtonHold() && brushDown) {
 			DrawTo(drawingPosition);
 		}
 		
-		else if(InputManager.Instance().IsCursorButtonUp() && brushDown) {
+		else if(input.IsCursorButtonUp() && brushDown) {
 			DrawTo(drawingPosition);
 			FinishDraw();
 		}		
@@ -53,7 +57,6 @@ public abstract class Brush : MonoBehaviour {
 	
 	// start drawing of line at given position, pos - position in gameWorld, without z axis, as it is 0
 	virtual protected void StartDraw(Vector2 pos) {
-		Debug.Log("Started drawing");
 		brushDown = true;
 		brushPosition = pos;
 	}
@@ -77,13 +80,12 @@ public abstract class Brush : MonoBehaviour {
 	
 	//finish drawing the line at last position
 	virtual protected void FinishDraw() {
-		Debug.Log("Finished drawing");
 		brushDown = false; 
 	}
 
 	//get cursor position on gameworld
 	protected Vector2 GetCursorPosition() {
-		Vector2 screenPos = InputManager.Instance().GetCurrentCursorPosition();
+		Vector2 screenPos = input.GetCurrentCursorPosition();
 		//check what the pos is gonna be at z=0, therefore 3rd argument is cameras z distance to it
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Mathf.Abs (Camera.main.transform.position.z))); 
 		return new Vector2(worldPos.x, worldPos.y);//getting rid of z component

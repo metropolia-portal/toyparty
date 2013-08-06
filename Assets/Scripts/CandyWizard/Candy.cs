@@ -2,9 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class Candy : MonoBehaviour {
+	InputManager input;
 	CandyWizardGameManager candyScript;
+	
 	void Start(){
-		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
+		GameObject gm = GameObject.Find ("GameManager");
+		candyScript = gm.GetComponent<CandyWizardGameManager>();
+		input = gm.GetComponent<InputManager>();
 	}
 	//drops the candy
 	public void Drop() {
@@ -21,8 +25,8 @@ public class Candy : MonoBehaviour {
 	}
 	
 	void Update() {
-		if(InputManager.Instance().IsCursorButtonDown()) {
-			Vector2 screenPos = InputManager.Instance().GetCurrentCursorPosition();
+		if(input.IsCursorButtonDown()) {
+			Vector2 screenPos = input.GetCurrentCursorPosition();
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y)), Mathf.Infinity, 1 << gameObject.layer)) {
 				candyScript.OnCandyClicked();
 			}

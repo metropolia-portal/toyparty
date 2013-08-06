@@ -17,6 +17,7 @@ public class DropsGameManager : GameManager {
 	int medals = 3;
 
 	ScoreGUI scoreGUI;
+	GrabSoundManager soundManager;
 	
 	// Use this for initialization
 	public override void Start () {
@@ -31,6 +32,7 @@ public class DropsGameManager : GameManager {
 		SetGameState(GameState.Running);
 		
 		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
+		soundManager = GetComponent<GrabSoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -69,16 +71,17 @@ public class DropsGameManager : GameManager {
 	}
 	
 	public void OnToy() {
-
+		soundManager.PlayGrab();
 		score += toyScore;
 	}
 	
 	public void OnToyDestroy() {
-
+		soundManager.PlayDrop();
 		score -= pointDeflator;
 	}
 	
 	public void OnBomb() {
+		soundManager.PlayIron();
 		medals --;
 		scoreGUI.SetMaxMedals(medals);
 		if (medals <= 0) {
