@@ -9,6 +9,7 @@ public class DropsGameManager : GameManager {
 	public Camera cam;
 	public GameObject background;
 	public float maxDistanceFromCenter;
+	public GrabSoundManager soundManager;
 	public int pointDeflator = 1;
 	
 	int toyScore = 5;
@@ -17,8 +18,7 @@ public class DropsGameManager : GameManager {
 	int medals = 3;
 
 	ScoreGUI scoreGUI;
-	GrabSoundManager soundManager;
-	
+		
 	// Use this for initialization
 	public override void Start () {
 		
@@ -32,7 +32,6 @@ public class DropsGameManager : GameManager {
 		SetGameState(GameState.Running);
 		
 		scoreGUI.SetMedalRequirements(bronzeMedalScore, silverMedalScore, goldMedalScore);
-		soundManager = GetComponent<GrabSoundManager>();
 	}
 	
 	// Update is called once per frame
