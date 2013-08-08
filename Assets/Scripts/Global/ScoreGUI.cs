@@ -19,9 +19,9 @@ public class ScoreGUI : MonoBehaviour {
 	float timer = 0;
 	int maxTimer = 30;
 	
-	int bronzeScore = 30;
-	int silverScore = 60;
-	int goldScore = 90;
+	int bronzeScore = 15;
+	int silverScore = 50;
+	int goldScore = 80;
 	
 	GameManager gameManager;
 	
@@ -84,7 +84,7 @@ public class ScoreGUI : MonoBehaviour {
 		if (!(gameManager.IsGameRunning() || gameManager.GetGameState() == GameManager.GameState.Pregame )) return;
 		
 		if (timerEnabled) {
-			float t = 0.1f*Mathf.Floor(10*timer/maxTimer);
+			float t = 0.2f*Mathf.Floor(10*timer/maxTimer);
 			GUI.depth = 1;
 			GUI.DrawTextureWithTexCoords(new Rect(0, 0, Screen.width/20, Screen.width/10), timerTexture,
 				new Rect(t,0,0.1f,1)); // draw timer
@@ -93,7 +93,7 @@ public class ScoreGUI : MonoBehaviour {
 		
 		
 		GUI.DrawTextureWithTexCoords(new Rect(Screen.width - (3*ScoreBarWidth())*coinSize - paddingRight, 0, 3*ScoreBarWidth()*coinSize, coinSize), scoreBarTexture,
-			new Rect(3-ScoreBarWidth(),0,ScoreBarWidth(),1)); // draw score bar
+			new Rect(2-ScoreBarWidth(),0,ScoreBarWidth(),1)); // draw score bar
 			
 		GUI.DrawTexture(new Rect(Screen.width - coinSize*3 - paddingRight, 0, coinSize*3, coinSize), scoreBackgroundTexture);
 		

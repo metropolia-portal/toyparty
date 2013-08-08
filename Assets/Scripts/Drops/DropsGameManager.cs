@@ -72,11 +72,13 @@ public class DropsGameManager : GameManager {
 	public void OnToy() {
 		soundManager.PlayGrab();
 		score += toyScore;
+		Debug.Log(score);
 	}
 	
 	public void OnToyDestroy() {
 		soundManager.PlayDrop();
 		score -= pointDeflator;
+		Debug.Log(score);
 	}
 	
 	public void OnBomb() {
