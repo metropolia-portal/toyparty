@@ -5,14 +5,23 @@ public abstract class Brush : MonoBehaviour {
 	
 	public float segmentLength = 0.05f;
 	public GameObject brushEffectPrefub; //appears at the drawing position
+	
 	InputManager input;
+	Wizard wizard;
 	
 	protected virtual void Start(){
 		GameObject gm = GameObject.Find("GameManager");
 		input = gm.GetComponent<InputManager>();
+		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
 	}
+	
 	public void SetEnable(bool enable) {
 		enabled = enable;
+		
+		if(!enable) {
+			FinishDraw();
+			wizard.OnEndDrawing();	
+		}
 		
 		if(!enable && brushEffect)
 			Destroy(brushEffect);
@@ -23,6 +32,9 @@ public abstract class Brush : MonoBehaviour {
 		//started drawing
 		if(input.IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
+			
+			wizard.OnStartDrawing();
+			
 			//TODO bring smoothing to a separate module
 			drawingPosition = GetCursorPosition(); //start drawing line straight where user points
 			
@@ -36,6 +48,8 @@ public abstract class Brush : MonoBehaviour {
 		else if(input.IsCursorButtonUp() && brushDown) {
 			DrawTo(drawingPosition);
 			FinishDraw();
+			
+			wizard.OnEndDrawing();
 		}		
 		
 		if(brushDown && ! brushEffect)
