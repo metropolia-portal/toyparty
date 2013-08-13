@@ -10,6 +10,7 @@ public class CandyWizardGameManager : GameManager {
 	public Candy candy;
 	
 	public LayerMask forbidDrawLineLayerMask;
+	
 	public void OnStarCollected() {
 		collectedStars ++;
 	}

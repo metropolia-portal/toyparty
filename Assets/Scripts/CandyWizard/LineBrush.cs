@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class LineBrush : Brush {	
-	CandyWizardGameManager candyScript;
+	CandyWizardGameManager gameManager;
 	public float smoothingSpeed = 0.01f;
 	
 	public GameObject segmentPlanePrefub;
@@ -12,14 +12,14 @@ public class LineBrush : Brush {
 	public GameObject linesContainer;
 	protected override void Start(){
 		base.Start ();
-		candyScript = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
+		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 	}
 	override protected void MoveDrawingPosition(ref Vector2 refDrawPosition) {
 		refDrawPosition = Vector2.Lerp(refDrawPosition, GetCursorPosition(), smoothingSpeed);
 	}
 	
 	override protected void StartDraw(Vector2 pos) {
-		if(candyScript.CanDrawLineAt(toVector3(pos))) {
+		if(gameManager.CanDrawLineAt(toVector3(pos))) {
 			base.StartDraw(pos);
 			
 			lineCount++;
@@ -32,7 +32,7 @@ public class LineBrush : Brush {
 	}
 	
 	override protected void DrawTo(Vector2 pos) {
-		if(candyScript.CanDrawLineAt(toVector3(pos))) {
+		if(gameManager.CanDrawLineAt(toVector3(pos))) {
 			base.DrawTo(pos);	
 		}
 		else
