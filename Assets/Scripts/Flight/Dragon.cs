@@ -6,7 +6,7 @@ public class Dragon : MonoBehaviour {
 	GameObject superAttackGraphic;
 	FlightGameManager gameManager;
 	float invulTimeLeft = 0;
-	public Animator2D animator;
+	Animator2D animator;
 	public float invulnurabilityTime = 1.5f;	
 
 	// Use this for initialization
@@ -14,6 +14,7 @@ public class Dragon : MonoBehaviour {
 		superAttackGraphic = transform.FindChild("FireLine").gameObject;
 		superAttackGraphic.SetActive(false);
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
+		animator = GetComponent<Animator2D>().Child("Plane");
 	}
 	
 	// Update is called once per frame
@@ -24,7 +25,6 @@ public class Dragon : MonoBehaviour {
 	void FixedUpdate() {
 		if (invulTimeLeft > 0) { 
 			invulTimeLeft -= Time.fixedDeltaTime;
-			Debug.Log(invulTimeLeft);
 			int phase = ((int)((invulTimeLeft*20)%10))%2;
 			if (phase == 0) {
 				animator.gameObject.SetActive(false);
