@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour {
 	public Animator2D animator;
 	public GameObject bullet;
 	public GameObject fallingObject;	
+	public Vector3 TurretPosition;
 	
 	
 
@@ -58,7 +59,15 @@ public class Unit : MonoBehaviour {
 	protected void SetMovementSpeed (float speed) {
 		moveSpeed = speed;
 	}
-	
+	/// <summary>
+	/// Idle the specified time and animation.
+	/// </summary>
+	/// <param name='time'>
+	/// Time.
+	/// </param>
+	/// <param name='animation'>
+	/// Animation.
+	/// </param>
 	protected Coroutine Idle(float time, string animation="idle") {
 		return StartCoroutine(CoroutineIdle(time, animation));
 	}
@@ -111,7 +120,7 @@ public class Unit : MonoBehaviour {
 	}
 	
 	protected GameObject Shoot(GameObject projectilePrefab) {
-		return (GameObject) Instantiate(projectilePrefab, transform.position, transform.rotation);
+		return (GameObject) Instantiate(projectilePrefab, transform.position + TurretPosition, transform.rotation);
 	}
 	
 		void Die() {

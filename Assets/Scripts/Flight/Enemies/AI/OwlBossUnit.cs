@@ -8,20 +8,22 @@ public class OwlBossUnit : Unit {
 		SetMovementSpeed(2);
 		// ENTRANCE
 		yield return MoveTo(0.7f,0.5f);
-		yield return Idle(2,"attack");
-		Shoot (bullet);
 		// PHASE 1
 		SetMovementSpeed(3);
 		SetInterruptWhenHealthLoweredBy(2);
 		while (!interrupt) {
 			yield return MoveTo (Random.Range(0.2f,0.8f), Random.Range(0.2f,0.8f));
+
 			if (!interrupt) yield return Idle(2,"attack");
+
 			if (!interrupt) Shoot (bullet);		
+
 			if (!interrupt) yield return Idle(2);
+
 		}
 		// PHASE 2
 		SetInterruptWhenHealthLoweredBy(-1);
-		int phase = Random.Range(0,1);
+		int phase = Random.Range(0,2);
 		yield return MoveTo(0.7f,0.7f);
 		
 		if (phase == 0) { // PHASE 2.0, NO BALLOONS
@@ -40,11 +42,20 @@ public class OwlBossUnit : Unit {
 			}
 		} else
 		if (phase == 1) { // PHASE 2.1, NO STEERING WHEEL
+			yield return MoveTo (0.7f,0.3f);
 			while (true) {
+				
+				yield return MoveTo (0.7f,0.7f);
 				for (int i=0; i<3; i++) {
 					yield return Idle (0.5f, "attack");
 					Shoot (bullet);
 				}
+				yield return MoveTo (0.7f,0.3f);
+				for (int i=0; i<3; i++) {
+					yield return Idle (0.5f, "attack");
+					Shoot (bullet);
+				}
+				
 				yield return Idle(1);
 			}
 		}			
