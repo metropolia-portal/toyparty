@@ -9,10 +9,13 @@ public abstract class Brush : MonoBehaviour {
 	InputManager input;
 	Wizard wizard;
 	
-	protected virtual void Start(){
+	protected virtual void Awake() {
 		GameObject gm = GameObject.Find("GameManager");
 		input = gm.GetComponent<InputManager>();
 		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
+	}
+	
+	protected virtual void Start(){
 	}
 	
 	public void SetEnable(bool enable) {
@@ -33,8 +36,6 @@ public abstract class Brush : MonoBehaviour {
 		if(input.IsCursorButtonDown() && !brushDown) {
 			StartDraw(GetCursorPosition());
 			
-			wizard.OnStartDrawing();
-			
 			//TODO bring smoothing to a separate module
 			drawingPosition = GetCursorPosition(); //start drawing line straight where user points
 			
@@ -48,8 +49,6 @@ public abstract class Brush : MonoBehaviour {
 		else if(input.IsCursorButtonUp() && brushDown) {
 			DrawTo(drawingPosition);
 			FinishDraw();
-			
-			wizard.OnEndDrawing();
 		}		
 		
 		if(brushDown && ! brushEffect)
@@ -73,6 +72,8 @@ public abstract class Brush : MonoBehaviour {
 	virtual protected void StartDraw(Vector2 pos) {
 		brushDown = true;
 		brushPosition = pos;
+		
+		wizard.OnStartDrawing();
 	}
 	
 	//continue drawing the line to the point given, called every frame
@@ -95,6 +96,7 @@ public abstract class Brush : MonoBehaviour {
 	//finish drawing the line at last position
 	virtual protected void FinishDraw() {
 		brushDown = false; 
+		wizard.OnEndDrawing();
 	}
 
 	//get cursor position on gameworld
