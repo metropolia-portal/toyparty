@@ -14,7 +14,7 @@ public class OwlBossUnit : Unit {
 		while (!interrupt) {
 			yield return MoveTo (Random.Range(0.2f,0.8f), Random.Range(0.2f,0.8f));
 
-			if (!interrupt) yield return Idle(2,"attack");
+			if (!interrupt) yield return Idle(1,"attack");
 
 			if (!interrupt) Shoot (bullet);		
 
@@ -35,10 +35,12 @@ public class OwlBossUnit : Unit {
 					yield return Idle(Random.Range(0, 0.2f));
 				}
 				Vector2 dragonPosition = FindDragonPosition();
+				animator.gameObject.transform.localRotation = Quaternion.Euler(0,30,0);
 				yield return Idle (1, "charge");
 				SetMovementSpeed(15);
 				yield return MoveTo (dragonPosition);
 				yield return Idle (2);
+				animator.gameObject.transform.localRotation = Quaternion.Euler(0,0,0);
 			}
 		} else
 		if (phase == 1) { // PHASE 2.1, NO STEERING WHEEL
