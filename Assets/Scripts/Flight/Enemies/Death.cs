@@ -7,17 +7,20 @@ public class Death : MonoBehaviour {
 	public int score = 1;
 	public GameObject fallingObject;
 	FlightGameManager gameManager;
+	public bool reposition = true;
 	
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
+		if (reposition)
 		transform.position = new Vector3(transform.position.x*gameManager.cam.aspect,transform.position.y,transform.position.z);
 	}
 	
 	void Die() {
 		
 		Destroy(gameObject);
-		Instantiate(fallingObject, transform.position, Quaternion.identity);
+		if (fallingObject)
+			Instantiate(fallingObject, transform.position, Quaternion.identity);
 	}
 	
 	void FixedUpdate() {

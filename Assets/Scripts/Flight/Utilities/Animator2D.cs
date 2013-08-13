@@ -64,6 +64,9 @@ public class Animator2D : MonoBehaviour {
 		if (SwitchAnimation(name))
 		RestartAnimation();
 		ResumeAnimation();
+		foreach (Animator2D animator in transform.GetComponentsInChildren<Animator2D>()) {
+			if (animator != this) animator.PlayAnimation(name);
+		}
 	}
 	
 	public Animator2D Child(string name) {
