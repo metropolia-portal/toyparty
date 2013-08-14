@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CandyWizardGameManager : GameManager {
 	public float minVelocity = 0.01f;
-	
+	//TODO use gameobject.find for every object that is present in every scene
 	public Brush lineBrush;
 	public Brush speedupBrush;
 	
