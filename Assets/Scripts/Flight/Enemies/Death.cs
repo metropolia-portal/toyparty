@@ -8,6 +8,8 @@ public class Death : MonoBehaviour {
 	public GameObject fallingObject;
 	FlightGameManager gameManager;
 	public bool reposition = true;
+	public GameObject[] powerup;
+	public float powerupChance = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,7 +19,9 @@ public class Death : MonoBehaviour {
 	}
 	
 	void Die() {
-		
+		if (Random.Range(0f,1f)<powerupChance) {
+			Instantiate(powerup[Random.Range(0,powerup.Length)], transform.position, Quaternion.identity);
+		}
 		Destroy(gameObject);
 		if (fallingObject)
 			Instantiate(fallingObject, transform.position, Quaternion.identity);

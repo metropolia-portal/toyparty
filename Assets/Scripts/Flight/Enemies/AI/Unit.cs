@@ -123,7 +123,7 @@ public class Unit : MonoBehaviour {
 		return (GameObject) Instantiate(projectilePrefab, transform.position + TurretPosition, transform.rotation);
 	}
 	
-		void Die() {
+	void Die() {
 		
 		Destroy(gameObject);
 		Instantiate(fallingObject, transform.position, Quaternion.identity);

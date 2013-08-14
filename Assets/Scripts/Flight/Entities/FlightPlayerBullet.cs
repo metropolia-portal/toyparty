@@ -8,7 +8,7 @@ public class FlightPlayerBullet : MonoBehaviour {
 	
 	
 	void FixedUpdate() {
-		transform.position += Vector3.right * Time.fixedDeltaTime * speed;
+		transform.position += transform.right * Time.fixedDeltaTime * speed;
 		if (gameManager.IsOutside(transform.position)) Destroy(gameObject);
 	}
 	

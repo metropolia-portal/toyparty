@@ -22,6 +22,10 @@ public class Dragon : MonoBehaviour {
 	
 	}
 	
+	public void INDOMITABLE() {
+		invulTimeLeft = invulnurabilityTime;
+	}
+	
 	void FixedUpdate() {
 		if (invulTimeLeft > 0) { 
 			invulTimeLeft -= Time.fixedDeltaTime;
