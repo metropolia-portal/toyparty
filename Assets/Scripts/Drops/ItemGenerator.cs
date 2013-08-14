@@ -19,7 +19,6 @@ public class ItemGenerator : MonoBehaviour {
 	float delayToNextItem = 0;
 	bool stopped = false;
 	int ironCount = 0;
-	float timeLeft;
 	float timeTotal;
 	float toyRatio;
 	
@@ -30,7 +29,6 @@ public class ItemGenerator : MonoBehaviour {
 		stopped = false;
 		gameManager = GameObject.Find("GameManager").GetComponent<DropsGameManager>();
 		timeTotal = gameManager.GetTimeLeft();		
-		timeLeft = timeTotal;
 		bombDelay = Random.Range(timeTotal/bombCountMax, timeTotal/bombCountMin);
 	}
 	
@@ -41,7 +39,6 @@ public class ItemGenerator : MonoBehaviour {
 		delayToNextItem -= Time.deltaTime;
 		if (delayToNextItem <=0) 
 			GenerateItem();
-		timeLeft = gameManager.GetTimeLeft();
 	}
 	
 	public void Stop() {

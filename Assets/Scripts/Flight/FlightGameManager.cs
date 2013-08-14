@@ -23,7 +23,7 @@ public class FlightGameManager : GameManager {
 	
 	public int superAttackCharges = 0;
 	
-	float superAttackDuration = 3;
+	float superAttackDuration = 1.5f;
 	float superAttackTimeLeft = 0;
 	
 	float fireballCooldown = 0.3f;
@@ -91,6 +91,11 @@ public class FlightGameManager : GameManager {
 		dragon.HideSuper();
 	}
 	
+	void ShootC() {
+		for (int i=-60;i<60;i+=10)
+			Instantiate(playerBulletPrefab, dragon.transform.position + Vector3.up*0.5f, Quaternion.Euler(0,i,0));
+	}
+	
 	void GenerateEnemies() {
 		fairyDelay -= Time.fixedDeltaTime;
 		if (fairyDelay < 0) {
@@ -110,8 +115,13 @@ public class FlightGameManager : GameManager {
 	}
 	
 	public void RestoreLife() {
-		life ++;
-		GetComponent<ScoreGUI>().SetMaxMedals(life);
+		if (life < 3) {
+			life ++;
+			GetComponent<ScoreGUI>().SetMaxMedals(life);
+		}	else {
+			score += 20;
+			GetComponent<ScoreGUI>().SetScore(score);
+		}
 	}
 	
 	void UpdateBullets() {
@@ -125,12 +135,13 @@ public class FlightGameManager : GameManager {
 		if (flightGUI.GetButtonB() && (superAttackTimeLeft<=0) && (superAttackCharges > 0)) {
 			superAttackCharges --;
 			superAttackTimeLeft = superAttackDuration;
-			EnableB();
+			ShootC();
+			dragon.INDOMITABLE();
 		}
 		if (superAttackTimeLeft > 0) {
 			superAttackTimeLeft -= Time.fixedDeltaTime;
 			if (superAttackTimeLeft <= 0) {
-				DisableB();
+				ShootC ();
 			}
 		}
 	}
@@ -149,7 +160,7 @@ public class FlightGameManager : GameManager {
 	public void PlayerDamage(int d) {
 		life --;
 		GetComponent<ScoreGUI>().SetMaxMedals(life);
-		//if (life<=0) Death();
+		if (life<=0) Death();
 	}
 	
 	void Death() {
@@ -173,6 +184,8 @@ public class FlightGameManager : GameManager {
 				EndGame ();
 		
 	}	
+	
+	
 
 	
 	
