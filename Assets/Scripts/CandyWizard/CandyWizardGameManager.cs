@@ -7,8 +7,6 @@ public class CandyWizardGameManager : GameManager {
 	public Brush lineBrush;
 	public Brush speedupBrush;
 	
-	public Candy candy;
-	
 	public LayerMask forbidDrawLineLayerMask;
 	
 	public void OnStarCollected() {
@@ -113,9 +111,19 @@ public class CandyWizardGameManager : GameManager {
 		lineBrush.SetEnable(false);
 		speedupBrush.SetEnable(false);
 		
-		candy.Drop ();	
+		candy.Drop ();
+		wizard.StartLookingAtCandy();
+	}
+	
+	void Awake() {
+		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
+		candy = GameObject.Find("Candy").GetComponent<Candy>();
 	}
 	
 	//TODO check if that's reset if going to main menu then back here
 	int collectedStars = 0;
+	
+			
+	Candy candy;
+	Wizard wizard;
 }
