@@ -4,6 +4,7 @@ using System.Collections;
 public class LineBrush : Brush {	
 	CandyWizardGameManager gameManager;
 	public float smoothingSpeed = 0.01f;
+	public float smoothingSpeedPC = 0.1f;
 	
 	public GameObject segmentPlanePrefub;
 	
@@ -15,7 +16,14 @@ public class LineBrush : Brush {
 		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 	}
 	override protected void MoveDrawingPosition(ref Vector2 refDrawPosition) {
-		refDrawPosition = Vector2.Lerp(refDrawPosition, GetCursorPosition(), smoothingSpeed);
+
+		refDrawPosition = Vector2.Lerp(refDrawPosition, GetCursorPosition(),
+#if UNITY_IPHONE || UNITY_ANDROID
+			smoothingSpeed
+#else
+			smoothingSpeedPC		
+#endif
+			);
 	}
 	
 	override protected void StartDraw(Vector2 pos) {
