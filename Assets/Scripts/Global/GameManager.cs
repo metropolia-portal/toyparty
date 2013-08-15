@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	public int goldMedalScore = 90;
 	
 	
-	public void Awake() {		
+	virtual protected void Awake() {		
 		MainMenuGUI.selectedGameName = gameName;
 		MainMenuGUI.currentLevel = currentLevel;
 	}

@@ -115,7 +115,9 @@ public class CandyWizardGameManager : GameManager {
 		wizard.StartLookingAtCandy();
 	}
 	
-	void Awake() {
+	override protected void Awake() {
+		base.Awake();
+		
 		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
 		candy = GameObject.Find("Candy").GetComponent<Candy>();
 	}
