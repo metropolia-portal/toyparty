@@ -18,7 +18,7 @@ public class Death : MonoBehaviour {
 		transform.position = new Vector3(transform.position.x*gameManager.cam.aspect,transform.position.y,transform.position.z);
 	}
 	
-	void Die() {
+	public void Die() {
 		if (Random.Range(0f,1f)<powerupChance) {
 			Instantiate(powerup[Random.Range(0,powerup.Length)], transform.position, Quaternion.identity);
 		}
