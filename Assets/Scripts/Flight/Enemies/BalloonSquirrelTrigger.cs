@@ -4,8 +4,8 @@ using System.Collections;
 public class BalloonSquirrelTrigger : MonoBehaviour {
 	
 	FlightGameManager gameManager;
-	public float triggerWidth = 2;
-	public float triggerHeight = 2;
+	public float triggerWidth = 0.2f;
+	public float triggerHeight = 0.2f;
 	public float delay = 3;
 
 	// Use this for initialization
@@ -17,7 +17,8 @@ public class BalloonSquirrelTrigger : MonoBehaviour {
 	void Update () {
 		if (delay > 0) delay -= Time.deltaTime;
 		else 
-		if (Mathf.Abs(gameManager.GetDragon().transform.position.x - transform.position.x) < triggerWidth || Mathf.Abs(gameManager.GetDragon().transform.position.z - transform.position.z) < triggerHeight) {
+		if (Mathf.Abs(gameManager.GetDragon().transform.position.x - transform.position.x) < triggerWidth || 
+			(Mathf.Abs(gameManager.GetDragon().transform.position.z - transform.position.z) < triggerHeight && Mathf.Abs(gameManager.GetDragon().transform.position.x - transform.position.x) < 3) ) {
 			GetComponent<Death>().Die();
 		}
 	}
