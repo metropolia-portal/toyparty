@@ -51,12 +51,14 @@ public abstract class Brush : MonoBehaviour {
 			FinishDraw();
 		}		
 		
-		if(brushDown && ! brushEffect)
-			brushEffect = (GameObject) Instantiate(brushEffectPrefub);
-		if(!brushDown && brushEffect)
-			Destroy(brushEffect);
-		
-		if(brushEffect) brushEffect.transform.position = drawingPosition;
+		if(brushEffectPrefub) {
+			if(brushDown && ! brushEffect)
+				brushEffect = (GameObject) Instantiate(brushEffectPrefub);
+			if(!brushDown && brushEffect)
+				Destroy(brushEffect);
+			
+			if(brushEffect) brushEffect.transform.position = drawingPosition;
+		}
 		
 		//update smoothed user input
 		MoveDrawingPosition(ref drawingPosition);

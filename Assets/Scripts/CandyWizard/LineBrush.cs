@@ -11,6 +11,10 @@ public class LineBrush : Brush {
 	public GameObject trailRendererPrefub;
 	
 	public GameObject linesContainer;
+	
+	protected GameObject lineContainer;
+	
+	
 	protected override void Start(){
 		base.Start ();
 		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
@@ -34,8 +38,10 @@ public class LineBrush : Brush {
 			lineContainer = new GameObject("Line"+lineCount.ToString());
 			lineContainer.transform.parent = linesContainer.transform;
 			
-			trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
-			trailRenderer.transform.parent = lineContainer.transform;
+			if(trailRendererPrefub) {
+				trailRenderer = (GameObject) GameObject.Instantiate(trailRendererPrefub, pos, Quaternion.identity);
+				trailRenderer.transform.parent = lineContainer.transform;
+			}
 		}
 	}
 	
@@ -48,7 +54,7 @@ public class LineBrush : Brush {
 	}
 	
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
-		makeColliderSegment(toVector3(from), toVector3(to));	
+		MakeColliderSegment(toVector3(from), toVector3(to));	
 		trailRenderer.transform.position = to;
 	}
 	
@@ -57,7 +63,7 @@ public class LineBrush : Brush {
 	}
 	
 	
-	void makeColliderSegment (Vector3 fromPos, Vector3 toPos)
+	virtual protected void MakeColliderSegment (Vector3 fromPos, Vector3 toPos)
 	{	
 		GameObject newSegment = (GameObject) Instantiate(segmentPlanePrefub, transform.position, Quaternion.identity);
 		
@@ -89,5 +95,5 @@ public class LineBrush : Brush {
 	GameObject trailRenderer;
 	
 	int lineCount = 0;
-	GameObject lineContainer;
+
 }
