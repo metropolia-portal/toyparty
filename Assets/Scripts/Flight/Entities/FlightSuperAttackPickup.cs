@@ -11,8 +11,7 @@ public class FlightSuperAttackPickup : MonoBehaviour {
 	void FixedUpdate() {
 		transform.position += Vector3.left * Time.fixedDeltaTime * speed;
 		if (gameManager.IsOutside(transform.position)) Destroy(gameObject);
-		pickupAudioSource = GetComponent<AudioSource>();
-		pickupAudioSource.clip = gameManager.soundManager.Pickup;		
+	
 	}	
 	
 	void OnTriggerEnter(Collider other) {
@@ -28,6 +27,8 @@ public class FlightSuperAttackPickup : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();	
+		pickupAudioSource = GetComponent<AudioSource>();
+		pickupAudioSource.clip = gameManager.soundManager.Pickup;			
 	}
 	
 	// Update is called once per frame

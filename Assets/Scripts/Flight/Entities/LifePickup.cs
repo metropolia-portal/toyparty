@@ -5,20 +5,17 @@ public class LifePickup : MonoBehaviour {
 	
 	float speed = 1f;
 	FlightGameManager gameManager;
-	AudioSource pickupAudioSource;
 	
 	
 	void FixedUpdate() {
 		transform.position += Vector3.left * Time.fixedDeltaTime * speed;
 		if (gameManager.IsOutside(transform.position)) Destroy(gameObject);
-		pickupAudioSource = GetComponent<AudioSource>();
-		pickupAudioSource.clip = gameManager.soundManager.Pickup;
+		
 	}	
 	
 	void OnTriggerEnter(Collider other) {
 		
 		if (other.CompareTag("Player")) {
-			pickupAudioSource.Play();
 			gameManager.RestoreLife();
 			Destroy(gameObject);
 		}

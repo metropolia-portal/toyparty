@@ -15,6 +15,7 @@ public class FlightGameManager : GameManager {
 	public int life = 5;
 	int score = 0;
 	public FlightSoundManager soundManager;
+	AudioSource pickupAudioSource;
 	
 	float fairyDelay;
 	
@@ -66,6 +67,8 @@ public class FlightGameManager : GameManager {
 		backgroundPlane.transform.localScale = new Vector3(cam.aspect, 1,1);
 		
 		fairyDelay = Random.Range(fairyDelayMin, fairyDelayMax);
+		pickupAudioSource = GetComponent<AudioSource>();
+		pickupAudioSource.clip = soundManager.Pickup;
 	}
 	
 	void UpdateDragonPosition() {
@@ -112,6 +115,7 @@ public class FlightGameManager : GameManager {
 	
 	public void ChargeUp() {
 		superAttackCharges ++;
+		pickupAudioSource.Play();
 	}
 	
 	public void OnFairyDeath(int s) {
@@ -121,6 +125,7 @@ public class FlightGameManager : GameManager {
 	}
 	
 	public void RestoreLife() {
+		pickupAudioSource.Play();
 		if (life < 3) {
 			life ++;
 			GetComponent<ScoreGUI>().SetMaxMedals(life);
