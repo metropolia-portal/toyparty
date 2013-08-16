@@ -9,6 +9,7 @@ public class FallingEnemy : MonoBehaviour {
 	float fallSpeed = 2;
 	float rotationPhase = 0;
 	FlightGameManager gameManager;
+	AudioSource deathAudioSource;
 	
 
 	// Use this for initialization
@@ -16,6 +17,9 @@ public class FallingEnemy : MonoBehaviour {
 		rotationPhase = Random.Range(0f, 1f);
 		Instantiate(explosion, transform.position, /*Quaternion.Euler(0, Random.Range(0,360f),0)*/ Quaternion.identity);
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();
+		deathAudioSource = GetComponent<AudioSource>();
+		deathAudioSource.clip = gameManager.soundManager.OwlDeath;
+		deathAudioSource.Play();
 	}
 	
 	// Update is called once per frame

@@ -40,9 +40,10 @@ public class Death : MonoBehaviour {
 				Die();
 			}
 		} else if (other.CompareTag("Player")) {
-			other.GetComponent<Dragon>().Damage(1);
 			gameManager.OnFairyDeath(score);
 			Die();
+			other.GetComponent<Dragon>().Damage(1);
+			
 		} 
 	}
 }

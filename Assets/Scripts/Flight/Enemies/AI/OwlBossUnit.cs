@@ -4,6 +4,13 @@ using System.Collections;
 public class OwlBossUnit : Unit {
 	
 
+	public AudioSource damageAudioSource;
+	
+	protected override void OnDamage() {
+		damageAudioSource.clip = gameManager.soundManager.OwlBossDamage;
+		damageAudioSource.Play();
+	}
+
 	protected override IEnumerator MainScript() {
 		SetMovementSpeed(2);
 		// ENTRANCE

@@ -8,7 +8,8 @@ public class Dragon : MonoBehaviour {
 	float invulTimeLeft = 0;
 	Animator2D animator;
 	public float invulnurabilityTime = 1.5f;	
-
+	public AudioSource weaponAudioSource;
+	public AudioSource damageAudioSource;
 	// Use this for initialization
 	void Start () {
 		superAttackGraphic = transform.FindChild("FireLine").gameObject;

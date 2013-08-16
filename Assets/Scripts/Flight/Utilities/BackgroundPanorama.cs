@@ -9,7 +9,6 @@ public class BackgroundPanorama : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		w = 30;
-		Debug.Log(w);
 	}
 	
 	// Update is called once per frame

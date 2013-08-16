@@ -14,6 +14,7 @@ public class FlightGameManager : GameManager {
 	public float fairyDelayMax = 5;
 	public int life = 5;
 	int score = 0;
+	public FlightSoundManager soundManager;
 	
 	float fairyDelay;
 	
@@ -54,6 +55,7 @@ public class FlightGameManager : GameManager {
 	
 	// Use this for initialization
 	public override void Start () {
+		soundManager = GetComponent<FlightSoundManager>();
 		base.Start();
 		SetGameState(GameState.Running);
 		GameObject dragonObject = (GameObject) Instantiate(dragonPrefab, new Vector3(-2*cam.aspect,0,0), Quaternion.identity);
@@ -81,6 +83,8 @@ public class FlightGameManager : GameManager {
 	
 	void ShootA() {
 		Instantiate(playerBulletPrefab, dragon.transform.position + Vector3.up*0.5f, Quaternion.identity);
+		GetDragon().weaponAudioSource.clip = soundManager.AttackA;
+		GetDragon().weaponAudioSource.Play();
 	}
 	
 	void EnableB() {
@@ -94,6 +98,8 @@ public class FlightGameManager : GameManager {
 	void ShootC() {
 		for (int i=-60;i<60;i+=10)
 			Instantiate(playerBulletPrefab, dragon.transform.position + Vector3.up*0.5f, Quaternion.Euler(0,i,0));
+		GetDragon().weaponAudioSource.clip = soundManager.AttackB;
+		GetDragon().weaponAudioSource.Play();
 	}
 	
 	void GenerateEnemies() {
@@ -158,6 +164,8 @@ public class FlightGameManager : GameManager {
 	}
 	
 	public void PlayerDamage(int d) {
+		GetDragon().damageAudioSource.clip = soundManager.DragonDeath;
+		GetDragon().damageAudioSource.Play();
 		life --;
 		GetComponent<ScoreGUI>().SetMaxMedals(life);
 		if (life<=0) Death();

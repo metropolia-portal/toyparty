@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Unit : MonoBehaviour {
 	
-	
+
 	public int life = 9;
 	public int score = 1;
 	
@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour {
 	protected int healthAtLastInterrupt = 0;
 	protected int interruptWhenHealthLoweredBy = -1;
 
-	FlightGameManager gameManager;
+	protected FlightGameManager gameManager;
 	float invulTimeLeft = 0;
 	float timer;	
 
@@ -44,6 +44,9 @@ public class Unit : MonoBehaviour {
 	
 	protected Vector2 FindDragonPosition() {
 		return new Vector2 (0.5f + gameManager.GetDragon().transform.position.x / (gameManager.worldBounds.extents.x*2), 0.5f + gameManager.GetDragon().transform.position.z / (gameManager.worldBounds.extents.z*2));
+	}
+	
+	protected virtual void OnDamage() {
 	}
 	
 	protected virtual IEnumerator MainScript() {
@@ -146,6 +149,7 @@ public class Unit : MonoBehaviour {
 	
 	protected void Damage() {
 		if (invulTimeLeft > 0) return;
+		OnDamage();
 		invulTimeLeft = invulnurabilityTime;
 		life --;
 		if ((interruptOnDamage)||(interruptWhenHealthEquals == life)

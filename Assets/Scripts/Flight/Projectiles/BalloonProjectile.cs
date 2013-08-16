@@ -6,11 +6,15 @@ public class BalloonProjectile : MonoBehaviour {
 	Vector3 speed;
 	public GameObject explosion;
 	FlightGameManager gameManager;
+	AudioSource spawnAudioSource;	
 	
 	// Use this for initialization
 	void Start () {
 		speed = new Vector3 (-3,0,3);
-		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();		
+		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();	
+		spawnAudioSource = GetComponent<AudioSource>();
+		spawnAudioSource.clip = gameManager.soundManager.OwlBossShot;
+		spawnAudioSource.Play();
 	}
 	
 	// Update is called once per frame
