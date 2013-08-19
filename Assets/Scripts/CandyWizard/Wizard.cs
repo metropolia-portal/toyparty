@@ -16,12 +16,10 @@ public class Wizard : MonoBehaviour {
 	// Use this for initialization
 	
 	public void OnStartDrawing() {
-		print ("anim start");
 		animator.PlayAnimation("cast");
 	}
 	
 	public void OnEndDrawing() {
-		print ("anim end");
 		animator.PlayAnimation("idle");
 	}
 	

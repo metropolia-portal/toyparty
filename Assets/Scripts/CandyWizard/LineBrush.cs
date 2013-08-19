@@ -31,8 +31,9 @@ public class LineBrush : Brush {
 	}
 	
 	override protected void StartDraw(Vector2 pos) {
+		base.StartDraw(pos);
+		
 		if(gameManager.CanDrawLineAt(toVector3(pos))) {
-			base.StartDraw(pos);
 			
 			lineCount++;
 			lineContainer = new GameObject("Line"+lineCount.ToString());
