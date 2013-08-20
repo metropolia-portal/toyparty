@@ -8,6 +8,8 @@ public class Wizard : MonoBehaviour {
 	public int[] lookFramesClockwise = {4,3,5,2,0,1};  //starting from Vector2.up
 	public float closeLookDistance = 5f;
 	
+	public AudioClip onEat;
+	
 	CandyWizardGameManager gameManager;
 	Animator2D animator;
 	Candy candy;
@@ -55,6 +57,8 @@ public class Wizard : MonoBehaviour {
 		
 		Invoke("SwallowCandy", swallowTime);
 		Invoke("DestroyCandy", eatDuration);
+		
+		audio.PlayOneShot(onEat);
 	}
 	
 	void DestroyCandy() {			

@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class Candy : MonoBehaviour {
+	public AudioClip onLaunch;
+	public AudioClip onCollectedStar;
+	
 	InputManager input;
 	CandyWizardGameManager gameManager;
 	
@@ -15,12 +18,16 @@ public class Candy : MonoBehaviour {
 		droppped = true;
 		rigidbody.isKinematic = false;
 		rigidbody.useGravity = true;
+		
+		audio.PlayOneShot(onLaunch);
 	}
 	
 	void OnTriggerEnter(Collider collider) {
 		if(collider.CompareTag("Star")) {
 			collider.gameObject.SetActive(false);
 			gameManager.OnStarCollected();
+			
+			audio.PlayOneShot(onCollectedStar);
 		}
 	}
 	

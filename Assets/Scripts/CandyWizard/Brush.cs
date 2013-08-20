@@ -6,6 +6,8 @@ public abstract class Brush : MonoBehaviour {
 	public float segmentLength = 0.05f;
 	public GameObject brushEffectPrefub; //appears at the drawing position
 	
+	public AudioClip onDraw;
+	
 	InputManager input;
 	Wizard wizard;
 	
@@ -76,6 +78,10 @@ public abstract class Brush : MonoBehaviour {
 		brushPosition = pos;
 		
 		wizard.OnStartDrawing();
+		
+		audio.loop = true;
+		audio.clip = onDraw;
+		audio.Play();
 	}
 	
 	//continue drawing the line to the point given, called every frame
@@ -99,6 +105,8 @@ public abstract class Brush : MonoBehaviour {
 	virtual protected void FinishDraw() {
 		brushDown = false; 
 		wizard.OnEndDrawing();
+		
+		audio.Stop();
 	}
 
 	//get cursor position on gameworld
