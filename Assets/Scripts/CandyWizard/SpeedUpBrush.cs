@@ -17,6 +17,12 @@ public class SpeedUpBrush : Brush {
 		base.Start ();
 		initialPaintLength = paintLength;
 	}
+	
+	protected override void StartDraw(Vector2 pos) {
+		base.StartDraw(pos);
+		
+		DrawSegment(pos, pos); //to apply it immediately
+	}
 
 	protected override void DrawSegment(Vector2 from, Vector2 to) {
 		if(paintLength > 0) {
@@ -27,8 +33,14 @@ public class SpeedUpBrush : Brush {
 					collider.gameObject.AddComponent<SpeedUpSegment>();
 					paintLength -= lineBrush.segmentLength;
 					
-					GameObject speedupEffectElement = (GameObject) Instantiate(speedupEffectElementPrefub, collider.transform.position, speedupEffectElementPrefub.transform.rotation);
+					GameObject speedupEffectElement = (GameObject) Instantiate(speedupEffectElementPrefub, collider.transform.position,
+						speedupEffectElementPrefub.transform.rotation);
+//						Quaternion.Euler(
+//							new Vector3 (collider.transform.locaR.x, 
+//							collider.transform.rotation.y, 
+//							speedupEffectElementPrefub.transform.rotation.z)));
 					speedupEffectElement.transform.parent = collider.transform;
+				    //speedupEffectElement.transform.localRotation = speedupEffectElementPrefub.transform.rotation;
 				}
 			}
 			 				

@@ -79,9 +79,11 @@ public abstract class Brush : MonoBehaviour {
 		
 		wizard.OnStartDrawing();
 		
-		audio.loop = true;
-		audio.clip = onDraw;
-		audio.Play();
+		if(onDraw) {
+			audio.loop = true;
+			audio.clip = onDraw;
+			audio.Play();
+		}
 	}
 	
 	//continue drawing the line to the point given, called every frame
