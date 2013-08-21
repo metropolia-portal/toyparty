@@ -7,7 +7,7 @@ public class SpeedUpSegment : MonoBehaviour {
 	// Use this for initialization
 	
 	void Start () {
-	
+		gameObject.tag = "SpeedUpSegment";
 	}
 	
 	void OnCollisionEnter(Collision collision) {

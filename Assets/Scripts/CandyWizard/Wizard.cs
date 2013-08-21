@@ -82,7 +82,6 @@ public class Wizard : MonoBehaviour {
 				frameOffset = 6; //switch to close distance frames 
 				
 			
-			print ((int)(angle / 360 * lookFramesClockwise.Length));
 			animator.SetAnimationFrame("look", frameOffset + lookFramesClockwise[(int)(angle / 360 * lookFramesClockwise.Length)]);
 		}
 	}

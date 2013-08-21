@@ -4,6 +4,7 @@ using System.Collections;
 public class Candy : MonoBehaviour {
 	public AudioClip onLaunch;
 	public AudioClip onCollectedStar;
+	public AudioClip onSpeedUp;
 	
 	InputManager input;
 	CandyWizardGameManager gameManager;
@@ -47,6 +48,15 @@ public class Candy : MonoBehaviour {
 			stopped = rigidbody.velocity.magnitude == 0;
 		}
 	}
+	
+	void OnCollisionEnter(Collision collision) {
+		if(collision.collider.CompareTag("SpeedUpSegment") && !audio.isPlaying) {
+			audio.clip = onSpeedUp;
+			audio.loop = false;
+			audio.Play();
+		}
+	}
+	
 	bool droppped = false;
 	
 	bool stopped = false;
