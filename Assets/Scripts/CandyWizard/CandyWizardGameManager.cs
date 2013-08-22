@@ -6,6 +6,7 @@ public class CandyWizardGameManager : GameManager {
 	//TODO use gameobject.find for every object that is present in every scene
 	public Brush lineBrush;
 	public Brush speedupBrush;
+	public Brush eraserBrush;
 	
 	public LayerMask forbidDrawLineLayerMask;
 	
@@ -53,6 +54,13 @@ public class CandyWizardGameManager : GameManager {
 	public void SetSpeedUpBrushActive(bool active) {
 		speedupBrush.SetEnable(active);
 		lineBrush.SetEnable(!active);
+		eraserBrush.SetEnable(false);
+	}
+	
+	public void SetRubberBrushActive(bool active) {
+		eraserBrush.SetEnable(active);
+		lineBrush.SetEnable(!active);
+		speedupBrush.SetEnable(false);	
 	}
 	
 	void FinishGame(Medal medal) {
@@ -66,6 +74,7 @@ public class CandyWizardGameManager : GameManager {
 		
 		lineBrush.SetEnable(true);
 		speedupBrush.SetEnable(false);
+		eraserBrush.SetEnable(false);
 		
 		//TODO only debug
 		candySpawn = candy.transform.position;	
@@ -108,8 +117,11 @@ public class CandyWizardGameManager : GameManager {
 		SetGameState(GameState.Running);
 		
 		GetComponent<GameGUI>().enableSpeedup = false;
+		GetComponent<GameGUI>().enableEraser = false;
+		
 		lineBrush.SetEnable(false);
 		speedupBrush.SetEnable(false);
+		eraserBrush.SetEnable(false);
 		
 		candy.Drop ();
 		wizard.StartLookingAtCandy();
@@ -120,6 +132,7 @@ public class CandyWizardGameManager : GameManager {
 		
 		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
 		candy = GameObject.Find("Candy").GetComponent<Candy>();
+		eraserBrush = GameObject.Find("EraserBrush").GetComponent<Brush>(); 
 	}
 	
 	//TODO check if that's reset if going to main menu then back here
