@@ -42,8 +42,14 @@ public class GameGUI : MonoBehaviour {
 	float selectionTime = 0;
 	float eraserSelectionTime = 0;
 	
+	// Variable for reloading
+	public Texture2D reload;
+	Rect reloadRect;
 	void Start(){
 		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
+		float eraserHeight = Screen.height * eraserHeightToScreenHeightRation;
+		float eraserWidth = eraserHeight * eraserTexture.width / eraserTexture.height;
+		reloadRect = new Rect(eraserXRelativePos * Screen.width, eraserYRelativePos * Screen.height + 1.5f*eraserHeight, eraserWidth,  eraserHeight);
 	}
 	
 	// from 0 to 1;
@@ -52,6 +58,10 @@ public class GameGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		if(GUI.Button (reloadRect,reload,MGUI.NoStyle))
+		{
+			
+		}
 		if(enableSpeedup) {
 			//box dimensiont is 1/6 of button dimension
 			

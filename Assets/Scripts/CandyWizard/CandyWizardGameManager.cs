@@ -10,6 +10,33 @@ public class CandyWizardGameManager : GameManager {
 	
 	public LayerMask forbidDrawLineLayerMask;
 	
+	Vector3 candySpawn;
+	
+	override protected void Awake() {
+		base.Awake();
+		
+		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
+		candy = GameObject.Find("Candy").GetComponent<Candy>();
+		eraserBrush = GameObject.Find("EraserBrush").GetComponent<Brush>(); 
+	}
+	// Use this for initialization
+	public override void Start () {
+		SetGameState(GameState.Pregame);
+		
+		lineBrush.SetEnable(true);
+		speedupBrush.SetEnable(false);
+		eraserBrush.SetEnable(false);
+		
+		//TODO only debug
+		candySpawn = candy.transform.position;	
+	}
+	
+	// Update is called once per frame
+	void Update () {	
+#if UNITY_EDITOR
+		EnableCheats();		
+#endif
+	}
 	public void OnStarCollected() {
 		collectedStars ++;
 	}
@@ -68,27 +95,6 @@ public class CandyWizardGameManager : GameManager {
 		SetGameState(GameState.Over);
 	}
 	
-	// Use this for initialization
-	public override void Start () {
-		SetGameState(GameState.Pregame);
-		
-		lineBrush.SetEnable(true);
-		speedupBrush.SetEnable(false);
-		eraserBrush.SetEnable(false);
-		
-		//TODO only debug
-		candySpawn = candy.transform.position;	
-	}
-	
-	// Update is called once per frame
-	void Update () {	
-#if UNITY_EDITOR
-		EnableCheats();		
-#endif
-	}
-	
-	
-	Vector3 candySpawn;
 	void EnableCheats() {
 		if(Input.GetKeyUp(KeyCode.R))
 			RestartGame();	
@@ -127,14 +133,15 @@ public class CandyWizardGameManager : GameManager {
 		wizard.StartLookingAtCandy();
 	}
 	
-	override protected void Awake() {
-		base.Awake();
-		
-		wizard = GameObject.Find("Wizard").GetComponent<Wizard>();
-		candy = GameObject.Find("Candy").GetComponent<Candy>();
-		eraserBrush = GameObject.Find("EraserBrush").GetComponent<Brush>(); 
+	public Vector3 GetStartPoint()
+	{
+		return candySpawn;
 	}
-	
+	public void SetCandy(Vector3 position)
+	{
+		candy.transform.position = position;
+		candy.rigidbody.isKinematic = true;
+	}
 	//TODO check if that's reset if going to main menu then back here
 	int collectedStars = 0;
 	
