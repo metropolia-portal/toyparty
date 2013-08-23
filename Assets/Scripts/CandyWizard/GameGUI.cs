@@ -60,7 +60,11 @@ public class GameGUI : MonoBehaviour {
 	void OnGUI() {
 		if(GUI.Button (reloadRect,reload,MGUI.NoStyle))
 		{
-			
+			Vector3 vec = gameManager.GetStartPoint();
+			gameManager.SetCandy(vec);
+			enableSpeedup = true;
+			enableEraser = true;
+			gameManager.Start();
 		}
 		if(enableSpeedup) {
 			//box dimensiont is 1/6 of button dimension

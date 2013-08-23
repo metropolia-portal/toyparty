@@ -42,7 +42,6 @@ public class CandyWizardGameManager : GameManager {
 	}
 	
 	public void OnCandyEaten() {
-		Debug.Log("Candy Eaten");
 		
 		Medal medal = Medal.None;
 		switch (collectedStars) {

@@ -44,7 +44,7 @@ public class Candy : MonoBehaviour {
 	void FixedUpdate() {
 		if(droppped) {
 			//if candy has 0 velocity for two frames in row - it is stuck
-			if(!rigidbody.isKinematic && stopped && rigidbody.velocity.magnitude == 0) gameManager.OnCandyStuck();	
+			//if(!rigidbody.isKinematic && stopped && rigidbody.velocity.magnitude == 0) gameManager.OnCandyStuck();	
 			stopped = rigidbody.velocity.magnitude == 0;
 		}
 	}
