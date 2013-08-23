@@ -39,8 +39,13 @@ public class SpeedUpBrush : Brush {
 //							new Vector3 (collider.transform.locaR.x, 
 //							collider.transform.rotation.y, 
 //							speedupEffectElementPrefub.transform.rotation.z)));
-					speedupEffectElement.transform.parent = collider.transform;
-				    //speedupEffectElement.transform.localRotation = speedupEffectElementPrefub.transform.rotation;
+//					Vector3 scale = speedupEffectElement.transform.localScale
+//					print ("1 " + speedupEffectElement.transform.localScale);
+					speedupEffectElement.transform.parent = collider.gameObject.transform;
+//					print ("2 " + speedupEffectElement.transform.localScale);
+//					speedupEffectElement.transform.localScale = Scal
+//					
+				    //speedupEffectElement.transform.rotation = speedupEffectElementPrefub.transform.rotation;
 				}
 			}
 			 				
