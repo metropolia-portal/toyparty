@@ -14,8 +14,8 @@ public class Wizard : MonoBehaviour {
 	Animator2D animator;
 	Candy candy;
 	
-	bool followCandy = false;
-	// Use this for initialization
+	bool eating = false;
+	
 	
 	public void OnStartDrawing() {
 		animator.PlayAnimation("cast");
@@ -25,10 +25,6 @@ public class Wizard : MonoBehaviour {
 		animator.PlayAnimation("idle");
 	}
 	
-	public void StartLookingAtCandy() {
-		followCandy = true;
-	}
-
 	void Awake() {
 		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
 		candy= GameObject.Find ("Candy").GetComponent<Candy>();
@@ -42,8 +38,7 @@ public class Wizard : MonoBehaviour {
 	}
 	
 	void EatCandy() {
-		followCandy = false; //don't use look animation
-		
+		eating = true;
 		candy.rigidbody.isKinematic = true;
 		
 		//to the right of wizard
@@ -70,7 +65,7 @@ public class Wizard : MonoBehaviour {
 	}
 	
 	void Update() {
-		if(followCandy) {
+		if(candy.IsDropped() && !eating) { // candy is falling, look for it
 			Vector3 candyVector = candy.transform.position - transform.position; 
 			float angle = Vector3.Angle(Vector3.up, candyVector);
 			//since Angle gives [0,180] check if it's actually [180, 360]
@@ -81,8 +76,8 @@ public class Wizard : MonoBehaviour {
 			if(candyVector.magnitude < closeLookDistance)
 				frameOffset = 6; //switch to close distance frames 
 				
-			
 			animator.SetAnimationFrame("look", frameOffset + lookFramesClockwise[(int)(angle / 360 * lookFramesClockwise.Length)]);
-		}
+		} else if(animator.GetCurrentAnimation().GetName() == "look")
+			animator.PlayAnimation("idle");
 	}
 }

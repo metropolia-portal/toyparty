@@ -8,48 +8,35 @@ public class GameGUI : MonoBehaviour {
 	public bool enableEraser = true;
 	
 	public Texture speedupSpriteSheet;
+	public RelativeTexturePosition flaskPos;
 	public int speedupSpritesAmount = 7;
 	
 	public Texture selectionSpriteSheet;
+	public RelativeTexturePosition flaskSelectionPos;
 	public int selectionSpritesAmout = 3;
 	public float selectionAnimationFPS = 2;
 	
-	public float flaskHeightToScreenHeightRation = 0.1f;
-	public float flaskXRelativePos = 0.8f; //relative to screen width
-	public float flaskYRelativePos = 0.2f; //relative to screen height
-	
-	public float selectionHeightToScreenHeightRation = 0.1f;
-	public float selectionXRelativePos = 0.8f; //relative to screen width
-	public float selectionYRelativePos = 0.2f; //relative to screen height
-	
-	//TODO separate class for positioning, and method to return coords
 	public Texture eraserTexture;
-	public float eraserHeightToScreenHeightRation = 0.1f;
-	public float eraserXRelativePos = 0.8f; //relative to screen width
-	public float eraserYRelativePos = 0.2f; //relative to screen height
+	public RelativeTexturePosition eraserPos;
+	public RelativeTexturePosition eraserSelectionPos;
 	
-	public float eraserSelectionHeightToScreenHeightRation = 0.1f;
-	public float eraserSelectionXRelativePos = 0.8f; //relative to screen width
-	public float eraserSelectionYRelativePos = 0.2f; //relative to screen height
+	public Texture2D reloadTexture;
+	public RelativeTexturePosition reloadPos;
 	
-	
-	
-	bool speedupOn = false;
+
 	float speedupLeft = 1f;
 	
+	bool speedupOn = false;
 	bool eraserOn = false;
+
+	MGUIAnimatedTexture speedupSelection;
+	MGUIAnimatedTexture eraserSelection;
 	
-	float selectionTime = 0;
-	float eraserSelectionTime = 0;
-	
-	// Variable for reloading
-	public Texture2D reload;
-	Rect reloadRect;
 	void Start(){
 		gameManager = GameObject.Find ("GameManager").GetComponent<CandyWizardGameManager>();
-		float eraserHeight = Screen.height * eraserHeightToScreenHeightRation;
-		float eraserWidth = eraserHeight * eraserTexture.width / eraserTexture.height;
-		reloadRect = new Rect(eraserXRelativePos * Screen.width, eraserYRelativePos * Screen.height + 1.5f*eraserHeight, eraserWidth,  eraserHeight);
+		
+		speedupSelection = new MGUIAnimatedTexture();
+		eraserSelection = new MGUIAnimatedTexture();
 	}
 	
 	// from 0 to 1;
@@ -58,24 +45,20 @@ public class GameGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if(GUI.Button (reloadRect,reload,MGUI.NoStyle))
-		{
-			Vector3 vec = gameManager.GetStartPoint();
-			gameManager.SetCandy(vec);
-			enableSpeedup = true;
-			enableEraser = true;
-			gameManager.Start();
+		if(GUI.Button (reloadPos.getRect(reloadTexture), reloadTexture, MGUI.NoStyle)) {
+			gameManager.ReplayLevel();
 		}
+		
 		if(enableSpeedup) {
 			//box dimensiont is 1/6 of button dimension
 			
-			float flaskHeight = Screen.height * flaskHeightToScreenHeightRation;
-			float flaskWidth = flaskHeight * (speedupSpriteSheet.width /(float) speedupSpritesAmount) / speedupSpriteSheet.height;
+			float flaskHeight = flaskPos.getHeight();
+			float flaskWidth = flaskPos.getWidth(speedupSpriteSheet)/(float) speedupSpritesAmount;
 			
-			GUI.BeginGroup(new Rect( Screen.width * flaskXRelativePos, Screen.height * flaskYRelativePos,flaskWidth ,flaskHeight)); 
+			GUI.BeginGroup(new Rect(flaskPos.getX(),flaskPos.getY(),flaskWidth ,flaskHeight)); 
 			
 			//we should take size of the whole sprite, so that one frame dimension is our needed height and width
-			float buttonWidth = flaskWidth * speedupSpritesAmount; 
+			float buttonWidth = flaskPos.getWidth(speedupSpriteSheet); 
 			
 			if (GUI.Button(new Rect( - ( (int)( (1 - speedupLeft) * (speedupSpritesAmount - 1))) * flaskWidth, 0, buttonWidth,  buttonWidth), speedupSpriteSheet, MGUI.NoStyle)) {
 				speedupOn = !speedupOn;
@@ -87,55 +70,72 @@ public class GameGUI : MonoBehaviour {
 		
 			GUI.EndGroup();
 			
-			if(speedupOn) {
-				if(selectionTime == 0)
-					selectionTime = Time.timeSinceLevelLoad;
-				
-				int currFrame =  (int) ((Time.timeSinceLevelLoad - selectionTime) * selectionAnimationFPS) % selectionSpritesAmout;
-				
-				GUI.DrawTextureWithTexCoords(
-					new Rect(
-						Screen.width * selectionXRelativePos, 
-						Screen.height * selectionYRelativePos, 
-						Screen.height * selectionHeightToScreenHeightRation * selectionSpriteSheet.width /  selectionSpriteSheet.height / selectionSpritesAmout,
-						Screen.height * selectionHeightToScreenHeightRation ),
-					selectionSpriteSheet, new Rect((float) currFrame / selectionSpritesAmout, 0f, 1f / selectionSpritesAmout, 1f),true);
-			} else
-				selectionTime = 0;	
+			
+			if(speedupOn)
+				speedupSelection.OnGUI(flaskSelectionPos.getRect(selectionSpriteSheet), selectionSpriteSheet, selectionSpritesAmout, selectionAnimationFPS );
 		}
 		
 		if(enableEraser) {
-		
-			float eraserHeight = Screen.height * eraserHeightToScreenHeightRation;
-			float eraserWidth = eraserHeight * eraserTexture.width / eraserTexture.height;
-		
-			//TODO common methods for graphics
 			
-			if (GUI.Button(new Rect(eraserXRelativePos * Screen.width, eraserYRelativePos * Screen.height, eraserWidth,  eraserHeight), eraserTexture, MGUI.NoStyle)) {
+			if (GUI.Button(eraserPos.getRect(eraserTexture), eraserTexture, MGUI.NoStyle)) {
 					eraserOn = !eraserOn;
 					speedupOn = false;
 				
 					gameManager.SetRubberBrushActive(eraserOn);
 			}
-			
-						
-			if(eraserOn) {
-					if(eraserSelectionTime == 0)
-						eraserSelectionTime = Time.timeSinceLevelLoad;
 					
-					int currFrame =  (int) ((Time.timeSinceLevelLoad - eraserSelectionTime) * selectionAnimationFPS) % selectionSpritesAmout;
-					
-					GUI.DrawTextureWithTexCoords(
-						new Rect(
-							Screen.width * eraserSelectionXRelativePos, 
-							Screen.height * eraserSelectionYRelativePos, 
-							Screen.height * eraserSelectionHeightToScreenHeightRation * selectionSpriteSheet.width /  selectionSpriteSheet.height / selectionSpritesAmout,
-							Screen.height * eraserSelectionHeightToScreenHeightRation ),
-						selectionSpriteSheet, new Rect((float) currFrame / selectionSpritesAmout, 0f, 1f / selectionSpritesAmout, 1f),true);
-				} else
-					eraserSelectionTime = 0;		
+			if(eraserOn)
+				eraserSelection.OnGUI(eraserSelectionPos.getRect(selectionSpriteSheet), selectionSpriteSheet, selectionSpritesAmout, selectionAnimationFPS );
 		}
 		
 	}
 
+
+}
+
+public class MGUIAnimatedTexture {
+	float selectionTime = 0;
+	
+	public void OnGUI(Rect rect, Texture spriteSheet, int sprites, float fps) {
+		if(selectionTime == 0)
+			selectionTime = Time.timeSinceLevelLoad;
+		
+		int currFrame =  (int) ((Time.timeSinceLevelLoad - selectionTime) * fps) % sprites;
+		
+		GUI.DrawTextureWithTexCoords(
+			new Rect(
+				rect.x, rect.y, rect.width / sprites, rect.height  ),
+			spriteSheet, new Rect((float) currFrame / sprites, 0f, 1f / sprites, 1f),true);
+	}
+	
+}
+
+[System.Serializable]
+public class RelativeTexturePosition
+{
+	public float XtoScreenW;
+	public float YtoScreenH;
+	public float heightToScreenH;
+	
+	
+	public int getX() {
+		return (int) (Screen.width * XtoScreenW);
+	}
+	
+	public int getY() {
+		return (int)  (Screen.height * YtoScreenH);
+	}
+	
+	public int getWidth(Texture texture) {
+		return (int)  (getHeight() * (float) (texture.width / texture.height));
+	}
+	
+	public int getHeight() {
+		return (int)  (Screen.height * heightToScreenH);
+	}
+	
+	public Rect getRect(Texture texture) {
+		return new Rect(getX(), getY(), getWidth(texture), getHeight());
+	}
+	// H is determined by texture scale
 }

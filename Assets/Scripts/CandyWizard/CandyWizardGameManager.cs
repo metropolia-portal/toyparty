@@ -8,9 +8,15 @@ public class CandyWizardGameManager : GameManager {
 	public Brush speedupBrush;
 	public Brush eraserBrush;
 	
-	public LayerMask forbidDrawLineLayerMask;
+	public bool speedupAllowed = false;
 	
-	Vector3 candySpawn;
+	public LayerMask forbidDrawLineLayerMask;
+		
+	//TODO check if that's reset if going to main menu then back here
+	int collectedStars = 0;
+			
+	Candy candy;
+	Wizard wizard;
 	
 	override protected void Awake() {
 		base.Awake();
@@ -19,6 +25,7 @@ public class CandyWizardGameManager : GameManager {
 		candy = GameObject.Find("Candy").GetComponent<Candy>();
 		eraserBrush = GameObject.Find("EraserBrush").GetComponent<Brush>(); 
 	}
+	
 	// Use this for initialization
 	public override void Start () {
 		SetGameState(GameState.Pregame);
@@ -27,8 +34,13 @@ public class CandyWizardGameManager : GameManager {
 		speedupBrush.SetEnable(false);
 		eraserBrush.SetEnable(false);
 		
-		//TODO only debug
-		candySpawn = candy.transform.position;	
+		GetComponent<GameGUI>().enableSpeedup = speedupAllowed;
+		GetComponent<GameGUI>().enableEraser = true;
+	}
+	
+	public void ReplayLevel() {
+		candy.Respawn();
+		Start();		
 	}
 	
 	// Update is called once per frame
@@ -100,18 +112,9 @@ public class CandyWizardGameManager : GameManager {
 		
 		if(Input.GetKeyUp(KeyCode.Space))
 			StartGame();
-		
+			
 		if(Input.GetKeyUp(KeyCode.C)) {
-			Candy oldScript = candy;
-			candy = candy.gameObject.AddComponent<Candy>();
-			Destroy(oldScript);
-			candy.transform.position = candySpawn;
-			candy.rigidbody.velocity = Vector3.zero;
-			candy.rigidbody.angularVelocity = Vector3.zero;
-			candy.rigidbody.Sleep();
-			
-			StartGame();
-			
+			ReplayLevel();		
 		}
 		
 		if(Input.GetKeyUp(KeyCode.RightArrow))
@@ -129,22 +132,11 @@ public class CandyWizardGameManager : GameManager {
 		eraserBrush.SetEnable(false);
 		
 		candy.Drop ();
-		wizard.StartLookingAtCandy();
 	}
 	
-	public Vector3 GetStartPoint()
-	{
-		return candySpawn;
-	}
 	public void SetCandy(Vector3 position)
 	{
 		candy.transform.position = position;
 		candy.rigidbody.isKinematic = true;
 	}
-	//TODO check if that's reset if going to main menu then back here
-	int collectedStars = 0;
-	
-			
-	Candy candy;
-	Wizard wizard;
 }

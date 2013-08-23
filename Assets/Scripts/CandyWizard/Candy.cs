@@ -9,11 +9,26 @@ public class Candy : MonoBehaviour {
 	InputManager input;
 	CandyWizardGameManager gameManager;
 	
+	Vector3 spawnPosition;
+	
 	void Start(){
 		GameObject gm = GameObject.Find ("GameManager");
 		gameManager = gm.GetComponent<CandyWizardGameManager>();
 		input = gm.GetComponent<InputManager>();
+		
+		spawnPosition = transform.position;
 	}
+	
+	public void Respawn() {
+		transform.position = spawnPosition;
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
+		rigidbody.Sleep();
+		
+		stopped = false;
+		droppped = false;
+	}
+	
 	//drops the candy
 	public void Drop() {
 		droppped = true;
@@ -21,6 +36,10 @@ public class Candy : MonoBehaviour {
 		rigidbody.useGravity = true;
 		
 		audio.PlayOneShot(onLaunch);
+	}
+	
+	public bool IsDropped() {
+		return droppped;	
 	}
 	
 	void OnTriggerEnter(Collider collider) {
@@ -44,7 +63,9 @@ public class Candy : MonoBehaviour {
 	void FixedUpdate() {
 		if(droppped) {
 			//if candy has 0 velocity for two frames in row - it is stuck
-			//if(!rigidbody.isKinematic && stopped && rigidbody.velocity.magnitude == 0) gameManager.OnCandyStuck();	
+			if(!rigidbody.isKinematic && stopped && rigidbody.velocity.magnitude == 0) 
+				gameManager.OnCandyStuck();	
+			
 			stopped = rigidbody.velocity.magnitude == 0;
 		}
 	}

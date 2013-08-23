@@ -28,18 +28,17 @@ public class SpeedUpSegment : MonoBehaviour {
 		if(col.CompareTag("Candy")) {
 			//col.rigidbody.velocity *= ( 1 + 5f * Time.deltaTime);
 			//col.rigidbody.velocity += collision.frictionForceSum;
-			Vector3[] vert = gameObject.GetComponent<MeshCollider>().sharedMesh.vertices;
-			vert[0].z = 0; vert[1].z = 0;
-			
-			
-//			Vector3 extraVelocity = (-vert[0] + vert[1]).normalized * col.rigidbody.velocity.magnitude * 2f * Time.deltaTime ; 
-//			Debug.DrawRay(col.transform.position,extraVelocity*5f,Color.red, 0.5f);
-//					
-//			//extraVelocity.y -= Mathf.Abs(extraVelocity.y)* 0.3f;
-//			col.rigidbody.velocity += extraVelocity;
-			
-			//projecting speed on the direction of the segment, candy will speedup in any direction
-			col.rigidbody.velocity = Vector3.Project(col.rigidbody.velocity, vert[1] - vert[0]).normalized * (col.rigidbody.velocity.magnitude + acceleration * Time.deltaTime);
+//			Vector3 colliderDirection = Vector3.;
+//			
+//			
+////			Vector3 extraVelocity = (-vert[0] + vert[1]).normalized * col.rigidbody.velocity.magnitude * 2f * Time.deltaTime ; 
+////			Debug.DrawRay(col.transform.position,extraVelocity*5f,Color.red, 0.5f);
+////					
+////			//extraVelocity.y -= Mathf.Abs(extraVelocity.y)* 0.3f;
+////			col.rigidbody.velocity += extraVelocity;
+//			
+//			//projecting speed on the direction of the segment, candy will speedup in any direction
+//			col.rigidbody.velocity = Vector3.Project(col.rigidbody.velocity, vert[1] - vert[0]).normalized * (col.rigidbody.velocity.magnitude + acceleration * Time.deltaTime);
 			
 			//col.rigidbody.AddTorque(Vector2.right * 5f * Time.deltaTime);
 			
