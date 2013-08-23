@@ -6,16 +6,22 @@ public class PineConeProjectile : MonoBehaviour {
 	Vector3 speed;
 	public GameObject explosion;
 	FlightGameManager gameManager;
+	public bool homing = false;
+	public float acceleration = 3;
+	Vector3 direction;
 	
 	// Use this for initialization
 	void Start () {
 		speed = new Vector3 (0,0,-0.3f);
 		gameManager = GameObject.Find("GameManager").GetComponent<FlightGameManager>();		
+		direction = Vector3.back; 
+		if (homing) direction = -(transform.position - gameManager.GetDragon().transform.position).normalized;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		speed += Vector3.back * Time.deltaTime * 3;
+		
+		speed += direction * Time.deltaTime * acceleration;
 		transform.position += speed * Time.deltaTime;
 	}
 	
