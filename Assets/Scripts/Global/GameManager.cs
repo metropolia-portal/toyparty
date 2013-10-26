@@ -1,25 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public enum GameState { Pregame, Running, Paused, Over };
+public enum Medal { None, Bronze, Silver, Gold };
+
+public class GameManager : MonoBehaviour 
+{
+	#region MEMBERS
+	protected GameState gameState;
+	GameState prevGameState;
 	
 	public bool isLastLevel = true;
 	public int currentLevel = 1;
 	public string gameName;
 	
-	public enum GameState { Pregame, Running, Paused, Over };
-	public enum Medal { None, Bronze, Silver, Gold };
-	
-	public static Medal medal = Medal.None;
-	public static GameState gameState;
-	public static GameState prevGameState;
+	public static Medal medal = Medal.None;	
 	
 	public int bronzeMedalScore = 30;
 	public int silverMedalScore = 60;
 	public int goldMedalScore = 90;
+	#endregion
 	
-	
-	virtual protected void Awake() {		
+	#region UNITY_METHODS
+	virtual protected void Awake() 
+	{		
 		MainMenuGUI.selectedGameName = gameName;
 		MainMenuGUI.currentLevel = currentLevel;
 	}
@@ -30,74 +34,76 @@ public class GameManager : MonoBehaviour {
 		SetGameState(GameState.Pregame); //reset the game state set by previous game, TODO  why do we need static gameState?
 		Time.timeScale = 1;
 	}
+	#endregion
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	public void SetMedal(Medal m) {
+	#region METHODS
+	public void SetMedal(Medal m) 
+	{
 		GameManager.medal = m;
 	}
 	
-	public Medal GetMedal() {
+	public Medal GetMedal() 
+	{
 		return GameManager.medal;
 	}
 	
-	public void SetGameState(GameState s) {
-		GameManager.gameState = s;
+	public void SetGameState(GameState s) 
+	{
+		gameState = s;
 	}
 	
-	public GameState GetGameState() {
-		return GameManager.gameState;
+	public GameState GetGameState() 
+	{
+		return gameState;
 	}
 	
-	public void PauseGame() {
-		GameManager.prevGameState = GetGameState();
-		GameManager.gameState = GameState.Paused;
+	public void PauseGame() 
+	{
+		prevGameState = GetGameState();
+		gameState = GameState.Paused;
 		Time.timeScale = 0;
 	}
 	
-	public void UnpauseGame() {
-		GameManager.gameState = GameManager.prevGameState;
+	public void UnpauseGame() 
+	{
+		gameState = prevGameState;
 		Time.timeScale = 1;
 	}
 	
-	public void ResumeGame() {
-		GameManager.gameState = GameState.Running;
+	public void ResumeGame() 
+	{
+		gameState = GameState.Running;
 		Time.timeScale = 1;
 	}
 	
-	public void RestartGame() {
+	public void RestartGame() 
+	{
 		//Reset global time scale
 		Time.timeScale = 1;
 		Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
-		Debug.Log(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel).ToString());
 	}
 	
-	public bool IsGameRunning() {
+	public bool IsGameRunning() 
+	{
 		if (GetGameState() == GameState.Running) return true;
 		return false;
 	}
 	
-	public void GoToNextLevel() {
+	public void GoToNextLevel() 
+	{
 		//Reset global time scale
 		Time.timeScale = 1;
 		if (!isLastLevel)
 			Application.LoadLevel(MainMenuGUI.selectedGameName + "_level_" + (MainMenuGUI.currentLevel+1).ToString());
 		else
 			Application.LoadLevel("CreditsScreen");	
-
 	}
 	
-	public void EndGame() {
+	public void EndGame() 
+	{
 		PauseGame();
 		SetGameState(GameState.Over);
 		Time.timeScale = 0;
 	}
-	
-	public void ReloadScene()
-	{
-		
-	}
+	#endregion
 }

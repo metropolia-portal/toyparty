@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MainMenuGUI : MonoBehaviour {
-
+public class MainMenuGUI : MonoBehaviour 
+{
+	#region MEMBERS
 	public Texture gameTitleTexture;
 	public Texture gameExitTexture;
 	public Texture gameCreditsTexture;
@@ -14,9 +15,6 @@ public class MainMenuGUI : MonoBehaviour {
 	public float barHeightToScreenHeightRatio = 0.25f;
 	public float gamePreviewWidthToScreenWidthRatio = 0.75f;
 	public float gamePreviewArrowHeightRation = 0.2f;// height ration of the white speach arrow pointing to character to total height of preview screen
-	
-	//float ScreenHeight = Screen.height;
-	//float ScreenWidth = Screen.width;
 	
 	float buttonBarHeight;
 	int gamesNumber;
@@ -39,16 +37,15 @@ public class MainMenuGUI : MonoBehaviour {
 	Rect creditsRect;
 	Rect gameTitleRect;
 	
-	
-		
 	int selectedGame = -1;
 	
-	// Use this for initialization
-	void Start () {
-
+	#endregion
+	
+	#region UNITY_METHODS
+	void Start () 
+	{
 		selectedGameName = "";
 		
-
 		currentLevel = 1;
 		gamesNumber = gameList.Length;
 		buttonBarHeight = barHeightToScreenHeightRatio * Screen.height;
@@ -59,7 +56,8 @@ public class MainMenuGUI : MonoBehaviour {
 		
 		float buttonWidth = (Screen.width - MGUI.Margin*(gamesNumber+1)) / gamesNumber;
 		
-		for (int i = 0; i < gamesNumber; i++) {
+		for (int i = 0; i < gamesNumber; i++) 
+		{
 			gameSelectionTextures[i] = (Texture)Resources.Load("MainMenu/Buttons/" + gameList[i]);
 			previewTextures[i] = (Texture)Resources.Load("MainMenu/Previews/" + gameList[i]);
 			playButtonsTextures[i] = (Texture)Resources.Load("MenuCommon/play_" + gameList[i]);
@@ -93,16 +91,8 @@ public class MainMenuGUI : MonoBehaviour {
 		gamePreviewButtonRect = MGUI.centerInRect(new Rect(0, gamePreviewArrowHeightRation * gamePreviewRect.height, MGUI.menuButtonWidth, MGUI.menuButtonWidth), gamePreviewRect);// new Rect(centerPosition(), centerPosition(), Screen.width/7, Screen.width/7);			
 	}
 	
-	static float centerPosition(float itemLength, float totalLength) {
-		return (totalLength - itemLength)/2;
-	}
-	
-	void SelectGame(int i) {
-		selectedGame = i;
-		selectedGameName = gameList[i];
-	}
-	
-	void OnGUI() {
+	void OnGUI() 
+	{
 		for (int i=0; i< gamesNumber; i++) 
 		{
 			if (MGUI.HoveredButton(gameSelectionRects[i], gameSelectionTextures[i])) 
@@ -134,21 +124,17 @@ public class MainMenuGUI : MonoBehaviour {
 				}
 			}
 			else{
-				
-				if (MGUI.HoveredButton(soundButtonRect, soundOff)){
-					
+				if (MGUI.HoveredButton(soundButtonRect, soundOff))
+				{
 					PlayerPrefs.SetString("sound", "true");
 					Sound = true;
 					EnableSound();
-					
 				}
-				
 			}
-			if (MGUI.HoveredButton(creditsButtonRect, credits)) {
-				
+			if (MGUI.HoveredButton(creditsButtonRect, credits)) 
+			{
 				Application.LoadLevel("CreditsScreen");	
 			}
-			
 		}
 		else{
 			GUI.DrawTexture(gameTitleRect, gameTitleTexture);
@@ -164,20 +150,30 @@ public class MainMenuGUI : MonoBehaviour {
 			callOptions = true;
 		}
 	}
+	#endregion
 	
-	void EnableSound(){
-		
-		if(AudioListener.volume == 0){
-			
+	#region METHODS
+	static float centerPosition(float itemLength, float totalLength) 
+	{
+		return (totalLength - itemLength)/2;
+	}
+	
+	void SelectGame(int i) 
+	{
+		selectedGame = i;
+		selectedGameName = gameList[i];
+	}
+	
+	void EnableSound()
+	{
+		if(AudioListener.volume == 0)
+		{
 			AudioListener.volume = 1;
 		}
-			
-		else{
+		else
+		{
 				AudioListener.volume = 0;
-		} 
-		
-					
+		} 			
 	}
-
-
+	#endregion
 }

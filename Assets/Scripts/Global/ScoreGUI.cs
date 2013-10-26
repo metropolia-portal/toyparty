@@ -81,7 +81,7 @@ public class ScoreGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if (!(gameManager.IsGameRunning() || gameManager.GetGameState() == GameManager.GameState.Pregame )) return;
+		if (!(gameManager.IsGameRunning() || gameManager.GetGameState() == GameState.Pregame )) return;
 		
 		if (timerEnabled) {
 			float t = 0.2f*Mathf.Floor(10*timer/maxTimer);

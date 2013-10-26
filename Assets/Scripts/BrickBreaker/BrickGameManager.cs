@@ -50,14 +50,14 @@ public class BrickGameManager : GameManager
 	//GameState gameState = GameState.Running;
 	//Medal medal = Medal.None;
 	
-
 	ScoreManager gameScore;
 	ScoreGUI scoreGUI;
 	InputManager gameInput;
 	
 	
 
-	public override void Start() {	
+	public override void Start() 
+	{	
 		base.Start ();//do some stuff common to all games
 		
 		gameScore = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();

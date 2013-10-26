@@ -178,7 +178,7 @@ public class FlightGameManager : GameManager {
 	
 	void Death() {
 		Debug.Log("YOU LOST");
-		SetMedal(GameManager.Medal.None);
+		SetMedal(Medal.None);
 		EndGame();
 	}
 	

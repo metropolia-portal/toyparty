@@ -1,15 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class GUIBackground : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public class GUIBackground : MonoBehaviour 
+{
+	#region UNITY_METHODS
+	void Start () 
+	{
 		GetComponent<GUITexture>().pixelInset = new Rect(-Screen.width/2, -Screen.height/2, Screen.width, Screen.height);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	#endregion
 }

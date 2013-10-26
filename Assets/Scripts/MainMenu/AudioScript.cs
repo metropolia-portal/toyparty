@@ -2,11 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-public class AudioScript : MonoBehaviour {
-
+public class AudioScript : MonoBehaviour 
+{
+	#region MEMBERS
 	AudioSource audioSource;
 	static AudioScript single;
-	void Awake() {
+	#endregion
+	#region UNITY_METHODS
+	void Awake() 
+	{
 		if(single == null)
 		{
 			single = this;
@@ -17,16 +21,22 @@ public class AudioScript : MonoBehaviour {
 		}	
 	}
 	
-	// Update is called once per frame
-	void Start () {
+	void Start () 
+	{
 		audioSource = GetComponent<AudioSource>();
 		if(audioSource == null)gameObject.AddComponent<AudioSource>();
 	}
-	public IEnumerator FadeOutVolume(){
-		while(audioSource.volume > 0f){
+	#endregion
+	
+	#region METHODS
+	public IEnumerator FadeOutVolume()
+	{
+		while(audioSource.volume > 0f)
+		{
 			audioSource.volume -= Time.deltaTime;
 			yield return null;
 		}
 		Destroy (gameObject);
 	}
+	#endregion
 }
