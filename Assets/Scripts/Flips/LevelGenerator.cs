@@ -40,9 +40,6 @@ public class LevelGenerator : MonoBehaviour {
 	
 	void ShuffleMaterials() {
 		AssignMaterials ();
-		for (int i=0; i < cardTextures.Length; i++) 
-			Debug.Log(cardTextures[i]);
-		Debug.Log(cardTextures.Length);
 		//int i;
 		Material buf;
 		

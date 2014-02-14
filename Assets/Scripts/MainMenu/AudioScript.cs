@@ -5,38 +5,28 @@ using System.Collections;
 public class AudioScript : MonoBehaviour 
 {
 	#region MEMBERS
-	AudioSource audioSource;
-	static AudioScript single;
+	AudioSource _audioSource;
 	#endregion
+	
 	#region UNITY_METHODS
 	void Awake() 
 	{
-		if(single == null)
-		{
-			single = this;
-			transform.position = Camera.main.transform.position;
-			DontDestroyOnLoad(gameObject);
-		}else{
-			DestroyImmediate(gameObject);
-		}	
+		transform.position = Camera.main.transform.position;	
 	}
 	
 	void Start () 
 	{
-		audioSource = GetComponent<AudioSource>();
-		if(audioSource == null)gameObject.AddComponent<AudioSource>();
+		_audioSource = GetComponent<AudioSource>();
+		if(_audioSource == null) gameObject.AddComponent<AudioSource>();
 	}
 	#endregion
 	
 	#region METHODS
-	public IEnumerator FadeOutVolume()
+	public bool FadeOutVolume(float speed)
 	{
-		while(audioSource.volume > 0f)
-		{
-			audioSource.volume -= Time.deltaTime;
-			yield return null;
-		}
-		Destroy (gameObject);
+		_audioSource.volume -= speed;
+		if(_audioSource.volume <= 0f)return true;
+		return false;
 	}
 	#endregion
 }

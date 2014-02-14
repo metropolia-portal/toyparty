@@ -22,12 +22,12 @@ public class TutorialGUI : MonoBehaviour {
 			Application.LoadLevel("MainMenu");
 		}
 		if (MGUI.HoveredButton (new Rect(Screen.width - MGUI.menuButtonWidth - MGUI.Margin, Screen.height - MGUI.menuButtonWidth - MGUI.Margin, MGUI.menuButtonWidth, MGUI.menuButtonWidth), PlayButton)) {
-			StartCoroutine(WaitForEndOfMusic());
+			//StartCoroutine(WaitForEndOfMusic());
 			
 		}
 	}
-	IEnumerator WaitForEndOfMusic(){
-		yield return StartCoroutine(audioSource.FadeOutVolume());
+	/*IEnumerator WaitForEndOfMusic(){
+	//	yield return StartCoroutine(audioSource.FadeOutVolume());
 		Application.LoadLevel(MainMenuGUI.selectedGameName+"_level_"+MainMenuGUI.currentLevel);
-	}
+	}*/
 }

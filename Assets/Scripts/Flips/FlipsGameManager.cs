@@ -25,12 +25,12 @@ public class FlipsGameManager : GameManager {
 	public Texture2D catTextureNormal;	
 	
 	// Use this for initialization
-	public override void Start () {
+	public override void Start () 
+	{
 		base.Start ();
 		cardsTotal = levelGenerator.CardCount();
 		SetGameState(GameState.Pregame);
 		statusLine.pixelOffset = new Vector2(Screen.width/2, -Screen.height /2 );
-		
 	}
 	
 	// Update is called once per frame

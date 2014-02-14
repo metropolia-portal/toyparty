@@ -93,7 +93,6 @@ public class InputManager : MonoBehaviour {
 			isButtonDown = Input.GetMouseButtonDown(0);
 			isSecondButtonDown = isButtonDown;
 		}
-		else print ("in rect");
 #endif
 		
 		acceleration.x = Mathf.Clamp(acceleration.x, -0.5f, 0.5f) * sensitivity;

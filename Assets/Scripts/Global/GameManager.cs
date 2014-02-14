@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour
 	
 	
 	// Use this for initialization
-	public virtual void Start () {
+	public virtual void Start () 
+	{
 		SetGameState(GameState.Pregame); //reset the game state set by previous game, TODO  why do we need static gameState?
 		Time.timeScale = 1;
+		//StartCoroutine(_FadeScreen());
 	}
 	#endregion
 	
@@ -104,6 +106,17 @@ public class GameManager : MonoBehaviour
 		PauseGame();
 		SetGameState(GameState.Over);
 		Time.timeScale = 0;
+	}
+	IEnumerator _FadeScreen()
+	{
+		GameObject __obj = GameObject.Find ("FadeScreenObject");
+		FadeScreenScript __fade = __obj.GetComponent<FadeScreenScript>();
+		float __speed = Time.deltaTime * -2f;
+		while(__fade.FadeBlkScreen(__speed) == false)
+		{
+			print ("Here");
+			yield return null;
+		}
 	}
 	#endregion
 }
